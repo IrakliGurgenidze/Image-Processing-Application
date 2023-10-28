@@ -25,6 +25,14 @@ public interface Image {
   String getName();
 
   /**
+   * Method to apply a filter to an image. Filtered image is returned with name=editedName.
+   *
+   * @param filter     double[][], filter to be applied
+   * @param editedName String, name of filtered image
+   */
+  Image applyFilter(double[][] filter, String editedName);
+
+  /**
    * Method to return a pixel at a given index in the image.
    *
    * @param x int, x-pos of pixel
@@ -33,10 +41,6 @@ public interface Image {
    * @throws IndexOutOfBoundsException if x,y are outside of image dimensions
    */
   Pixel getPixel(int x, int y) throws IndexOutOfBoundsException;
-
-
-
-
 
 
 }

@@ -1,11 +1,11 @@
 public class AbstractImage implements Image {
 
   //width and height of image, measured in pixels
-  private int width;
-  private int height;
+  private final int width;
+  private final int height;
 
   //name of image
-  private String name;
+  private final String name;
 
   //pixels in image
   private Pixel[][] imageBody;
@@ -13,9 +13,9 @@ public class AbstractImage implements Image {
   /**
    * Abstract constructor for an Image.
    *
-   * @param width int, width of image
+   * @param width  int, width of image
    * @param height int, height of image
-   * @param name String, name of image
+   * @param name   String, name of image
    */
   public AbstractImage(int width, int height, String name) {
     this.width = width;
@@ -36,6 +36,11 @@ public class AbstractImage implements Image {
   @Override
   public String getName() {
     return name;
+  }
+
+  @Override
+  public Image applyFilter(double[][] filter, String editedName) {
+    return null;
   }
 
   @Override
