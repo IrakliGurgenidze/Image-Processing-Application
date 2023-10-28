@@ -13,4 +13,14 @@ public class GreyscaleImage extends AbstractImage {
   public GreyscaleImage(int width, int height, String name) {
     super(width, height, name);
   }
+
+  @Override
+  public Image applyFilter(double[][] filter, String editedName) {
+    return null;
+  }
+
+  @Override
+  public Image applyLinearColorTransformation(double[][] transformation, String editedName) {
+    return null;
+  }
 }

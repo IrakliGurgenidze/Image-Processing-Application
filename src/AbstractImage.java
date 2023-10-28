@@ -1,4 +1,4 @@
-public class AbstractImage implements Image {
+public abstract class AbstractImage implements Image {
 
   //width and height of image, measured in pixels
   private final int width;
@@ -21,6 +21,7 @@ public class AbstractImage implements Image {
     this.width = width;
     this.height = height;
     this.name = name;
+    this.imageBody = new Pixel[height][width];
   }
 
   @Override
@@ -39,12 +40,18 @@ public class AbstractImage implements Image {
   }
 
   @Override
-  public Image applyFilter(double[][] filter, String editedName) {
-    return null;
-  }
+  public abstract Image applyFilter(double[][] filter, String editedName);
+
+  @Override
+  public abstract Image applyLinearColorTransformation(double[][] transformation,
+                                                       String editedName);
 
   @Override
   public Pixel getPixel(int x, int y) throws IndexOutOfBoundsException {
-    return null;
+    if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+      throw new IndexOutOfBoundsException("Coordinates are out of bounds.");
+    }
+    //FIXME might be [y][x]
+    return imageBody[x][y];
   }
 }

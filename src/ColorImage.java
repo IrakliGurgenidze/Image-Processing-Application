@@ -13,4 +13,14 @@ public class ColorImage extends AbstractImage {
   public ColorImage(int width, int height, String name) {
     super(width, height, name);
   }
+
+  @Override
+  public Image applyFilter(double[][] filter, String editedName) {
+    return null;
+  }
+
+  @Override
+  public Image applyLinearColorTransformation(double[][] transformation, String editedName) {
+    return null;
+  }
 }

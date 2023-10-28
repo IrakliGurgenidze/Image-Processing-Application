@@ -6,8 +6,9 @@ import java.util.Hashtable;
  */
 public class ImageStore {
 
-  //photo filters
+  //photo filters and transformations
   private final Filter filters = new Filter();
+  private final LinearColorTransformation transformations = new LinearColorTransformation();
 
   //list of images loaded during this session
   private final Hashtable<String, Image> images = new Hashtable<>();
@@ -54,6 +55,32 @@ public class ImageStore {
     Image editedImage = getImage(imageName).applyFilter(filter, editedName);
 
     //insert edited image
+    this.insertImage(editedImage);
+  }
+
+  /**
+   * Method to apply a linear color transformation to a specified image and store the result.
+   *
+   * @param imageName String, name of image to be edited
+   * @param editedName String, name of edited image
+   * @param transformationName String, name of transformation (passed from user)
+   * @throws IllegalArgumentException if image specified does not exist or the specified linear
+   *                                  color transformation does not exist
+   */
+  public void applyLinearColorTransformation(String imageName, String editedName,
+                                             String transformationName)
+      throws IllegalArgumentException {
+
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with name "
+      + imageName);
+    }
+
+    double[][] transformation = transformations.getLinearTransformation(transformationName);
+    Image editedImage = getImage(imageName).applyLinearColorTransformation(transformation,
+            editedName);
+
+    //FIXME should figure out how we want to handle overwriting of images
     this.insertImage(editedImage);
   }
 

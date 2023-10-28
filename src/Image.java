@@ -32,6 +32,20 @@ public interface Image {
    */
   Image applyFilter(double[][] filter, String editedName);
 
+  //FIXME do we want these methods to be void?
+
+  /**
+   * Method to apply a linear color transformation to an image. Transformed image is returned
+   * with name = editedName
+   *
+   * @param transformation Double[][], transformation to be applied
+   * @param editedName String, name of transformed image
+   * @return
+   */
+  Image applyLinearColorTransformation(double[][] transformation, String editedName);
+
+
+
   /**
    * Method to return a pixel at a given index in the image.
    *

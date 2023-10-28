@@ -4,10 +4,32 @@ import java.util.Scanner;
 
 
 /**
- * This class contains utility methods to read a PPM image from file and simply print its contents. Feel free to change this method
- * as required.
+ * This class contains utility methods to read a PPM image from file and simply print its contents.
+ * Feel free to change this method as required.
  */
 public class ImageUtil {
+
+  public static ColorImage readColorPPM(String fileName) {
+    return null;
+  }
+
+  public static GreyscaleImage readGreyscalePPM(String fileName) {
+    return null;
+  }
+  public static ColorImage readColorPNG(String fileName) {
+    return null;
+  }
+
+  public static GreyscaleImage readGreyscalePNG(String fileName) {
+    return null;
+  }
+  public static ColorImage readColorJPG(String fileName) {
+    return null;
+  }
+
+  public static GreyscaleImage readGreyscaleJPG(String fileName) {
+    return null;
+  }
 
   /**
    * Read an image file in the PPM format and print the colors.
