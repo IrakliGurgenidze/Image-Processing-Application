@@ -26,7 +26,7 @@ public class LinearColorTransformation {
           {0.349, 0.686, 0.168},
           {0.393, 0.769, 0.189}
     };
-    linearTransformations.put("sepia",sepia);
+    linearTransformations.put("sepia", sepia);
   }
 
   /**

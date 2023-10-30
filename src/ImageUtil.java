@@ -23,7 +23,7 @@ public class ImageUtil {
    * @return the ColorImage equivalent of the given image
    * @throws IOException if the image file does not exist
    */
-  public static ColorImage readColor(String fileName) throws IOException {
+  public static ColorImage readColor(String fileName, String imageName) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(fileName));
 
     int width = bufferedImage.getWidth();
@@ -32,7 +32,7 @@ public class ImageUtil {
     int green;
     int blue;
 
-    ColorImage colorImage = new ColorImage(width, height, fileName);
+    ColorImage colorImage = new ColorImage(width, height, imageName);
     for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
         Color color = new Color(bufferedImage.getRGB(j,i));
@@ -54,7 +54,8 @@ public class ImageUtil {
    * @return the ColorImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
    */
-  public static ColorImage readColorPPM(String fileName) throws FileNotFoundException {
+  public static ColorImage readColorPPM(String fileName, String imageName)
+          throws FileNotFoundException {
     Scanner sc;
 
     try {
@@ -84,7 +85,7 @@ public class ImageUtil {
     int width = sc.nextInt();
     int height = sc.nextInt();
 
-    ColorImage colorImage = new ColorImage(width, height, fileName);
+    ColorImage colorImage = new ColorImage(width, height, imageName);
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -97,6 +98,26 @@ public class ImageUtil {
     }
 
     return colorImage;
+  }
+
+
+
+  public static Image loadImage(String fileName, String imageName) {
+    try {
+      if(fileName.split("\\.")[1].equals("ppm")) {
+        return readColorPPM(fileName, imageName);
+      } else {
+        return readColor(fileName, imageName);
+      }
+    }
+    catch(IOException e) {
+      System.out.println("File " + fileName + "does not exist.");
+    }
+    return null;
+  }
+
+  public void saveImage(String imageName, String filePath, String ext) {
+
   }
 
 
