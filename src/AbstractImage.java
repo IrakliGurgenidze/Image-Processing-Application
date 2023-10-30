@@ -39,21 +39,13 @@ public abstract class AbstractImage implements Image {
     return name;
   }
 
-  public Pixel[][] getImageBody() {
+  private Pixel[][] getImageBody() {
     return imageBody;
   }
 
-  public void setImageBody(Pixel[][] imageBody) {
+  private void setImageBody(Pixel[][] imageBody) {
     this.imageBody = imageBody;
   }
-
-
-  @Override
-  public abstract Image applyFilter(double[][] filter, String editedName);
-
-  @Override
-  public abstract Image applyLinearColorTransformation(double[][] transformation,
-                                                       String editedName);
 
   @Override
   public Pixel getPixel(int x, int y) throws IndexOutOfBoundsException {
@@ -63,7 +55,6 @@ public abstract class AbstractImage implements Image {
     return imageBody[y][x];
   }
 
-
   @Override
   public void setPixel(int x, int y, Pixel pixel) throws IndexOutOfBoundsException {
     if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
@@ -71,4 +62,13 @@ public abstract class AbstractImage implements Image {
     }
     imageBody[y][x] = pixel;
   }
+
+  @Override
+  public abstract Image applyFilter(double[][] filter, String editedName);
+
+  @Override
+  public abstract Image applyLinearColorTransformation(double[][] transformation,
+                                                       String editedName);
+
+
 }

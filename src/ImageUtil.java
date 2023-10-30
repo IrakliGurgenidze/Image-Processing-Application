@@ -16,7 +16,9 @@ import java.awt.image.BufferedImage;
 public class ImageUtil {
 
   /**
-   * This method reads a color image of non-PPM format and creates its generic ColorImage representation.
+   * This method reads a color image of non-PPM format and creates its generic ColorImage
+   * representation.
+   *
    * @param fileName the name of the image file
    * @return the ColorImage equivalent of the given image
    * @throws IOException if the image file does not exist
@@ -41,11 +43,13 @@ public class ImageUtil {
         colorImage.setPixel(j,i,pixel);
       }
     }
+
     return colorImage;
   }
 
   /**
    * This method reads a color image of PPM format and creates its generic ColorImage representation.
+   *
    * @param fileName the name of the image file
    * @return the ColorImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
@@ -95,25 +99,6 @@ public class ImageUtil {
     return colorImage;
   }
 
-  public void loadImage(String fileName) throws IOException{
-    return;
-  }
 
-  public void saveImage(String fileName) {
-    return;
-  }
-
-  //demo main
-  public static void main(String[] args) {
-    String filename;
-
-    if (args.length > 0) {
-      filename = args[0];
-    } else {
-      filename = "sample.ppm";
-    }
-
-    //ImageUtil.readPPM(filename);
-  }
 }
 
