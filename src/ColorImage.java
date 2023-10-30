@@ -1,3 +1,4 @@
+
 /**
  * Implementation of a color image.
  */
@@ -14,13 +15,62 @@ public class ColorImage extends AbstractImage {
     super(width, height, name);
   }
 
+  //FIXME NEED to check this
   @Override
   public Image applyFilter(double[][] filter, String editedName) {
-    return null;
+    int filterSize = filter.length;
+
+    ColorImage filteredImage = new ColorImage(getWidth(), getHeight(), editedName);
+    double redSum;
+    double greenSum;
+    double blueSum;
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        redSum = 0.0;
+        greenSum = 0.0;
+        blueSum = 0.0;
+
+        for(int i = -filterSize/2; i <= filterSize/2; i++) {
+          for(int j = -filterSize/2; j <= filterSize/2; j++) {
+            if(x + j >= 0 && x + j < getWidth() && y + i >= 0 && y + i < getHeight()) {
+              Pixel neighbor = getPixel(x + j, y + i);
+
+              redSum += neighbor.getRed() * filter[i + filterSize/2][j + filterSize/2];
+              greenSum += neighbor.getGreen() * filter[i + filterSize/2][j + filterSize/2];
+              blueSum += neighbor.getBlue() * filter[i + filterSize/2][j + filterSize/2];
+            }
+          }
+        }
+        Pixel filteredPixel = new Pixel((int)redSum, (int)greenSum, (int)blueSum);
+        filteredImage.setPixel(x,y,filteredPixel);
+      }
+    }
+    return filteredImage;
   }
 
+  //FIXME NEED to check this
   @Override
   public Image applyLinearColorTransformation(double[][] transformation, String editedName) {
-    return null;
+    ColorImage transformedImage = new ColorImage(getWidth(), getHeight(), editedName);
+    int red;
+    int green;
+    int blue;
+
+    for(int x = 0; x < getWidth(); x++) {
+      for(int y = 0; y < getHeight(); y++) {
+        Pixel currPixel = getPixel(x,y);
+
+        red = (int) (transformation[0][0] * currPixel.getRed() + transformation[0][1] * currPixel.getGreen()
+        + transformation[0][2] * currPixel.getGreen());
+        green = (int) (transformation[1][0] * currPixel.getRed() + transformation[1][1] * currPixel.getGreen()
+                + transformation[1][2] * currPixel.getGreen());
+        blue = (int) (transformation[2][0] * currPixel.getRed() + transformation[2][1] * currPixel.getGreen()
+                + transformation[2][2] * currPixel.getGreen());
+
+        transformedImage.setPixel(x,y,new Pixel(red,green,blue));
+      }
+    }
+    return transformedImage;
   }
 }

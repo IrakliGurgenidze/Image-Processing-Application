@@ -21,6 +21,7 @@ public class Pixel {
     this.blue = clamp(blue, 0, 255);
   }
 
+  //FIXME Do we need this?
   /**
    * Public constructor for a greyscale pixel, takes in a single scalar that represents
    * the value of the pixel.

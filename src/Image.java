@@ -32,7 +32,7 @@ public interface Image {
    */
   Image applyFilter(double[][] filter, String editedName);
 
-  //FIXME do we want these methods to be void?
+
 
   /**
    * Method to apply a linear color transformation to an image. Transformed image is returned
@@ -40,7 +40,7 @@ public interface Image {
    *
    * @param transformation Double[][], transformation to be applied
    * @param editedName String, name of transformed image
-   * @return
+   * @return the image with the applied linear transformation
    */
   Image applyLinearColorTransformation(double[][] transformation, String editedName);
 
@@ -52,9 +52,18 @@ public interface Image {
    * @param x int, x-pos of pixel
    * @param y int, y-pos of pixel
    * @return Pixel at given index
-   * @throws IndexOutOfBoundsException if x,y are outside of image dimensions
+   * @throws IndexOutOfBoundsException if x,y is outside of image dimensions
    */
   Pixel getPixel(int x, int y) throws IndexOutOfBoundsException;
+
+  /**
+   * Method to set a pixel at a given index in an image.
+   * @param x int, x-pos of pixel
+   * @param y int, y-pos of pixel
+   * @param pixel Pixel object with specific rgb values
+   * @throws IndexOutOfBoundsException if x,y is outside of image dimensions
+   */
+  void setPixel(int x, int y, Pixel pixel) throws IndexOutOfBoundsException;
 
 
 }

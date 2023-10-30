@@ -80,7 +80,6 @@ public class ImageStore {
     Image editedImage = getImage(imageName).applyLinearColorTransformation(transformation,
             editedName);
 
-    //FIXME should figure out how we want to handle overwriting of images
     this.insertImage(editedImage);
   }
 

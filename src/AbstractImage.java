@@ -39,6 +39,15 @@ public abstract class AbstractImage implements Image {
     return name;
   }
 
+  public Pixel[][] getImageBody() {
+    return imageBody;
+  }
+
+  public void setImageBody(Pixel[][] imageBody) {
+    this.imageBody = imageBody;
+  }
+
+
   @Override
   public abstract Image applyFilter(double[][] filter, String editedName);
 
@@ -51,7 +60,15 @@ public abstract class AbstractImage implements Image {
     if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
       throw new IndexOutOfBoundsException("Coordinates are out of bounds.");
     }
-    //FIXME might be [y][x]
-    return imageBody[x][y];
+    return imageBody[y][x];
+  }
+
+
+  @Override
+  public void setPixel(int x, int y, Pixel pixel) throws IndexOutOfBoundsException {
+    if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+      throw new IndexOutOfBoundsException("Coordinates are out of bounds.");
+    }
+    imageBody[y][x] = pixel;
   }
 }
