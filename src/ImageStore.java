@@ -81,6 +81,7 @@ public class ImageStore {
             editedName);
 
     this.insertImage(editedImage);
+
   }
 
   /**

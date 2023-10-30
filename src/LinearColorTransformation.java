@@ -31,6 +31,7 @@ public class LinearColorTransformation {
 
   /**
    * Method to retrieve a linear transformation matrix by name.
+   *
    * @param name the name of the linear color transformation
    * @return Double[][] the requested linear color transformation matrix
    * @throws IllegalArgumentException if the requested transformation matrix does not exist

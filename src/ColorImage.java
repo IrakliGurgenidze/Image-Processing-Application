@@ -71,6 +71,9 @@ public class ColorImage extends AbstractImage {
         transformedImage.setPixel(x,y,new Pixel(red,green,blue));
       }
     }
+
     return transformedImage;
   }
+
+
 }
