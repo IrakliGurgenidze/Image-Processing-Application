@@ -21,23 +21,12 @@ public interface Controller {
    */
   void runCommand(String[] args) throws IOException;
 
-
   /**
-   * Load an image from the specified path, and refer to it in the program by the given
-   * image name.
-   *
-   * @param fileName String, path of image to be loaded
-   * @param imageName String, name to store image under
+   * Loads and runs the script commands in the given file
+   * @param scriptFile File, the file to be loaded
    */
-  Image load(String fileName, String imageName);
+  public void run(File scriptFile);
 
-  /**
-   * This method saves an image to a given path.
-   * @param image Image, the image to be saved
-   * @param imagePath String, path of image
-   * @param imageName String, name of image
-   */
-  void save(Image image, String imagePath, String imageName) throws IOException;
 
   /**
    * Create an image with only the red-component of the image with the given name, and refer to it
@@ -142,21 +131,6 @@ public interface Controller {
   public void rgbCombine(String imageName, String redImage, String greenImage, String blueImage);
 
   /**
-   * Blurs the given image and stores the result in another image under the given name.
-   *
-   * @param imageName String, name of the base image
-   * @param destImageName String, name of the blurred image
-   */
-  void blur(String imageName, String destImageName);
-
-  /**
-   * Sharpen the given image and store the result in another image with the given name.
-   * @param imageName String, name of the image
-   * @param destImageName String, name of the resulting image
-   */
-  public void sharpen(String imageName, String destImageName);
-
-  /**
    * Produces a sepia-toned version of the given image, and stores the result under the given
    * destination name.
    *
@@ -164,11 +138,5 @@ public interface Controller {
    * @param destImageName String, name of the blurred image
    */
   void sepia(String imageName, String destImageName);
-
-  /**
-   * Loads and runs the script commands in the given file
-   * @param scriptFile File, the file to be loaded
-   */
-  public void run(File scriptFile);
 
 }
