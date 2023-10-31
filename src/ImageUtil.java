@@ -99,27 +99,5 @@ public class ImageUtil {
 
     return colorImage;
   }
-
-
-
-  public static Image loadImage(String fileName, String imageName) {
-    try {
-      if(fileName.split("\\.")[1].equals("ppm")) {
-        return readColorPPM(fileName, imageName);
-      } else {
-        return readColor(fileName, imageName);
-      }
-    }
-    catch(IOException e) {
-      System.out.println("File " + fileName + "does not exist.");
-    }
-    return null;
-  }
-
-  public void saveImage(String imageName, String filePath, String ext) {
-
-  }
-
-
 }
 

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * This interface outlines generic methods for the controller of an image editing application.
@@ -17,29 +19,25 @@ public interface Controller {
    * Method to run the given command (passed from parseCommand)
    * @param args String[], the command and arguments to be run
    */
-  void runCommand(String[] args);
+  void runCommand(String[] args) throws IOException;
 
-  /**
-   * Method to read a script file and process lines with commands
-   * @param fileName String, name of the script file
-   */
-  public void readScriptFile(File fileName);
 
   /**
    * Load an image from the specified path, and refer to it in the program by the given
    * image name.
    *
-   * @param imagePath String, path of image to be loaded
+   * @param fileName String, path of image to be loaded
    * @param imageName String, name to store image under
    */
-  void load(String imagePath, String imageName);
+  Image load(String fileName, String imageName);
 
   /**
    * This method saves an image to a given path.
+   * @param image Image, the image to be saved
    * @param imagePath String, path of image
    * @param imageName String, name of image
    */
-  public void save(String imagePath, String imageName);
+  void save(Image image, String imagePath, String imageName) throws IOException;
 
   /**
    * Create an image with only the red-component of the image with the given name, and refer to it
