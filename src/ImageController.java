@@ -28,13 +28,22 @@ public class ImageController implements Controller {
         }
         imageStore.insertImage(img);
         break;
-
       case "save":
         img = imageStore.getImage(args[1]);
         save(img, args[1], args[2]);
         break;
-
       case "brighten":
+        int inc = Integer.parseInt(args[1]);
+        brighten(inc, args[2], args[3]);
+        break;
+      case "sepia":
+        sepia(args[1], args[2]);
+        break;
+      case "blur":
+        blur(args[1], args[2]);
+        break;
+      case "sharpen":
+        sharpen(args[1], args[2]);
         break;
     }
   }
@@ -130,17 +139,17 @@ public class ImageController implements Controller {
 
   @Override
   public void blur(String imageName, String destImageName) {
-
+    imageStore.applyFilter(imageName, destImageName, "blur");
   }
 
   @Override
   public void sharpen(String imageName, String destImageName) {
-
+    imageStore.applyFilter(imageName, destImageName, "sharpen");
   }
 
   @Override
   public void sepia(String imageName, String destImageName) {
-
+    imageStore.applyLinearColorTransformation(imageName, destImageName, "sepia");
   }
 
   @Override

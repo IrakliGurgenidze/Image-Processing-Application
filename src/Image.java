@@ -44,7 +44,13 @@ public interface Image {
    */
   Image applyLinearColorTransformation(double[][] transformation, String editedName);
 
-
+  /**
+   * Method to brighten (or darken) an image by a given increment.
+   * @param increment int, the increment by which to brighten the image
+   * @param editedName String, the resulting image name
+   * @return the resulting Image
+   */
+  Image applyBrighten(int increment, String editedName);
 
   /**
    * Method to return a pixel at a given index in the image.

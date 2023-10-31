@@ -70,5 +70,8 @@ public abstract class AbstractImage implements Image {
   public abstract Image applyLinearColorTransformation(double[][] transformation,
                                                        String editedName);
 
+  @Override
+  public abstract Image applyBrighten(int increment, String editedName);
+
 
 }
