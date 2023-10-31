@@ -8,7 +8,7 @@ public abstract class AbstractImage implements Image {
   private final String name;
 
   //pixels in image
-  private Pixel[][] imageBody;
+  private final Pixel[][] imageBody;
 
   /**
    * Abstract constructor for an Image.
@@ -39,14 +39,6 @@ public abstract class AbstractImage implements Image {
     return name;
   }
 
-  private Pixel[][] getImageBody() {
-    return imageBody;
-  }
-
-  private void setImageBody(Pixel[][] imageBody) {
-    this.imageBody = imageBody;
-  }
-
   @Override
   public Pixel getPixel(int x, int y) throws IndexOutOfBoundsException {
     if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
@@ -73,5 +65,25 @@ public abstract class AbstractImage implements Image {
   @Override
   public abstract Image applyBrighten(int increment, String editedName);
 
+  @Override
+  public abstract Image getLumaImage(String editedName);
 
+  @Override
+  public abstract Image getIntensityImage(String editedName);
+
+  @Override
+  public abstract Image getValueImage(String editedName);
+
+  @Override
+  public abstract Image getRedImage(String editedName);
+  @Override
+  public abstract Image getGreenImage(String editedName);
+  @Override
+  public abstract Image getBlueImage(String editedName);
+
+  @Override
+  public abstract Image getHorizontalFlip(String editedName);
+
+  @Override
+  public abstract Image getVerticalFlip(String editedName);
 }

@@ -15,7 +15,7 @@ public class ColorImage extends AbstractImage {
     super(width, height, name);
   }
 
-  //FIXME NEED to check this
+
   @Override
   public Image applyFilter(double[][] filter, String editedName) {
     int filterSize = filter.length;
@@ -49,7 +49,6 @@ public class ColorImage extends AbstractImage {
     return filteredImage;
   }
 
-  //FIXME NEED to check this
   @Override
   public Image applyLinearColorTransformation(double[][] transformation, String editedName) {
     ColorImage transformedImage = new ColorImage(getWidth(), getHeight(), editedName);
@@ -77,6 +76,144 @@ public class ColorImage extends AbstractImage {
 
   @Override
   public Image applyBrighten(int increment, String editedName) {
-    return null;
+    ColorImage brightenedImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    int red;
+    int green;
+    int blue;
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        red = currPixel.getRed() + increment;
+        green = currPixel.getGreen() + increment;
+        blue = currPixel.getBlue() + increment;
+
+        brightenedImage.setPixel(x,y, new Pixel(red,green,blue));
+      }
+    }
+
+    return brightenedImage;
   }
+
+  @Override
+  public Image getLumaImage(String editedName){
+    ColorImage lunaImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        lunaImage.setPixel(x, y, new Pixel((int)currPixel.getLuma()));
+      }
+    }
+    return lunaImage;
+  }
+
+  @Override
+  public Image getIntensityImage(String editedName) {
+    ColorImage intensityImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        intensityImage.setPixel(x, y, new Pixel((int)currPixel.getIntensity()));
+      }
+    }
+    return intensityImage;
+  }
+
+  @Override
+  public Image getValueImage(String editedName) {
+    ColorImage valueImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        valueImage.setPixel(x, y, new Pixel(currPixel.getValue()));
+      }
+    }
+    return valueImage;
+  }
+
+  @Override
+  public Image getRedImage(String editedName) {
+    ColorImage redImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        redImage.setPixel(x, y, new Pixel(currPixel.getRed(),0,0));
+      }
+    }
+    return redImage;
+  }
+
+  @Override
+  public Image getGreenImage(String editedName) {
+    ColorImage greenImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        greenImage.setPixel(x, y, new Pixel(0,currPixel.getGreen(),0));
+      }
+    }
+    return greenImage;
+  }
+
+  @Override
+  public Image getBlueImage(String editedName) {
+    ColorImage blueImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        blueImage.setPixel(x, y, new Pixel(0,0,currPixel.getBlue()));
+      }
+    }
+    return blueImage;
+  }
+
+  @Override
+  public Image getHorizontalFlip(String editedName) {
+    ColorImage newImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        //horizontal flip -> new x coordinate
+        int flippedX = getWidth() - x - 1;
+
+        newImage.setPixel(flippedX, y, currPixel);
+      }
+    }
+    return newImage;
+  }
+
+  @Override
+  public Image getVerticalFlip(String editedName) {
+    ColorImage newImage = new ColorImage(getWidth(), getHeight(), editedName);
+
+    for(int y = 0; y < getHeight(); y++) {
+      for(int x = 0; x < getWidth(); x++) {
+        Pixel currPixel = getPixel(x,y);
+
+        //vertical flip -> new y coordinate
+        int flippedY = getHeight() - y - 1;
+
+        newImage.setPixel(x, flippedY, currPixel);
+      }
+    }
+    return newImage;
+  }
+
+
 }

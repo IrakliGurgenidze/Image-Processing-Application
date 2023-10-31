@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,8 +10,7 @@ import java.awt.image.BufferedImage;
 
 
 /**
- * This class contains utility methods to read a PPM image from file and simply print its contents.
- * Feel free to change this method as required.
+ * This class contains utility methods to read images from file.
  */
 public class ImageUtil {
 
