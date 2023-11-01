@@ -21,11 +21,11 @@ public class Filter {
     filters.put("blur", blur);
 
     double[][] sharpen = {
-            {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
-            {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
-            {-1.0 / 8.0, 1.0 / 4.0, 1.0, 1.0 / 4.0, -1.0 / 8.0},
-            {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
-            {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0}
+            {-0.125, -0.125, -0.125, -0.125, -0.125},
+            {-0.125, 0.25, 0.25, 0.25, -0.125},
+            {-0.125, 0.25, 1.0, 0.25, -0.125},
+            {-0.125, 0.25, 0.25, 0.25, -0.125},
+            {-0.125, -0.125, -0.125, -0.125, -0.125}
     };
     filters.put("sharpen", sharpen);
   }
@@ -38,10 +38,12 @@ public class Filter {
    * @throws IllegalArgumentException if requested filer does not exist
    */
   public double[][] getFilter(String name) throws IllegalArgumentException {
-    if (!filters.containsKey(name.toLowerCase())) {
-      throw new IllegalArgumentException("Invalid request. model.Filter " + name + " does not exist.");
-    }
+    String lowerName = name.toLowerCase();
 
-    return filters.get(name.toLowerCase());
+    if (!filters.containsKey(lowerName)) {
+      throw new IllegalArgumentException("Invalid request. Filter " + lowerName
+              + " does not exist.");
+    }
+    return filters.get(lowerName);
   }
 }

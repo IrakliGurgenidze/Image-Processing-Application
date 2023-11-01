@@ -38,12 +38,14 @@ public class LinearColorTransformation {
    * @return Double[][] the requested linear color transformation matrix
    * @throws IllegalArgumentException if the requested transformation matrix does not exist
    */
-  double[][] getLinearTransformation(String name) throws IllegalArgumentException{
-    if(!linearTransformations.containsKey(name)) {
-      throw new IllegalArgumentException("Invalid request. " + name
-      + "does not exist");
+  public double[][] getLinearTransformation(String name) throws IllegalArgumentException{
+    String lowerName = name.toLowerCase();
+
+    if(!linearTransformations.containsKey(lowerName)) {
+      throw new IllegalArgumentException("Invalid request. Transformation " + lowerName
+              + "does not exist");
     }
-    return linearTransformations.get(name);
+    return linearTransformations.get(lowerName);
   }
 
 }

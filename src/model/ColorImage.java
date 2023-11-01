@@ -57,12 +57,17 @@ public class ColorImage extends AbstractImage {
       for (int y = 0; y < getHeight(); y++) {
         Pixel currPixel = getPixel(x, y);
 
-        red = (int) (transformation[0][0] * currPixel.getRed() + transformation[0][1] * currPixel.getGreen()
-                + transformation[0][2] * currPixel.getGreen());
-        green = (int) (transformation[1][0] * currPixel.getRed() + transformation[1][1] * currPixel.getGreen()
-                + transformation[1][2] * currPixel.getGreen());
-        blue = (int) (transformation[2][0] * currPixel.getRed() + transformation[2][1] * currPixel.getGreen()
-                + transformation[2][2] * currPixel.getGreen());
+        red = (int) (transformation[0][0] * currPixel.getRed()
+                + transformation[0][1] * currPixel.getGreen()
+                + transformation[0][2] * currPixel.getBlue());
+
+        green = (int) (transformation[1][0] * currPixel.getRed()
+                + transformation[1][1] * currPixel.getGreen()
+                + transformation[1][2] * currPixel.getBlue());
+
+        blue = (int) (transformation[2][0] * currPixel.getRed()
+                + transformation[2][1] * currPixel.getGreen()
+                + transformation[2][2] * currPixel.getBlue());
 
         transformedImage.setPixel(x, y, new Pixel(red, green, blue));
       }

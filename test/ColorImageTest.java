@@ -3,6 +3,7 @@ import org.junit.Test;
 import model.ColorImage;
 import model.Filter;
 import model.Image;
+import model.LinearColorTransformation;
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
@@ -91,7 +92,7 @@ public class ColorImageTest {
   @Test
   public void testValidConstructor() {
     try {
-      Image img = new ColorImage(5, 5, "default");
+      new ColorImage(5, 5, "default");
     } catch (Exception e) {
       fail("Error thrown: " + e.getMessage());
     }
@@ -207,30 +208,103 @@ public class ColorImageTest {
     /*
       Apply sharpen -
       RED
-      1 0 3       f
-      2 1 0   ->  f
-      5 2 3       f
+      10 0  30       1.2500 5.0000 16.250
+      20 10 0    ->  35.000 50.000 12.500
+      50 20 30       53.750 42.500 23.750
 
       GREEN
-      4 3 2       f
-      2 5 6   ->  f
-      5 1 7       f
+      40 30 20       38.750 61.250 31.250
+      20 50 60   ->  46.250 125.00 91.250
+      50 10 70       42.500 61.250 80.000
 
       BLUE
-      3 3 8       f
-      1 2 4   ->  f
-      4 3 1       f
-    */
+      30 30 80       20.000 65.000 87.500
+      10 20 40   ->  31.250 87.500 72.500
+      40 30 10       31.250 42.500 8.7500
+     */
 
-//    model.Image sharpen = img.applyFilter(filters.getFilter("SHARPEN"), "sharpenImg");
+    double[][] redResult = {
+            {1, 5, 16},
+            {35, 50, 12},
+            {53, 42, 23}
+    };
+
+    double[][] greenResult = {
+            {38, 61, 31},
+            {46, 125, 91},
+            {42, 61, 80}
+    };
+
+    double[][] blueResult = {
+            {20, 65, 87},
+            {31, 87, 72},
+            {31, 42, 8}
+    };
+
+    Image img = constructBasicImage();
+    model.Image sharpen = img.applyFilter(filters.getFilter("SHARPEN"), "sharpenImg");
+
+    //test img for correctness (should not have changed)
+    verifyImage(imgRed, img, 0);
+    verifyImage(imgGreen, img, 1);
+    verifyImage(imgBlue, img, 2);
+
+    //test sharpen for correctness
+    assertEquals("sharpenImg", sharpen.getName());
+    verifyImage(redResult, sharpen, 0);
+    verifyImage(greenResult, sharpen, 1);
+    verifyImage(blueResult, sharpen, 2);
   }
 
 
   /**
    * A simple test for applyLinearColorTransformation.
    */
+  @Test
   public void testApplyLinearColorTransformation() {
 
+    //this is essentially just matrix multiplication, so we will only test one transformation
+    LinearColorTransformation transformation = new LinearColorTransformation();
+
+    /*
+      Apply greyscale -
+      RED
+      10 0  30
+      20 10 0
+      50 20 30
+
+      GREEN
+      40 30 20       32.900 23.620 26.458
+      20 50 60   ->  19.278 39.330 45.800 (for all three channels)
+      50 10 70       49.278 13.570 57.164
+
+      BLUE
+      30 30 80
+      10 20 40
+      40 30 10
+    */
+
+    double[][] result = {
+            {32, 23, 26},
+            {19, 39, 45},
+            {49, 13, 57}
+    };
+
+    Image img = constructBasicImage();
+    Image greyscale = img.applyLinearColorTransformation(
+            transformation.getLinearTransformation("greYscAle"),
+            "greyscaleImg");
+
+    //test img for correctness (should not have changed)
+    verifyImage(imgRed, img, 0);
+    verifyImage(imgGreen, img, 1);
+    verifyImage(imgBlue, img, 2);
+
+    //test sharpen for correctness
+    assertEquals("greyscaleImg", greyscale.getName());
+    verifyImage(result, greyscale, 0);
+    verifyImage(result, greyscale, 1);
+    verifyImage(result, greyscale, 2);
   }
 
 
