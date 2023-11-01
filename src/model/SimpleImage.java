@@ -1,6 +1,9 @@
 package model;
 
-public abstract class AbstractImage implements Image {
+/**
+ * Simple image implementation of Image interface.
+ */
+public class SimpleImage implements Image {
 
   //width and height of image, measured in pixels
   private final int width;
@@ -13,7 +16,7 @@ public abstract class AbstractImage implements Image {
   private final Pixel[][] imageBody;
 
   /**
-   * Abstract constructor for an model.Image.
+   * Constructor for simple image class.
    *
    * @param width  int, width of image
    * @param height int, height of image

@@ -30,11 +30,11 @@ public class RGBSplitCommand implements CommandController {
       String destImageGreenName = args[3];
       String destImageBlueName = args[4];
 
-        redSplit(sourceImageName, destImageRedName);
-        greenSplit(sourceImageName, destImageGreenName);
-        blueSplit(sourceImageName, destImageBlueName);
-
+      redSplit(sourceImageName, destImageRedName);
+      greenSplit(sourceImageName, destImageGreenName);
+      blueSplit(sourceImageName, destImageBlueName);
     }
+  }
 
   //store red channel
   private void redSplit(String imageName, String redName) {
