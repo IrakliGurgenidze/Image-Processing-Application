@@ -1,4 +1,7 @@
-public class GreenComponentCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+public class GreenComponentCommand implements CommandController {
     private final ImageModel imageModel;
 
     public GreenComponentCommand(ImageModel imageModel) {

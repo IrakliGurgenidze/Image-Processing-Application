@@ -1,5 +1,10 @@
 import org.junit.Test;
 
+import model.ColorImage;
+import model.Filter;
+import model.Image;
+import model.Pixel;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
@@ -217,7 +222,7 @@ public class ColorImageTest {
       4 3 1       f
     */
 
-//    Image sharpen = img.applyFilter(filters.getFilter("SHARPEN"), "sharpenImg");
+//    model.Image sharpen = img.applyFilter(filters.getFilter("SHARPEN"), "sharpenImg");
   }
 
 

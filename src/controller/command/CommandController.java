@@ -1,3 +1,5 @@
+package controller.command;
+
 /**
  * This interface acts as the controller for all the commands.
  */

@@ -1,4 +1,8 @@
-public class IntensityComponentCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class IntensityComponentCommand implements CommandController {
     private final ImageModel imageModel;
 
     public IntensityComponentCommand(ImageModel imageModel){

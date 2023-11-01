@@ -1,4 +1,8 @@
-public class RGBSplitCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class RGBSplitCommand implements CommandController {
     private final ImageModel imageModel;
 
     public RGBSplitCommand(ImageModel imageModel){

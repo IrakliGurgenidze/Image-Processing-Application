@@ -1,4 +1,8 @@
-public class LinearColorTransformationCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class LinearColorTransformationCommand implements CommandController {
     private final ImageModel imageModel;
 
     private final String transformationName;

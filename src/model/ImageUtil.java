@@ -1,3 +1,5 @@
+package model;
+
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,11 +17,11 @@ import java.awt.image.BufferedImage;
 public class ImageUtil {
 
   /**
-   * This method reads a color image of non-PPM format and creates its generic ColorImage
+   * This method reads a color image of non-PPM format and creates its generic model.ColorImage
    * representation.
    *
    * @param fileName the name of the image file
-   * @return the ColorImage equivalent of the given image
+   * @return the model.ColorImage equivalent of the given image
    * @throws IOException if the image file does not exist
    */
   public static ColorImage readColor(String fileName, String imageName) throws IOException {
@@ -47,10 +49,10 @@ public class ImageUtil {
   }
 
   /**
-   * This method reads a color image of PPM format and creates its generic ColorImage representation.
+   * This method reads a color image of PPM format and creates its generic model.ColorImage representation.
    *
    * @param fileName the name of the image file
-   * @return the ColorImage equivalent of the given image
+   * @return the model.ColorImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
    */
   public static ColorImage readColorPPM(String fileName, String imageName)

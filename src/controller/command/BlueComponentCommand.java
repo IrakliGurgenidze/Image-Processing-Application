@@ -1,4 +1,8 @@
-public class BlueComponentCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class BlueComponentCommand implements CommandController {
     private final ImageModel imageModel;
 
     public BlueComponentCommand(ImageModel imageModel) {

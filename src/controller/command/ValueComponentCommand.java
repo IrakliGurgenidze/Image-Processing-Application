@@ -1,4 +1,8 @@
-public class ValueComponentCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class ValueComponentCommand implements CommandController {
     private final ImageModel imageModel;
 
     public ValueComponentCommand(ImageModel imageModel){

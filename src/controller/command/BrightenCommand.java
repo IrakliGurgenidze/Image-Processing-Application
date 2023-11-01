@@ -1,3 +1,7 @@
+package controller.command;
+
+import model.ImageModel;
+
 public class BrightenCommand implements CommandController {
     private final ImageModel imageModel;
 

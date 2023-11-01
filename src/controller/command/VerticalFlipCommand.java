@@ -1,4 +1,8 @@
-public class VerticalFlipCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class VerticalFlipCommand implements CommandController {
     private final ImageModel imageModel;
 
     public VerticalFlipCommand(ImageModel imageModel) {

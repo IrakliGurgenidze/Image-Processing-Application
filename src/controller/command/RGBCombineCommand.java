@@ -1,3 +1,10 @@
+package controller.command;
+
+import model.ImageModel;
+import model.Image;
+import model.ColorImage;
+import model.Pixel;
+
 public class RGBCombineCommand implements CommandController {
     private final ImageModel imageModel;
 

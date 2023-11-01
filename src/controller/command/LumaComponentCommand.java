@@ -1,4 +1,8 @@
-public class LumaComponentCommand implements CommandController{
+package controller.command;
+
+import model.ImageModel;
+
+public class LumaComponentCommand implements CommandController {
     private final ImageModel imageModel;
 
     public LumaComponentCommand(ImageModel imageModel){
