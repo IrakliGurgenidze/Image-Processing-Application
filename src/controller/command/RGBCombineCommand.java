@@ -24,18 +24,28 @@ public class RGBCombineCommand implements CommandController {
 
     @Override
     public void execute(String[] args) {
+      if (args.length != 5) {
+        System.out.println("Invalid input. Usage: " + getUsage());
+      } else {
         String combinedImageName = args[1];
         String redImageName = args[2];
         String greenImageName = args[3];
         String blueImageName = args[4];
 
-      Image combinedImage = combine(redImageName, greenImageName, blueImageName,
-              combinedImageName);
+        Image combinedImage = combine(redImageName, greenImageName, blueImageName,
+                combinedImageName);
 
-      if (combinedImage != null) {
-        imageStorageModel.insertImage(combinedImage);
+        if (combinedImage != null) {
+          imageStorageModel.insertImage(combinedImage);
+        }
       }
     }
+
+  @Override
+  public String getUsage() {
+    return "rgb-combine image-name red-image green-image blue-image: Combine the\n " +
+            "three greyscale images into a single image that gets its red, green and\n " +
+            "blue components from the three images respectively.";
   }
 
   //helper method to combine RGB channels from 3 images

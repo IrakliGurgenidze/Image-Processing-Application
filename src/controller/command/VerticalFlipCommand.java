@@ -25,7 +25,7 @@ public class VerticalFlipCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: vertical-flip image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     }
     String sourceImageName = args[1];
     String resultImageName = args[2];
@@ -37,6 +37,12 @@ public class VerticalFlipCommand implements CommandController {
       Image resultImage = getVerticalFlip(sourceImage, resultImageName);
       imageStorageModel.insertImage(resultImage);
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "vertical-flip image-name dest-image-name: Flip an image vertically\n " +
+            "to create a new image, referred to henceforth by the given destination name.";
   }
 
   //helper method to return the vertica flip of an image

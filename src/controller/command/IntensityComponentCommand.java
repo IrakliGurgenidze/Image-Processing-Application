@@ -25,8 +25,7 @@ public class IntensityComponentCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: intensity-component" +
-              " image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];
@@ -40,6 +39,13 @@ public class IntensityComponentCommand implements CommandController {
         imageStorageModel.insertImage(resultImage);
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "intensity-component image-name dest-image-name: Create an image with the\n " +
+            "intensity-component of the image with the given name, and refer to it henceforth in\n" +
+            "the program by the given destination name.";
   }
 
   //helper method to return the luma component of an image

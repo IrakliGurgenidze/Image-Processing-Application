@@ -22,8 +22,7 @@ public class RGBSplitCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 5) {
-      System.out.println("Invalid input. Usage: rgb-split image-name dest-image-name-red " +
-              "dest-image-name-green dest-image-name-blue");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String destImageRedName = args[2];
@@ -34,6 +33,15 @@ public class RGBSplitCommand implements CommandController {
       greenSplit(sourceImageName, destImageGreenName);
       blueSplit(sourceImageName, destImageBlueName);
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "rgb-split image-name dest-image-name-red dest-image-name-green\n " +
+            "dest-image-name-blue: split the given image into three images containing\n" +
+            " its red, green and blue components respectively. These would be the same\n " +
+            "images that would be individually produced with the red-component,\n " +
+            "green-component and blue-component commands.";
   }
 
   //store red channel

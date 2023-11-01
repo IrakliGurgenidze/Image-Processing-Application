@@ -25,7 +25,7 @@ public class GreenComponentCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: green-component image-name dest-image-name");
+      System.out.println("Invalid input. Usage: "  + getUsage());
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];
@@ -39,6 +39,13 @@ public class GreenComponentCommand implements CommandController {
         imageStorageModel.insertImage(resultImage);
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "green-component image-name dest-image-name: Create an image with the\n " +
+            "green-component of the image with the given name, and refer to it henceforth in\n" +
+            "the program by the given destination name.";
   }
 
   //helper function to return the green component of an image

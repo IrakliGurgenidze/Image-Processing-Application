@@ -25,7 +25,7 @@ public class ValueComponentCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: value-component image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];
@@ -40,6 +40,14 @@ public class ValueComponentCommand implements CommandController {
       }
     }
   }
+
+  @Override
+  public String getUsage() {
+    return "value-component image-name dest-image-name: Create an image with the\n " +
+            "value-component of the image with the given name, and refer to it henceforth in\n" +
+            "the program by the given destination name.";
+  }
+
 
   //helper method to return the value component of an image
   private Image getValueComponent(Image source, String resultImageName) {

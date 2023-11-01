@@ -1,6 +1,9 @@
 package controller.command;
 
-import model.ImageModel;
+import model.ImageStorageModel;
+import model.Image;
+import model.Pixel;
+import model.SimpleImage;
 
 public class BrightenCommand implements CommandController {
   private final ImageStorageModel imageStorageModel;
@@ -16,21 +19,32 @@ public class BrightenCommand implements CommandController {
 
   @Override
   public void execute(String[] args) {
-    try {
-      int increment = Integer.parseInt(args[1]);
-      String sourceImageName = args[2];
-      String destImageName = args[3];
-      Image sourceImage = imageStorageModel.getImage(sourceImageName);
-      if (sourceImage == null) {
-        System.out.println("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
-      } else {
-        Image destImage = brighten(increment, sourceImage, destImageName);
-        imageStorageModel.insertImage(destImage);
+    if (args.length != 4) {
+      System.out.println("Invalid input. Usage: " + getUsage());
+    } else {
+      try {
+        int increment = Integer.parseInt(args[1]);
+        String sourceImageName = args[2];
+        String destImageName = args[3];
+        Image sourceImage = imageStorageModel.getImage(sourceImageName);
+        if (sourceImage == null) {
+          System.out.println("Invalid request. Image with name + " + sourceImageName
+                  + "not found.");
+        } else {
+          Image destImage = brighten(increment, sourceImage, destImageName);
+          imageStorageModel.insertImage(destImage);
+        }
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid increment.");
       }
-    } catch (NumberFormatException e) {
-      System.out.println("Invalid increment.");
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "brighten increment image-name dest-image-name: brighten the image by the given \n" +
+            "increment to create a new image, referred to henceforth by the given destination\n " +
+            "name. The increment may be positive (brightening) or negative (darkening).";
   }
 
   //helper function to compute and return a brightened image

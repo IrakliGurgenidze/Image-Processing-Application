@@ -23,11 +23,12 @@ public class FilterCommand implements CommandController {
   public FilterCommand(ImageStorageModel imageStorageModel, String filterName) {
     this.imageStorageModel = imageStorageModel;
     this.filterName = filterName;
+    filters = new Filter();
   }
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: " + filterName + " image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String destImageName = args[2];
@@ -40,6 +41,12 @@ public class FilterCommand implements CommandController {
         imageStorageModel.insertImage(filteredImage);
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return filterName + "image-name dest-image-name: blur the given image and store the result in\n"
+            + " another image with the given name.";
   }
 
   //helper method to apply a filter to an image and return the result

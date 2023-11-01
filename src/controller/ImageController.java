@@ -12,6 +12,7 @@ import controller.command.BrightenCommand;
 import controller.command.CommandController;
 import controller.command.FilterCommand;
 import controller.command.GreenComponentCommand;
+import controller.command.HelpCommand;
 import controller.command.HorizontalFlipCommand;
 import controller.command.IntensityComponentCommand;
 import controller.command.LinearColorTransformationCommand;
@@ -47,6 +48,7 @@ public class ImageController implements Controller {
     commands.put("vertical-flip", new VerticalFlipCommand(imageStore));
     commands.put("rgb-split", new RGBSplitCommand(imageStore));
     commands.put("rgb-combine", new RGBCombineCommand(imageStore));
+    commands.put("help", new HelpCommand(commands));
   }
 
   @Override

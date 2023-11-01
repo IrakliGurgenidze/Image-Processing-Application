@@ -26,7 +26,7 @@ public class LoadImageCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: load image-path image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String imagePath = args[1];
       String imageName = args[2];
@@ -36,6 +36,12 @@ public class LoadImageCommand implements CommandController {
         imageStorageModel.insertImage(image);
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "load image-path image-name: Load an image from the specified path and refer\n " +
+            "to it henceforth in the program by the given image name.";
   }
 
   //helper method to read an image from a file

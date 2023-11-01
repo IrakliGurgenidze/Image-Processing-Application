@@ -1,6 +1,9 @@
 package controller.command;
 
-import model.ImageModel;
+import model.ImageStorageModel;
+import model.Image;
+import model.Pixel;
+import model.SimpleImage;
 
 public class HorizontalFlipCommand implements CommandController {
 
@@ -19,7 +22,7 @@ public class HorizontalFlipCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: horizontal-flip image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String destImageName = args[2];
@@ -27,6 +30,12 @@ public class HorizontalFlipCommand implements CommandController {
       Image destImage = horizontalFlip(sourceImage, destImageName);
       imageStorageModel.insertImage(destImage);
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "horizontal-flip image-name dest-image-name: Flip an image horizontally\n " +
+            "to create a new image, referred to henceforth by the given destination name.";
   }
 
   //helper method to return the horizontally flipped image

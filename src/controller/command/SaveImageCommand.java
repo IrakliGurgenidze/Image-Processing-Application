@@ -31,7 +31,7 @@ public class SaveImageCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: save image-path image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String imagePath = args[1];
       String imageName = args[2];
@@ -47,6 +47,12 @@ public class SaveImageCommand implements CommandController {
         }
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "save image-path image-name: Save the image with the given name to the\n " +
+            "specified path which should include the name of the file.";
   }
 
   //helper method to save an image to a specified path location
