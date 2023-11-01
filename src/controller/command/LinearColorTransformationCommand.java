@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 import model.utilities.LinearColorTransformation;
@@ -12,7 +12,7 @@ import model.utilities.LinearColorTransformation;
 public class LinearColorTransformationCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   //name of transformation to be applied
   private final String transformationName;
@@ -26,7 +26,7 @@ public class LinearColorTransformationCommand implements CommandController {
    * @param imageStorageModel  state of image database
    * @param transformationName name of transformation to be applied
    */
-  public LinearColorTransformationCommand(ImageStorageStorageModel imageStorageModel, String transformationName) {
+  public LinearColorTransformationCommand(ImageStorageModel imageStorageModel, String transformationName) {
     this.imageStorageModel = imageStorageModel;
     this.transformationName = transformationName;
     this.transformations = new LinearColorTransformation();

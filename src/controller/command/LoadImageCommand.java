@@ -3,7 +3,7 @@ package controller.command;
 import java.io.IOException;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.utilities.ImageUtil;
 
 /**
@@ -12,14 +12,14 @@ import model.utilities.ImageUtil;
 public class LoadImageCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public LoadImageCommand(ImageStorageStorageModel imageStorageModel) {
+  public LoadImageCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

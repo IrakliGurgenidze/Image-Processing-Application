@@ -6,7 +6,7 @@ import java.util.Hashtable;
  * This class represents the "model" of an image processing application.
  * It contains a list of active images, and also provides methods to access and modify those images.
  */
-public class ImageStorageStorageModel implements StorageModel {
+public class ImageStorageModel implements StorageModel {
 
   //list of images loaded during this session
   private final Hashtable<String, Image> images = new Hashtable<>();

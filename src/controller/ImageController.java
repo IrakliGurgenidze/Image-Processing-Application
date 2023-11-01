@@ -23,13 +23,13 @@ import controller.command.RedComponentCommand;
 import controller.command.SaveImageCommand;
 import controller.command.ValueComponentCommand;
 import controller.command.VerticalFlipCommand;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 
 public class ImageController implements Controller {
-  private final ImageStorageStorageModel imageStore;
+  private final ImageStorageModel imageStore;
   private final Map<String, CommandController> commands = new HashMap<>();
 
-  public ImageController(ImageStorageStorageModel imageStore) {
+  public ImageController(ImageStorageModel imageStore) {
     this.imageStore = imageStore;
     commands.put("load", new LoadImageCommand(imageStore));
     commands.put("save", new SaveImageCommand(imageStore));

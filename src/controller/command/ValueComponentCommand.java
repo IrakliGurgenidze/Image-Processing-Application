@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 
@@ -11,14 +11,14 @@ import model.SimpleImage;
 public class ValueComponentCommand implements CommandController {
 
   //model state
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of the image database
    */
-  public ValueComponentCommand(ImageStorageStorageModel imageStorageModel) {
+  public ValueComponentCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

@@ -5,14 +5,14 @@ import model.ImageModel;
 public class HorizontalFlipCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public HorizontalFlipCommand(ImageStorageStorageModel imageStorageModel) {
+  public HorizontalFlipCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

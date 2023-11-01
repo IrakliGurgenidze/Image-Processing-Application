@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 import model.utilities.Filter;
@@ -11,7 +11,7 @@ import model.utilities.Filter;
  */
 public class FilterCommand implements CommandController {
   private final String filterName;
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
   private final Filter filters;
 
   /**
@@ -20,7 +20,7 @@ public class FilterCommand implements CommandController {
    * @param imageStorageModel state of image database
    * @param filterName        name of filter to be applied to image
    */
-  public FilterCommand(ImageStorageStorageModel imageStorageModel, String filterName) {
+  public FilterCommand(ImageStorageModel imageStorageModel, String filterName) {
     this.imageStorageModel = imageStorageModel;
     this.filterName = filterName;
   }

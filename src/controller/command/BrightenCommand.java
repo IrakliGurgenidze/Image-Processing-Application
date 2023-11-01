@@ -3,14 +3,14 @@ package controller.command;
 import model.ImageModel;
 
 public class BrightenCommand implements CommandController {
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public BrightenCommand(ImageStorageStorageModel imageStorageModel) {
+  public BrightenCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

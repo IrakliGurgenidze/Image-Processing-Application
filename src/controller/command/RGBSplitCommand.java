@@ -1,6 +1,6 @@
 package controller.command;
 
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 
 /**
  * This command stores the each RGB channel in an image seperately.
@@ -8,14 +8,14 @@ import model.ImageStorageStorageModel;
 public class RGBSplitCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public RGBSplitCommand(ImageStorageStorageModel imageStorageModel) {
+  public RGBSplitCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

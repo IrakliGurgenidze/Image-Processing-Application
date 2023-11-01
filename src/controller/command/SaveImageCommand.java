@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 
 /**
@@ -17,14 +17,14 @@ import model.Pixel;
 public class SaveImageCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public SaveImageCommand(ImageStorageStorageModel imageStorageModel) {
+  public SaveImageCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 
@@ -11,14 +11,14 @@ import model.SimpleImage;
 public class GreenComponentCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public GreenComponentCommand(ImageStorageStorageModel imageStorageModel) {
+  public GreenComponentCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

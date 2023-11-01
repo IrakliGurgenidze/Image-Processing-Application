@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageStorageModel;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 
@@ -11,14 +11,14 @@ import model.SimpleImage;
 public class RGBCombineCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageStorageModel imageStorageModel;
+  private final ImageStorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public RGBCombineCommand(ImageStorageStorageModel imageStorageModel) {
+  public RGBCombineCommand(ImageStorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
@@ -57,11 +57,11 @@ public class RGBCombineCommand implements CommandController {
     }
     Image combinedImage = new SimpleImage(redImage.getWidth(), redImage.getHeight(), combined);
 
-    for (int y = 0; y < redImage.getHeight(); y++) {
-      for (int x = 0; x < redImage.getWidth(); x++) {
-        Pixel currRedPixel = redImage.getPixel(x, y);
-        Pixel currGreenPixel = greenImage.getPixel(x, y);
-        Pixel currBluePixel = blueImage.getPixel(x, y);
+    for (int i = 0; i < redImage.getHeight(); i++) {
+      for (int j = 0; j < redImage.getWidth(); j++) {
+        Pixel currRedPixel = redImage.getPixel(i, j);
+        Pixel currGreenPixel = greenImage.getPixel(i, j);
+        Pixel currBluePixel = blueImage.getPixel(i, j);
 
         int redComp = currRedPixel.getRed();
         int greenComp = currGreenPixel.getGreen();
@@ -69,7 +69,7 @@ public class RGBCombineCommand implements CommandController {
 
         Pixel combinedPixel = new Pixel(redComp, greenComp, blueComp);
 
-        combinedImage.setPixel(x, y, combinedPixel);
+        combinedImage.setPixel(i, j, combinedPixel);
       }
     }
     return combinedImage;
