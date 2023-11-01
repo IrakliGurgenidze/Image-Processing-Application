@@ -69,6 +69,87 @@ public class ImageModel implements Model {
   }
 
   @Override
+  public void applyBrighten(int increment, String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with name " + imageName);
+    }
+    Image editedImage = getImage(imageName).applyBrighten(increment, editedName);
+    this.insertImage(editedImage);
+  }
+
+  @Override
+  public void lumaImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image lumaImg = getImage(imageName).getLumaImage(editedName);
+    this.insertImage(lumaImg);
+  }
+
+  @Override
+  public void intensityImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image intensityImg = getImage(imageName).getIntensityImage(editedName);
+    this.insertImage(intensityImg);
+  }
+
+  @Override
+  public void valueImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image valueImg = getImage(imageName).getValueImage(editedName);
+    this.insertImage(valueImg);
+  }
+
+  @Override
+  public void redImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image redImg = getImage(imageName).getRedImage(editedName);
+    this.insertImage(redImg);
+  }
+
+  @Override
+  public void greenImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image greenImg = getImage(imageName).getGreenImage(editedName);
+    this.insertImage(greenImg);
+  }
+
+  @Override
+  public void blueImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image blueImg = getImage(imageName).getBlueImage(editedName);
+    this.insertImage(blueImg);
+  }
+
+  @Override
+  public void horizontalFlipImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image horzImg = getImage(imageName).getHorizontalFlip(editedName);
+    this.insertImage(horzImg);
+  }
+
+  @Override
+  public void verticalFlipImage(String imageName, String editedName) throws IllegalArgumentException {
+    if(!images.containsKey(imageName)) {
+      throw new IllegalArgumentException("Invalid request. Could not find image with the name + " + imageName);
+    }
+    Image vertImg = getImage(imageName).getVerticalFlip(editedName);
+    this.insertImage(vertImg);
+  }
+
+  @Override
   public int getSize() {
     return this.images.size();
   }

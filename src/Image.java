@@ -52,6 +52,62 @@ public interface Image {
   Image applyBrighten(int increment, String editedName);
 
   /**
+   * Method to retrieve the luma image for a given image.
+   * @param editedName String, the resulting luma image name
+   * @return the resulting luma image
+   */
+  Image getLumaImage(String editedName);
+
+  /**
+   * Method to retrieve the value image for a given image.
+   * @param editedName String, the resulting value image name
+   * @return the resulting value image
+   */
+  Image getValueImage(String editedName);
+
+  /**
+   * Method to retrieve the intensity image for a given image.
+   * @param editedName String, the resulting intensity image name
+   * @return the resulting intensity image
+   */
+  Image getIntensityImage(String editedName);
+
+  /**
+   * Method to retrieve the red-component image for a given image.
+   * @param editedName String, the resulting red-component image name
+   * @return the resulting red-component image
+   */
+  Image getRedImage(String editedName);
+
+  /**
+   * Method to retrieve the green-component image for a given image.
+   * @param editedName String, the resulting green-component image name
+   * @return the resulting green-component image
+   */
+  Image getGreenImage(String editedName);
+
+  /**
+   * Method to retrieve the blue-component image for a given image.
+   * @param editedName String, the resulting blue-component image name
+   * @return the resulting blue-component image
+   */
+  Image getBlueImage(String editedName);
+
+  /**
+   * Method to retrieve the horizontally-flipped version of a given image.
+   * @param editedName String, the resulting horizontally-flipped image
+   * @return the resulting flipped image
+   */
+  Image getHorizontalFlip(String editedName);
+
+  /**
+   * Method to retrieve the vertically-flipped version of a given image.
+   * @param editedName String, the resulting vertically-flipped image
+   * @return the resulting flipped image
+   */
+  Image getVerticalFlip(String editedName);
+
+  /**
    * Method to return a pixel at a given index in the image.
    *
    * @param x int, x-pos of pixel

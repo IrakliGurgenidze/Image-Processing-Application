@@ -8,7 +8,7 @@ public abstract class AbstractImage implements Image {
   private final String name;
 
   //pixels in image
-  private Pixel[][] imageBody;
+  private final Pixel[][] imageBody;
 
   /**
    * Abstract constructor for an Image.
@@ -17,11 +17,7 @@ public abstract class AbstractImage implements Image {
    * @param height int, height of image
    * @param name   String, name of image
    */
-  public AbstractImage(int width, int height, String name) throws IllegalArgumentException {
-    if(width < 1 || height < 1) {
-      throw new IllegalArgumentException("Invalid argument. Image width and height must be "
-              + "positive ints");
-    }
+  public AbstractImage(int width, int height, String name) {
     this.width = width;
     this.height = height;
     this.name = name;
@@ -41,14 +37,6 @@ public abstract class AbstractImage implements Image {
   @Override
   public String getName() {
     return name;
-  }
-
-  //FIXME may want to remove these
-  private Pixel[][] getImageBody() {
-    return imageBody;
-  }
-  private void setImageBody(Pixel[][] imageBody) {
-    this.imageBody = imageBody;
   }
 
   @Override
@@ -77,5 +65,25 @@ public abstract class AbstractImage implements Image {
   @Override
   public abstract Image applyBrighten(int increment, String editedName);
 
+  @Override
+  public abstract Image getLumaImage(String editedName);
 
+  @Override
+  public abstract Image getIntensityImage(String editedName);
+
+  @Override
+  public abstract Image getValueImage(String editedName);
+
+  @Override
+  public abstract Image getRedImage(String editedName);
+  @Override
+  public abstract Image getGreenImage(String editedName);
+  @Override
+  public abstract Image getBlueImage(String editedName);
+
+  @Override
+  public abstract Image getHorizontalFlip(String editedName);
+
+  @Override
+  public abstract Image getVerticalFlip(String editedName);
 }

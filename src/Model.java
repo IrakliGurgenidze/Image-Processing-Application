@@ -56,6 +56,32 @@ public interface Model {
           throws IllegalArgumentException;
 
   /**
+   * Method to apply a brightening function to a specified image and store the result.
+   *
+   * @param increment int, the value by which each pixel will be brightened
+   * @param imageName String, name of image
+   * @param editedName String, name of edited (resulting) image
+   * @throws IllegalArgumentException if image specified does not exist or increment is invalid
+   */
+  public void applyBrighten(int increment, String imageName, String editedName) throws IllegalArgumentException;
+
+  public void lumaImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void intensityImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void valueImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void redImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void blueImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void greenImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void horizontalFlipImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  public void verticalFlipImage(String imageName, String editedName) throws IllegalArgumentException;
+
+  /**
    * Method to retrieve number of images currently stored.
    *
    * @return int, the number of images in images

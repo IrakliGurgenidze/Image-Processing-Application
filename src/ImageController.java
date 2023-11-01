@@ -15,6 +15,18 @@ public class ImageController implements Controller {
     commands.put("save", new SaveImageCommand(imageStore));
     commands.put("blur", new FilterCommand(imageStore, "blur"));
     commands.put("sharpen", new FilterCommand(imageStore, "sharpen"));
+    commands.put("sepia", new LinearColorTransformationCommand(imageStore, "sepia"));
+    commands.put("brighten", new BrightenCommand(imageStore));
+    commands.put("value-component", new ValueComponentCommand(imageStore));
+    commands.put("intensity-component", new IntensityComponentCommand(imageStore));
+    commands.put("luma-component", new LumaComponentCommand(imageStore));
+    commands.put("red-component", new RedComponentCommand(imageStore));
+    commands.put("green-component", new GreenComponentCommand(imageStore));
+    commands.put("blue-component", new BlueComponentCommand(imageStore));
+    commands.put("horizontal-flip", new HorizontalFlipCommand(imageStore));
+    commands.put("vertical-flip", new VerticalFlipCommand(imageStore));
+    commands.put("rgb-split", new RGBSplitCommand(imageStore));
+    commands.put("rgb-combine", new RGBCombineCommand(imageStore));
   }
 
   @Override
@@ -23,8 +35,16 @@ public class ImageController implements Controller {
   }
 
   public void runCommand(String[] args) throws IOException {
-    CommandController command = commands.get(args[0]);
-    command.execute(args);
+    if(args[0].equals("run")) {
+      run(new File(args[1]));
+    } else {
+      try{
+        CommandController command = commands.get(args[0]);
+        command.execute(args);
+      } catch(Exception e){
+        System.out.println("Invalid command.");
+      }
+    }
   }
 
   @Override
@@ -39,70 +59,5 @@ public class ImageController implements Controller {
       System.out.println("Invalid script file.");
     }
   }
-
-
-  @Override
-  public void redComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void greenComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void blueComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void valueComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void intensityComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void lumaComponent(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void horizontalFlip(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void verticalFlip(String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void brighten(int increment, String imageName, String destImageName) {
-
-  }
-
-  @Override
-  public void rgbSplit(String imageName, String destRedImageName, String destGreenImageName,
-                       String destBlueImageName) {
-
-  }
-
-  @Override
-  public void rgbCombine(String imageName, String redImage, String greenImage, String blueImage) {
-
-  }
-
-
-  @Override
-  public void sepia(String imageName, String destImageName) {
-    imageStore.applyLinearColorTransformation(imageName, destImageName, "sepia");
-  }
-
-
 
 }
