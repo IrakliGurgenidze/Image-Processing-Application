@@ -5,6 +5,9 @@ import model.Image;
 import model.Pixel;
 import model.SimpleImage;
 
+/**
+ * This command brightens or darkens an image based on given increment.
+ */
 public class BrightenCommand implements CommandController {
   private final ImageStorageModel imageStorageModel;
 

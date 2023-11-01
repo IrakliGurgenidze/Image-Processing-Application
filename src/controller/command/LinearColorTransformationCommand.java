@@ -35,8 +35,7 @@ public class LinearColorTransformationCommand implements CommandController {
   @Override
   public void execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: "
-              + transformationName + " image-name dest-image-name");
+      System.out.println("Invalid input. Usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String destImageName = args[2];
@@ -49,6 +48,12 @@ public class LinearColorTransformationCommand implements CommandController {
         imageStorageModel.insertImage(destImage);
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "sepia image-name dest-image-name: produce a sepia-toned version of\n " +
+            "the given image and store the result in another image with the given name.";
   }
 
   //helper method to compute and return the linear color transformation of an image

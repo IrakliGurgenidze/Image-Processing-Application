@@ -5,6 +5,9 @@ import model.Image;
 import model.Pixel;
 import model.SimpleImage;
 
+/**
+ * This command flips an image horizontally.
+ */
 public class HorizontalFlipCommand implements CommandController {
 
   //state of image database

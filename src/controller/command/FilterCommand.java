@@ -45,8 +45,8 @@ public class FilterCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return filterName + "image-name dest-image-name: blur the given image and store the result in\n"
-            + " another image with the given name.";
+    return filterName + "image-name dest-image-name: " + filterName + "the given image and\n " +
+            "store the result in another image with the given name.";
   }
 
   //helper method to apply a filter to an image and return the result
