@@ -74,6 +74,7 @@ public class Pixel {
     return 0.216 * red + 0.7152 * green + 0.0722 * blue;
   }
 
+
   // ----------- getters and setters ----------- //
   public int getRed() {
     return red;

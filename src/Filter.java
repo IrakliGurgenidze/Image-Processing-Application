@@ -12,9 +12,9 @@ public class Filter {
    */
   public Filter() {
     double[][] blur = {
-            {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
-            {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
-            {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}
+            {0.0625, 0.125, 0.0625},
+            {0.125, 0.25, 0.125},
+            {0.0625, 0.125, 0.0625}
     };
     filters.put("blur", blur);
 
@@ -36,10 +36,10 @@ public class Filter {
    * @throws IllegalArgumentException if requested filer does not exist
    */
   double[][] getFilter(String name) throws IllegalArgumentException {
-    if (!filters.containsKey(name)) {
+    if (!filters.containsKey(name.toLowerCase())) {
       throw new IllegalArgumentException("Invalid request. Filter " + name + " does not exist.");
     }
 
-    return filters.get(name);
+    return filters.get(name.toLowerCase());
   }
 }

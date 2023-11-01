@@ -1,4 +1,5 @@
-public class FilterCommand implements CommandController{
+
+public class FilterCommand implements CommandController {
     private final String filterName;
     private final ImageModel imageModel;
 

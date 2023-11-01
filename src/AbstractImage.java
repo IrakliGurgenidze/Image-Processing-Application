@@ -17,7 +17,11 @@ public abstract class AbstractImage implements Image {
    * @param height int, height of image
    * @param name   String, name of image
    */
-  public AbstractImage(int width, int height, String name) {
+  public AbstractImage(int width, int height, String name) throws IllegalArgumentException {
+    if(width < 1 || height < 1) {
+      throw new IllegalArgumentException("Invalid argument. Image width and height must be "
+              + "positive ints");
+    }
     this.width = width;
     this.height = height;
     this.name = name;
@@ -39,10 +43,10 @@ public abstract class AbstractImage implements Image {
     return name;
   }
 
+  //FIXME may want to remove these
   private Pixel[][] getImageBody() {
     return imageBody;
   }
-
   private void setImageBody(Pixel[][] imageBody) {
     this.imageBody = imageBody;
   }

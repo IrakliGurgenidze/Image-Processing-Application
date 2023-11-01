@@ -33,7 +33,6 @@ public interface Image {
   Image applyFilter(double[][] filter, String editedName);
 
 
-
   /**
    * Method to apply a linear color transformation to an image. Transformed image is returned
    * with name = editedName

@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class LoadImageCommand implements CommandController{
+public class LoadImageCommand implements CommandController {
     private final ImageModel imageModel;
 
     public LoadImageCommand(ImageModel imageModel) {

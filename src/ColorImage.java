@@ -21,15 +21,11 @@ public class ColorImage extends AbstractImage {
     int filterSize = filter.length;
 
     ColorImage filteredImage = new ColorImage(getWidth(), getHeight(), editedName);
-    double redSum;
-    double greenSum;
-    double blueSum;
-
     for (int y = 0; y < getHeight(); y++) {
       for (int x = 0; x < getWidth(); x++) {
-        redSum = 0.0;
-        greenSum = 0.0;
-        blueSum = 0.0;
+        double redSum = 0.0;
+        double greenSum = 0.0;
+        double blueSum = 0.0;
 
         for (int i = -filterSize / 2; i <= filterSize / 2; i++) {
           for (int j = -filterSize / 2; j <= filterSize / 2; j++) {
