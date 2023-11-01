@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -19,15 +18,17 @@ public interface Controller {
 
   /**
    * Method to run the given command (passed from parseCommand)
+   *
    * @param args String[], the command and arguments to be run
    */
   void runCommand(String[] args) throws IOException;
 
   /**
    * Loads and runs the script commands in the given file
+   *
    * @param scriptFile File, the file to be loaded
    */
-  public void run(File scriptFile);
+  void run(File scriptFile);
 
 
 }

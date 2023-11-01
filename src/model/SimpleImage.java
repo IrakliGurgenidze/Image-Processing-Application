@@ -20,8 +20,8 @@ public abstract class AbstractImage implements Image {
    * @param name   String, name of image
    * @throws IllegalArgumentException if non-positive width and height entered
    */
-  public AbstractImage(int width, int height, String name) throws IllegalArgumentException {
-    if(width < 1 || height < 1) {
+  public SimpleImage(int width, int height, String name) throws IllegalArgumentException {
+    if (width < 1 || height < 1) {
       throw new IllegalArgumentException("Width and Height must be positive integers.");
     }
 
@@ -62,35 +62,4 @@ public abstract class AbstractImage implements Image {
     imageBody[y][x] = pixel;
   }
 
-  @Override
-  public abstract Image applyFilter(double[][] filter, String editedName);
-
-  @Override
-  public abstract Image applyLinearColorTransformation(double[][] transformation,
-                                                       String editedName);
-
-  @Override
-  public abstract Image applyBrighten(int increment, String editedName);
-
-  @Override
-  public abstract Image getLumaImage(String editedName);
-
-  @Override
-  public abstract Image getIntensityImage(String editedName);
-
-  @Override
-  public abstract Image getValueImage(String editedName);
-
-  @Override
-  public abstract Image getRedImage(String editedName);
-  @Override
-  public abstract Image getGreenImage(String editedName);
-  @Override
-  public abstract Image getBlueImage(String editedName);
-
-  @Override
-  public abstract Image getHorizontalFlip(String editedName);
-
-  @Override
-  public abstract Image getVerticalFlip(String editedName);
 }

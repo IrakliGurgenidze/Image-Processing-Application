@@ -27,89 +27,6 @@ public interface Image {
   String getName();
 
   /**
-   * Method to apply a filter to an image. Filtered image is returned with name=editedName.
-   *
-   * @param filter     double[][], filter to be applied
-   * @param editedName String, name of filtered image
-   */
-  Image applyFilter(double[][] filter, String editedName);
-
-
-  /**
-   * Method to apply a linear color transformation to an image. Transformed image is returned
-   * with name = editedName
-   *
-   * @param transformation Double[][], transformation to be applied
-   * @param editedName String, name of transformed image
-   * @return the image with the applied linear transformation
-   */
-  Image applyLinearColorTransformation(double[][] transformation, String editedName);
-
-  /**
-   * Method to brighten (or darken) an image by a given increment.
-   * @param increment int, the increment by which to brighten the image
-   * @param editedName String, the resulting image name
-   * @return the resulting model.Image
-   */
-  Image applyBrighten(int increment, String editedName);
-
-  /**
-   * Method to retrieve the luma image for a given image.
-   * @param editedName String, the resulting luma image name
-   * @return the resulting luma image
-   */
-  Image getLumaImage(String editedName);
-
-  /**
-   * Method to retrieve the value image for a given image.
-   * @param editedName String, the resulting value image name
-   * @return the resulting value image
-   */
-  Image getValueImage(String editedName);
-
-  /**
-   * Method to retrieve the intensity image for a given image.
-   * @param editedName String, the resulting intensity image name
-   * @return the resulting intensity image
-   */
-  Image getIntensityImage(String editedName);
-
-  /**
-   * Method to retrieve the red-component image for a given image.
-   * @param editedName String, the resulting red-component image name
-   * @return the resulting red-component image
-   */
-  Image getRedImage(String editedName);
-
-  /**
-   * Method to retrieve the green-component image for a given image.
-   * @param editedName String, the resulting green-component image name
-   * @return the resulting green-component image
-   */
-  Image getGreenImage(String editedName);
-
-  /**
-   * Method to retrieve the blue-component image for a given image.
-   * @param editedName String, the resulting blue-component image name
-   * @return the resulting blue-component image
-   */
-  Image getBlueImage(String editedName);
-
-  /**
-   * Method to retrieve the horizontally-flipped version of a given image.
-   * @param editedName String, the resulting horizontally-flipped image
-   * @return the resulting flipped image
-   */
-  Image getHorizontalFlip(String editedName);
-
-  /**
-   * Method to retrieve the vertically-flipped version of a given image.
-   * @param editedName String, the resulting vertically-flipped image
-   * @return the resulting flipped image
-   */
-  Image getVerticalFlip(String editedName);
-
-  /**
    * Method to return a pixel at a given index in the image.
    *
    * @param x int, x-pos of pixel
@@ -121,8 +38,9 @@ public interface Image {
 
   /**
    * Method to set a pixel at a given index in an image.
-   * @param x int, x-pos of pixel
-   * @param y int, y-pos of pixel
+   *
+   * @param x     int, x-pos of pixel
+   * @param y     int, y-pos of pixel
    * @param pixel model.Pixel object with specific rgb values
    * @throws IndexOutOfBoundsException if x,y is outside of image dimensions
    */

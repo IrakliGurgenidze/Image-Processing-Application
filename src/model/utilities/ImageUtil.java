@@ -1,14 +1,17 @@
-package model;
+package model.utilities;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
+
+import model.Pixel;
+import model.SimpleImage;
 
 
 /**
@@ -17,45 +20,46 @@ import java.awt.image.BufferedImage;
 public class ImageUtil {
 
   /**
-   * This method reads a color image of non-PPM format and creates its generic model.ColorImage
+   * This method reads a color image of non-PPM format and creates its generic model. SimpleImage
    * representation.
    *
    * @param fileName the name of the image file
-   * @return the model.ColorImage equivalent of the given image
+   * @return the model.SimpleImage equivalent of the given image
    * @throws IOException if the image file does not exist
    */
-  public static ColorImage readColor(String fileName, String imageName) throws IOException {
+  public static SimpleImage readColor(String fileName, String imageName) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(fileName));
 
     int width = bufferedImage.getWidth();
     int height = bufferedImage.getHeight();
+
     int red;
     int green;
     int blue;
 
-    ColorImage colorImage = new ColorImage(width, height, imageName);
-    for(int i = 0; i < height; i++) {
-      for(int j = 0; j < width; j++) {
-        Color color = new Color(bufferedImage.getRGB(j,i));
+    SimpleImage simpleImage = new SimpleImage(width, height, imageName);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Color color = new Color(bufferedImage.getRGB(j, i));
         red = color.getRed();
         green = color.getGreen();
         blue = color.getBlue();
         Pixel pixel = new Pixel(red, green, blue);
-        colorImage.setPixel(j,i,pixel);
+        simpleImage.setPixel(j, i, pixel);
       }
     }
 
-    return colorImage;
+    return simpleImage;
   }
 
   /**
-   * This method reads a color image of PPM format and creates its generic model.ColorImage representation.
+   * This method reads a color image of PPM format and creates its generic model.SimpleImage representation.
    *
    * @param fileName the name of the image file
-   * @return the model.ColorImage equivalent of the given image
+   * @return the model. SimpleImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
    */
-  public static ColorImage readColorPPM(String fileName, String imageName)
+  public static SimpleImage readColorPPM(String fileName, String imageName)
           throws FileNotFoundException {
     Scanner sc;
 
@@ -81,24 +85,24 @@ public class ImageUtil {
 
     token = sc.next();
     if (!token.equals("P3")) {
-     throw new IllegalArgumentException("Invalid PPM file: plain RAW file should begin with P3");
+      throw new IllegalArgumentException("Invalid PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
 
-    ColorImage colorImage = new ColorImage(width, height, imageName);
+    SimpleImage simpleImage = new SimpleImage(width, height, imageName);
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
-        Pixel pixel = new Pixel(r,g,b);
-        colorImage.setPixel(j,i,pixel);
+        Pixel pixel = new Pixel(r, g, b);
+        simpleImage.setPixel(j, i, pixel);
       }
     }
 
-    return colorImage;
+    return simpleImage;
   }
 }
 

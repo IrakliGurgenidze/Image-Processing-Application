@@ -1,4 +1,4 @@
-package model;
+package model.utilities;
 
 import java.util.Hashtable;
 
@@ -24,9 +24,9 @@ public class LinearColorTransformation {
 
     //Sepia transformation matrix values
     double[][] sepia = {
-          {0.272, 0.534, 0.131},
-          {0.349, 0.686, 0.168},
-          {0.393, 0.769, 0.189}
+            {0.272, 0.534, 0.131},
+            {0.349, 0.686, 0.168},
+            {0.393, 0.769, 0.189}
     };
     linearTransformations.put("sepia", sepia);
   }
@@ -38,10 +38,10 @@ public class LinearColorTransformation {
    * @return Double[][] the requested linear color transformation matrix
    * @throws IllegalArgumentException if the requested transformation matrix does not exist
    */
-  public double[][] getLinearTransformation(String name) throws IllegalArgumentException{
+  public double[][] getLinearTransformation(String name) throws IllegalArgumentException {
     String lowerName = name.toLowerCase();
 
-    if(!linearTransformations.containsKey(lowerName)) {
+    if (!linearTransformations.containsKey(lowerName)) {
       throw new IllegalArgumentException("Invalid request. Transformation " + lowerName
               + "does not exist");
     }

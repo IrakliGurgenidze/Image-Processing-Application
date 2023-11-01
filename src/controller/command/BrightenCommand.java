@@ -3,16 +3,61 @@ package controller.command;
 import model.ImageModel;
 
 public class BrightenCommand implements CommandController {
-    private final ImageModel imageModel;
+  private final ImageStorageStorageModel imageStorageModel;
 
-    public BrightenCommand(ImageModel imageModel) {
-        this.imageModel = imageModel;
+  /**
+   * This constructor initializes the command.
+   *
+   * @param imageStorageModel state of image database
+   */
+  public BrightenCommand(ImageStorageStorageModel imageStorageModel) {
+    this.imageStorageModel = imageStorageModel;
+  }
+
+  @Override
+  public void execute(String[] args) {
+    try {
+      int increment = Integer.parseInt(args[1]);
+      String sourceImageName = args[2];
+      String destImageName = args[3];
+      Image sourceImage = imageStorageModel.getImage(sourceImageName);
+      if (sourceImage == null) {
+        System.out.println("Invalid request. Image with name + " + sourceImageName
+                + "not found.");
+      } else {
+        Image destImage = brighten(increment, sourceImage, destImageName);
+        imageStorageModel.insertImage(destImage);
+      }
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid increment.");
     }
-    @Override
-    public void execute(String[] args) {
-        int increment = Integer.parseInt(args[1]);
-        String sourceImage = args[2];
-        String destImage = args[3];
-        imageModel.applyBrighten(increment, sourceImage, destImage);
+  }
+
+  //helper function to compute and return a brightened image
+  private Image brighten(int increment, Image image, String destImageName) {
+    int height = image.getHeight();
+    int width = image.getWidth();
+
+    Image brightenedImage = new SimpleImage(width, height, destImageName);
+
+    int red;
+    int green;
+    int blue;
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Pixel currPixel = image.getPixel(i, j);
+
+        red = currPixel.getRed() + increment;
+        green = currPixel.getGreen() + increment;
+        blue = currPixel.getBlue() + increment;
+
+        brightenedImage.setPixel(i, j, new Pixel(red, green, blue));
+      }
     }
+
+    return brightenedImage;
+  }
+
+
 }

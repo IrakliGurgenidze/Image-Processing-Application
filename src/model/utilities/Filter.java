@@ -1,10 +1,10 @@
-package model;
+package model.utilities;
 
 import java.util.Hashtable;
 
 /**
  * Helper static class to contain filters and their information.
- * model.Filter data is stored here, and can be accessed by name.
+ * model.utilities.Filter data is stored here, and can be accessed by name.
  */
 public class Filter {
   Hashtable<String, double[][]> filters = new Hashtable<>();

@@ -7,15 +7,29 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import controller.command.*;
-
-import model.ImageModel;
+import controller.command.BlueComponentCommand;
+import controller.command.BrightenCommand;
+import controller.command.CommandController;
+import controller.command.FilterCommand;
+import controller.command.GreenComponentCommand;
+import controller.command.HorizontalFlipCommand;
+import controller.command.IntensityComponentCommand;
+import controller.command.LinearColorTransformationCommand;
+import controller.command.LoadImageCommand;
+import controller.command.LumaComponentCommand;
+import controller.command.RGBCombineCommand;
+import controller.command.RGBSplitCommand;
+import controller.command.RedComponentCommand;
+import controller.command.SaveImageCommand;
+import controller.command.ValueComponentCommand;
+import controller.command.VerticalFlipCommand;
+import model.ImageStorageStorageModel;
 
 public class ImageController implements Controller {
-  private final ImageModel imageStore;
+  private final ImageStorageStorageModel imageStore;
   private final Map<String, CommandController> commands = new HashMap<>();
 
-  public ImageController(ImageModel imageStore) {
+  public ImageController(ImageStorageStorageModel imageStore) {
     this.imageStore = imageStore;
     commands.put("load", new LoadImageCommand(imageStore));
     commands.put("save", new SaveImageCommand(imageStore));
@@ -41,7 +55,7 @@ public class ImageController implements Controller {
   }
 
   public void runCommand(String[] args) throws IOException {
-    if(args[0].equals("run")) {
+    if (args[0].equals("run")) {
       run(new File(args[1]));
     } else {
       try{
@@ -55,13 +69,13 @@ public class ImageController implements Controller {
 
   @Override
   public void run(File scriptFile) {
-    try(BufferedReader br = new BufferedReader(new FileReader(scriptFile))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(scriptFile))) {
       String line;
-      while((line = br.readLine())!= null && !line.startsWith("#")) {
+      while ((line = br.readLine()) != null && !line.startsWith("#")) {
         String[] args = parseCommand(line);
         runCommand(args);
       }
-    } catch(IOException e) {
+    } catch (IOException e) {
       System.out.println("Invalid script file.");
     }
   }

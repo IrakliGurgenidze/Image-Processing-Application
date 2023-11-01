@@ -1,38 +1,55 @@
 package controller.command;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import model.ImageModel;
+
+import javax.imageio.ImageIO;
+
 import model.Image;
+import model.ImageStorageStorageModel;
 import model.Pixel;
 
+/**
+ * This command saves an image from the database to a local location.
+ */
 public class SaveImageCommand implements CommandController {
-  private final ImageModel imageModel;
 
-  public SaveImageCommand(ImageModel imageModel) {
-    this.imageModel = imageModel;
+  //state of image database
+  private final ImageStorageStorageModel imageStorageModel;
+
+  /**
+   * This constructor initializes the command.
+   *
+   * @param imageStorageModel state of image database
+   */
+  public SaveImageCommand(ImageStorageStorageModel imageStorageModel) {
+    this.imageStorageModel = imageStorageModel;
   }
 
   @Override
   public void execute(String[] args) {
-    String imagePath = args[1];
-    String imageName = args[2];
-
-    Image image = imageModel.getImage(imageName);
-    if (image == null) {
-      System.out.println("Image with name " + imageName + " not found.");
+    if (args.length != 3) {
+      System.out.println("Invalid input. Usage: save image-path image-name");
     } else {
-      try {
-        saveImage(image, imagePath);
-      } catch (IOException e) {
-        System.out.println("Invalid path.");
+      String imagePath = args[1];
+      String imageName = args[2];
+
+      Image image = imageStorageModel.getImage(imageName);
+      if (image == null) {
+        System.out.println("Image with name " + imageName + " not found.");
+      } else {
+        try {
+          saveImage(image, imagePath);
+        } catch (IOException e) {
+          System.out.println("Invalid path.");
+        }
       }
     }
   }
 
+  //helper method to save an image to a specified path location
   private void saveImage(Image image, String imagePath) throws IOException {
     int width = image.getWidth();
     int height = image.getHeight();

@@ -13,13 +13,13 @@ public class Pixel {
   /**
    * Public constructor for an RGB pixel, takes in values for all 3 channels.
    *
-   * @param red int, value of red channel
+   * @param red   int, value of red channel
    * @param green int, value of green channel
-   * @param blue int, value of blue channel
+   * @param blue  int, value of blue channel
    */
   public Pixel(int red, int green, int blue) {
     this.red = clamp(red, 0, 255);
-    this.green = clamp(green, 0,255);
+    this.green = clamp(green, 0, 255);
     this.blue = clamp(blue, 0, 255);
   }
 
@@ -82,7 +82,9 @@ public class Pixel {
     return red;
   }
 
-  public void setRed(int red) { this.red = clamp(red, 0, 255); }
+  public void setRed(int red) {
+    this.red = clamp(red, 0, 255);
+  }
 
   public int getGreen() {
     return green;
