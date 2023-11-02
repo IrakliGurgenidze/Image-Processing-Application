@@ -153,6 +153,7 @@ public class ImageControllerTest {
 
     //set file path to resources
     String workingDirectory = setWd();
+    System.out.println(workingDirectory);
 
     //load an image into the database
     String[] loadBase = imageController.parseCommand("load "

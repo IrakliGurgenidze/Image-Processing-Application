@@ -3,7 +3,10 @@ package controller.command;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 
@@ -80,8 +83,21 @@ public class SaveImageCommand implements CommandController {
         bufferedImage.setRGB(x, y, color.getRGB());
       }
     }
+
+    File outFile = new File(imagePath);
+    File outDir = outFile.getParentFile();
+
+    if(outDir != null) {
+      try {
+        Files.createDirectories(outDir.toPath());
+      }catch (IOException e) {
+        throw new IOException("Failed to create directory.");
+      }
+    }
+
     try {
-      ImageIO.write(bufferedImage, ext, new File(imagePath));
+      ImageIO.write(bufferedImage, ext, outFile);
+      bufferedImage.flush();
     } catch (IOException e) {
       throw new IOException("Path not valid.");
     }

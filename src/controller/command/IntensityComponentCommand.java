@@ -44,9 +44,9 @@ public class IntensityComponentCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "intensity-component image-name dest-image-name: Create an image with the\n "
-            + "intensity-component of the image with the given name, and refer to it henceforth "
-            + "in\n the program by the given destination name.";
+    return "intensity-component image-name dest-image-name: Create an image with the\n " +
+            "intensity-component of the image with the given name, and refer to it henceforth in\n" +
+            "the program by the given destination name.";
   }
 
   //helper method to return the luma component of an image
@@ -55,11 +55,11 @@ public class IntensityComponentCommand implements CommandController {
             source.getHeight(),
             resultImageName);
 
-    for (int x = 0; x < source.getWidth(); x++) {
-      for (int y = 0; y < source.getHeight(); y++) {
-        Pixel currPixel = source.getPixel(x, y);
+    for (int i = 0; i < source.getHeight(); i++) {
+      for (int j = 0; j < source.getWidth(); j++) {
+        Pixel currPixel = source.getPixel(j, i);
         int intensity = (int) currPixel.getIntensity();
-        intensityImage.setPixel(x, y, new Pixel(intensity));
+        intensityImage.setPixel(j, i, new Pixel(intensity));
       }
     }
     return intensityImage;
