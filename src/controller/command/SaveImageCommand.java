@@ -82,7 +82,6 @@ public class SaveImageCommand implements CommandController {
     }
     try{
       ImageIO.write(bufferedImage, ext, new File(imagePath));
-      new FileOutputStream(imagePath).getChannel().force(true);
     }catch(IOException e){
       throw new IOException("Path not valid.");
     }

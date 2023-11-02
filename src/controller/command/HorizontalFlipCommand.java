@@ -43,19 +43,19 @@ public class HorizontalFlipCommand implements CommandController {
   }
 
   //helper method to return the horizontally flipped image
-  private Image horizontalFlip(Image image, String destImageName) {
-    int height = image.getHeight();
-    int width = image.getWidth();
+  private Image horizontalFlip(Image source, String resultImageName) {
+    int height = source.getHeight();
+    int width = source.getWidth();
 
-    Image newImage = new SimpleImage(width, height, destImageName);
+    Image newImage = new SimpleImage(width, height, resultImageName);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Pixel currPixel = image.getPixel(j, i);
+        Pixel currPixel = source.getPixel(j, i);
 
         //horizontal flip -> new x coordinate
-        int flippedX = width - i - 1;
+        int flippedX = width - j - 1;
 
-        newImage.setPixel(flippedX, j, currPixel);
+        newImage.setPixel(flippedX, i, currPixel);
       }
     }
     return newImage;

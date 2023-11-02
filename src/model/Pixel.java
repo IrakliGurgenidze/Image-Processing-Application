@@ -63,7 +63,7 @@ public class Pixel {
    * @return double, the intensity of this pixel
    */
   public double getIntensity() {
-    return (double)(red + green + blue) / 3.0;
+    return ((double) red + (double) green + (double) blue) / 3;
   }
 
   /**
@@ -72,7 +72,7 @@ public class Pixel {
    * @return double, the luma of this pixel
    */
   public double getLuma() {
-    return 0.2126 * (double)red + 0.7152 * (double)green + 0.0722 * (double)blue;
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
   }
 
 

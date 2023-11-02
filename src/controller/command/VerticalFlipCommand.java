@@ -46,20 +46,22 @@ public class VerticalFlipCommand implements CommandController {
             "to create a new image, referred to henceforth by the given destination name.";
   }
 
-  //helper method to return the vertica flip of an image
+  //helper method to return the vertical flip of an image
   private Image getVerticalFlip(Image source, String resultImageName) {
-    SimpleImage verticalFlipImage = new SimpleImage(source.getWidth(),
-            source.getHeight(),
-            resultImageName);
+    int height = source.getHeight();
+    int width = source.getWidth();
 
-    for (int i = 0; i < source.getHeight(); i++) {
-      for (int j = 0; j < source.getWidth(); j++) {
+    Image newImage = new SimpleImage(width, height, resultImageName);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         Pixel currPixel = source.getPixel(j, i);
-        int flippedI = source.getHeight() - i - 1;
 
-        verticalFlipImage.setPixel(flippedI, j, currPixel);
+        //vertical flip -> new y coordinate
+        int flippedY = height - i - 1;
+
+        newImage.setPixel(j, flippedY, currPixel);
       }
     }
-    return verticalFlipImage;
+    return newImage;
   }
 }
