@@ -1,4 +1,4 @@
-package modelTests;
+package model_tests;
 
 import org.junit.Test;
 
@@ -38,9 +38,9 @@ public class SimpleImageTest {
 
     //non-positive width and height
     assertThrows(IllegalArgumentException.class,
-            () -> new SimpleImage(0, 10, "img"));
+        () -> new SimpleImage(0, 10, "img"));
     assertThrows(IllegalArgumentException.class,
-            () -> new SimpleImage(10, 0, "img"));
+        () -> new SimpleImage(10, 0, "img"));
   }
 
   /**
@@ -52,13 +52,13 @@ public class SimpleImageTest {
 
     //calls should throw IndexOutOfBoundsException
     assertThrows(IndexOutOfBoundsException.class,
-            () -> img.setPixel(-1, 0, new Pixel(0, 0, 0)));
+        () -> img.setPixel(-1, 0, new Pixel(0, 0, 0)));
     assertThrows(IndexOutOfBoundsException.class,
-            () -> img.setPixel(0, -1, new Pixel(0, 0, 0)));
+        () -> img.setPixel(0, -1, new Pixel(0, 0, 0)));
     assertThrows(IndexOutOfBoundsException.class,
-            () -> img.setPixel(3, 0, new Pixel(0, 0, 0)));
+        () -> img.setPixel(3, 0, new Pixel(0, 0, 0)));
     assertThrows(IndexOutOfBoundsException.class,
-            () -> img.setPixel(0, 3, new Pixel(0, 0, 0)));
+        () -> img.setPixel(0, 3, new Pixel(0, 0, 0)));
 
     //verify that pixel is returned correctly
     assertEquals(10, img.getPixel(0, 0).getRed());

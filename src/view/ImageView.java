@@ -15,9 +15,8 @@ public class ImageView implements View {
   private final Scanner scan;
 
   public ImageView(InputStream in, OutputStream out) {
-    this.in = in;
     this.out = out;
-    this.scan = new Scanner(this.in);
+    this.scan = new Scanner(in);
   }
 
   @Override

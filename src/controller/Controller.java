@@ -16,7 +16,7 @@ public interface Controller {
   String[] parseCommand(String command);
 
   /**
-   * Method to run the given command (passed from parseCommand)
+   * Method to run the given command (passed from parseCommand).
    *
    * @param args String[], the command and arguments to be run
    * @return String, status of operation
@@ -24,7 +24,7 @@ public interface Controller {
   String runCommand(String[] args);
 
   /**
-   * Loads and runs the script commands in the given file
+   * Loads and runs the script commands in the given file.
    *
    * @param scriptFile File, the file to be loaded
    */

@@ -31,13 +31,19 @@ import controller.command.ValueComponentCommand;
 import controller.command.VerticalFlipCommand;
 import model.ImageStorageModel;
 
+/**
+ * Implementation of Controller interface, controls an image store.
+ */
 public class ImageController implements Controller {
-  private final ImageStorageModel imageStore;
   private final Map<String, CommandController> commands = new HashMap<>();
 
 
+  /**
+   * Public constructor for an Image Controller. Populates list of commands.
+   *
+   * @param imageStore state of Image Model
+   */
   public ImageController(ImageStorageModel imageStore) {
-    this.imageStore = imageStore;
 
     commands.put("load", new LoadImageCommand(imageStore));
     commands.put("save", new SaveImageCommand(imageStore));
@@ -81,6 +87,7 @@ public class ImageController implements Controller {
     return arguments.toArray(new String[0]);
   }
 
+  @Override
   public String runCommand(String[] args) {
     if (args[0].equals("run")) {
       try {
@@ -104,11 +111,11 @@ public class ImageController implements Controller {
     try (BufferedReader br = new BufferedReader(new FileReader(scriptFile))) {
       String line;
       while ((line = br.readLine()) != null) {
-        if(line.startsWith("#")){
+        if (line.startsWith("#")) {
           continue;
         }
         String[] args = parseCommand(line);
-        if(args.length > 0){
+        if (args.length > 0) {
           runCommand(args);
         }
       }

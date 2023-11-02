@@ -1,5 +1,8 @@
 package controller.command;
 
+/**
+ * This command quite the program..
+ */
 public class QuitCommand implements CommandController {
 
   @Override

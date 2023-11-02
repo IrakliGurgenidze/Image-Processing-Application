@@ -44,9 +44,9 @@ public class LumaComponentCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "luma-component image-name dest-image-name: Create an image with the\n " +
-            "luma-component of the image with the given name, and refer to it henceforth in\n" +
-            "the program by the given destination name.";
+    return "luma-component image-name dest-image-name: Create an image with the\n "
+            + "luma-component of the image with the given name, and refer to it henceforth in\n"
+            + "the program by the given destination name.";
   }
 
   //helper method to return the luma component of an image

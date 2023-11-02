@@ -1,4 +1,4 @@
-package modelTests;
+package model_tests;
 
 import org.junit.Test;
 
@@ -54,7 +54,7 @@ public class ImageStorageModelTest {
 
     //try removing an image
     assertThrows(IllegalArgumentException.class,
-            () -> model.removeImage("default"));
+        () -> model.removeImage("default"));
 
     //model should be empty
     assertEquals(0, model.getSize());

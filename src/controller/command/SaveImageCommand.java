@@ -1,12 +1,10 @@
 package controller.command;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
@@ -86,7 +84,7 @@ public class SaveImageCommand implements CommandController {
     }
 
     if (ext.equals("ppm")) {
-      try(PrintWriter ppmWriter = new PrintWriter(imagePath)) {
+      try (PrintWriter ppmWriter = new PrintWriter(imagePath)) {
         ppmWriter.println("P3");
         ppmWriter.println(width + " " + height);
         ppmWriter.println("255");

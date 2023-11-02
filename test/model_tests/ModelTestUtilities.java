@@ -1,4 +1,4 @@
-package modelTests;
+package model_tests;
 
 import model.Image;
 import model.Pixel;
@@ -12,19 +12,19 @@ import static org.junit.Assert.assertEquals;
 public class ModelTestUtilities {
 
   //rgb channel values for img
-  public static final double[][] imgRed = {
+  public final double[][] imgRed = {
           {10, 0, 30},
           {20, 10, 0},
           {50, 20, 30}
   };
 
-  public static final double[][] imgGreen = {
+  public final double[][] imgGreen = {
           {40, 30, 20},
           {20, 50, 60},
           {50, 10, 70}
   };
 
-  public static final double[][] imgBlue = {
+  public final double[][] imgBlue = {
           {30, 30, 80},
           {10, 20, 40},
           {40, 30, 10}

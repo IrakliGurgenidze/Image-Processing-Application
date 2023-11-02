@@ -1,4 +1,4 @@
-package controllerTests;
+package controller_tests;
 
 import org.junit.Test;
 
@@ -984,7 +984,7 @@ public class ImageControllerTest {
     //run rgb-combine command
     functionCommand = imageController.parseCommand("rgb-combine combine-result red green crop");
     assertEquals("Unable to complete rgb-combine operation. Please ensure images exist, "
-                    + "and have the same dimensions.", imageController.runCommand(functionCommand));
+            + "and have the same dimensions.", imageController.runCommand(functionCommand));
   }
 
 
@@ -1108,13 +1108,13 @@ public class ImageControllerTest {
   }
 
   @Test
-  public void testRun(){
+  public void testRun() {
     ImageStorageModel imageModel = new ImageStorageModel();
     Controller imageController = new ImageController(imageModel);
     String workingDirectory = setWd();
     File script = new File(workingDirectory
             + File.separator
-            + "controllerTests"
+            + "controller_tests"
             + File.separator
             + "testing_script.txt");
     imageController.run(script);
