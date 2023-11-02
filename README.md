@@ -155,7 +155,10 @@ execute() is called.
 
 
 ### Run Instructions & Details ###
-Run the main method. Successful compilation of the program should greet you with the following in the 
+To run this program, go to the directory of the "ImageProcessingApp.jar" file in your terminal.  
+In the command line, type: java -jar ImageProcessingApp.jar  
+
+Successful compilation of the program should greet you with the following in the 
 command terminal:  
 "Image Processing Application by Rocky and Griffin"
 
