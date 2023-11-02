@@ -29,7 +29,6 @@ public class ImageUtil {
    */
   public static SimpleImage readColor(String fileName, String imageName) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(fileName));
-
     int width = bufferedImage.getWidth();
     int height = bufferedImage.getHeight();
 

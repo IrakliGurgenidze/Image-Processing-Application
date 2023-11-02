@@ -65,4 +65,5 @@ public class SimpleImage implements Image {
     imageBody[y][x] = pixel;
   }
 
+
 }

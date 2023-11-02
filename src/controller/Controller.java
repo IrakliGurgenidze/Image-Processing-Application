@@ -20,8 +20,9 @@ public interface Controller {
    * Method to run the given command (passed from parseCommand)
    *
    * @param args String[], the command and arguments to be run
+   * @return String, status of operation
    */
-  void runCommand(String[] args) throws IOException;
+ String runCommand(String[] args);
 
   /**
    * Loads and runs the script commands in the given file

@@ -20,9 +20,9 @@ public class RGBSplitCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 5) {
-      System.out.println("Invalid input. Usage: " + getUsage());
+      return "Invalid input. Usage: " + getUsage();
     } else {
       String sourceImageName = args[1];
       String destImageRedName = args[2];
@@ -32,6 +32,8 @@ public class RGBSplitCommand implements CommandController {
       redSplit(sourceImageName, destImageRedName);
       greenSplit(sourceImageName, destImageGreenName);
       blueSplit(sourceImageName, destImageBlueName);
+
+      return "Completed rgb-split operation.";
     }
   }
 

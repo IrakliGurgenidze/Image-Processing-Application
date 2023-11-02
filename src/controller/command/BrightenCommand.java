@@ -21,9 +21,9 @@ public class BrightenCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 4) {
-      System.out.println("Invalid input. Usage: " + getUsage());
+      return "Invalid input. Usage: " + getUsage();
     } else {
       try {
         int increment = Integer.parseInt(args[1]);
@@ -31,15 +31,16 @@ public class BrightenCommand implements CommandController {
         String destImageName = args[3];
         Image sourceImage = imageStorageModel.getImage(sourceImageName);
         if (sourceImage == null) {
-          System.out.println("Invalid request. Image with name + " + sourceImageName
-                  + "not found.");
+          return "Invalid request. Image with name + " + sourceImageName
+                  + "not found.";
         } else {
           Image destImage = brighten(increment, sourceImage, destImageName);
           imageStorageModel.insertImage(destImage);
         }
       } catch (NumberFormatException e) {
-        System.out.println("Invalid increment.");
+        return "Invalid increment.";
       }
+      return "Completed brighten operation.";
     }
   }
 

@@ -33,19 +33,20 @@ public class LinearColorTransformationCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: " + getUsage());
+      return "Invalid input. Usage: " + getUsage();
     } else {
       String sourceImageName = args[1];
       String destImageName = args[2];
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        System.out.println("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
+        return "Invalid request. Image with name + " + sourceImageName
+                + "not found.";
       } else {
         Image destImage = applyLinearTransformation(destImageName, sourceImage);
         imageStorageModel.insertImage(destImage);
+        return "Completed color transformation.";
       }
     }
   }

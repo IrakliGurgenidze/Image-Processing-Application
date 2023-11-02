@@ -23,22 +23,30 @@ public class RedComponentCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: red-component image-name dest-image-name");
+      return "Invalid input. Usage: red-component image-name dest-image-name";
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];
 
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        System.out.println("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
+        return "Invalid request. Image with name + " + sourceImageName
+                + "not found.";
       } else {
         Image resultImage = getRedComponent(sourceImage, resultImageName);
         imageStorageModel.insertImage(resultImage);
+        return "Completed red-component operation.";
       }
     }
+  }
+
+  @Override
+  public String getUsage() {
+    return "red-component image-name dest-image-name: Create an image with the\n " +
+            "red-component of the image with the given name, and refer to it henceforth in\n" +
+            "the program by the given destination name.";
   }
 
   //helper function to return the green component of an image

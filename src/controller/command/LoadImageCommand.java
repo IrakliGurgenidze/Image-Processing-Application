@@ -24,17 +24,23 @@ public class LoadImageCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: " + getUsage());
+      if(args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
+              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))){
+        return "File path and image name must be enclosed in \"\" if they contain a space.";
+      }
+      return "Invalid input. Usage: " + getUsage();
     } else {
       String imagePath = args[1];
       String imageName = args[2];
-
       Image image = loadImage(imagePath, imageName);
       if (image != null) {
         imageStorageModel.insertImage(image);
+        return "Image loaded.";
       }
+
+      return "Unable to locate image at specified path.";
     }
   }
 
@@ -52,10 +58,10 @@ public class LoadImageCommand implements CommandController {
       } else {
         return ImageUtil.readColor(fileName, imageName);
       }
-    } catch (IOException e) {
-      System.out.println("File " + fileName + "does not exist.");
+    } catch (Exception e) {
+      return null;
     }
-
-    return null;
   }
+
+
 }

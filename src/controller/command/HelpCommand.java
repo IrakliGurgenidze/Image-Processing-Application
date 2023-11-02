@@ -11,10 +11,14 @@ public class HelpCommand implements CommandController{
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
+    StringBuilder helpMessage = new StringBuilder();
+    //for each command, get its usage
     for(CommandController x: commands.values()) {
-      System.out.println(x.getUsage());
+      helpMessage.append(x.getUsage());
+      helpMessage.append("\n\n");
     }
+    return helpMessage.toString();
   }
 
   @Override

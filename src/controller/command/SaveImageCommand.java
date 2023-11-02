@@ -29,21 +29,26 @@ public class SaveImageCommand implements CommandController {
   }
 
   @Override
-  public void execute(String[] args) {
+  public String execute(String[] args) {
     if (args.length != 3) {
-      System.out.println("Invalid input. Usage: " + getUsage());
+      if(args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
+              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))){
+        return "File path and image name must be enclosed in \"\" if they contain a space.";
+      }
+      return "Invalid input. Usage: " + getUsage();
     } else {
       String imagePath = args[1];
       String imageName = args[2];
 
       Image image = imageStorageModel.getImage(imageName);
       if (image == null) {
-        System.out.println("Image with name " + imageName + " not found.");
+        return "Image with name " + imageName + " not found.";
       } else {
         try {
           saveImage(image, imagePath);
+          return "Image saved to specified path.";
         } catch (IOException e) {
-          System.out.println("Invalid path.");
+          return e.getMessage();
         }
       }
     }
