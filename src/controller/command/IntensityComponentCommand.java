@@ -58,7 +58,8 @@ public class IntensityComponentCommand implements CommandController {
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
         Pixel currPixel = source.getPixel(j, i);
-        intensityImage.setPixel(j, i, new Pixel((int) currPixel.getIntensity()));
+        int intensity = (int)Math.floor(currPixel.getIntensity());
+        intensityImage.setPixel(j, i, new Pixel(intensity));
       }
     }
     return intensityImage;
