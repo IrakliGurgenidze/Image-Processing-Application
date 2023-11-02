@@ -15,19 +15,19 @@ value-component mushroom mushroom-greyscale
 #save mushroom-brighter
 save resources/result_images/mushroom-brighter.jpg mushroom-brighter
 
-#save mushroom-greyscale
-save resources/result_images/mushroom-greyscale.ppm mushroom-greyscale
+#save manhattan-greyscale
+save test/result_images/man-greyscale.ppm man-greyscale
 
-#overwrite mushroom with another file
-load resources/mushrooms.jpg mushroom
+#overwrite manhattan with another file
+load test/sample_images/manhattan-small.png man
 
-#give the mushroom a red tint
-rgb-split mushroom mushroom-red mushroom-green mushroom-blue
+#give the manhattan a red tint
+rgb-split man man-red man-green man-blue
 
 #brighten just the red image
 brighten 50 mushroom-red mushroom-red-brighter
 
 #combine them back, but by using the brightened red we get a red tint
-rgb-combine mushroom-red-tint mushroom-red-brighter mushroom-green mushroom-blue
+rgb-combine man-red-tint man-red-brighter man-green man-blue
 
-save resources/result_images/mushroom-red-tint.png mushroom-red-tint
+save test/result_images/manhattan-red-tint.png man-red-tint

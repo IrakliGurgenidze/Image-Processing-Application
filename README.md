@@ -127,7 +127,9 @@ start of any color-transformation-related command.
 Includes methods to accept a user command, and display the status of various method
 executions.
 
-*ImageView (Class)*: 
+*ImageView (Class)*: Implements View. Implements methods to read in a user command, and output a status message.
+Input and output buffers all have a layer of abstraction. In Main, System.in and 
+System.out are used, but within the tests for this class other streams are used.
 
 ### Controller ###
 *CommandController (Interface)*: Contains execute() for all command objects.
