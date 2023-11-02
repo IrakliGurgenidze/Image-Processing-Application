@@ -13,7 +13,7 @@ horizontal-flip mushroom-vertical mushroom-vertical-horizontal
 value-component mushroom mushroom-greyscale
 
 #save mushroom-brighter
-save resources/test_image_results/mushroom-brighter.jpg mushroom-brighter
+save resources/result_images/mushroom-brighter.jpg mushroom-brighter
 
 #save mushroom-greyscale
 save resources/test_image_results/mushroom-greyscale.ppm mushroom-greyscale

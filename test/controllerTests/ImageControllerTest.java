@@ -38,11 +38,6 @@ public class ImageControllerTest {
                 || thisPixel.getGreen() != otherPixel.getGreen()
                 || thisPixel.getBlue() != otherPixel.getBlue()) {
 
-          System.out.println(j + " " + i);
-          System.out.println(thisPixel.getRed() + " " + otherPixel.getRed());
-          System.out.println(thisPixel.getGreen() + " " + otherPixel.getGreen());
-          System.out.println(thisPixel.getBlue() + " " + otherPixel.getBlue());
-
           return false;
         }
       }
@@ -153,7 +148,6 @@ public class ImageControllerTest {
 
     //set file path to resources
     String workingDirectory = setWd();
-    System.out.println(workingDirectory);
 
     //load an image into the database
     String[] loadBase = imageController.parseCommand("load "
@@ -356,7 +350,7 @@ public class ImageControllerTest {
 
 
   /**
-   * Test intensity-component command. //FIXME could still be dysfunctional, i believe the provided file is wrong
+   * Test intensity-component command.
    */
   @Test
   public void testIntensityComponent() {
@@ -389,11 +383,6 @@ public class ImageControllerTest {
             + "manhattan-small-intensity-greyscale.png man-intensity-expected");
     imageController.runCommand(loadExpected);
     assertEquals(3, imageModel.getSize());
-//
-//    Image base = imageModel.getImage("man");
-//    System.out.println(base.getPixel(0, 47).getRed());
-//    System.out.println(base.getPixel(0, 47).getGreen());
-//    System.out.println(base.getPixel(0, 47).getBlue());
 
     //test results
     Image expected = imageModel.getImage("man");
@@ -409,8 +398,6 @@ public class ImageControllerTest {
         assertEquals((int) thisPixel.getIntensity(), otherPixel.getBlue());
       }
     }
-
-//    assertTrue(isEqual(expected, result));
   }
 
 
