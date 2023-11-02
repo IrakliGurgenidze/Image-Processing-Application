@@ -44,7 +44,7 @@ blur mushroom mushroom-blurred
 
 save resources/mushroom_images/mushroom-blurred.jpg mushroom-blurred
 
-sharpen mushroom mushroom-sepia
+sepia mushroom mushroom-sepia
 
 save resources/mushroom_images/mushroom-sepia.jpg mushroom-sepia
 
