@@ -3,16 +3,15 @@ package viewTests;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 import view.ImageView;
+
+import static org.junit.Assert.assertEquals;
 
 public class ImageViewTest {
   private ImageView imageView;
@@ -20,7 +19,7 @@ public class ImageViewTest {
   private InputStream in;
 
   @Before
-  public void setup(){
+  public void setup() {
     out = new ByteArrayOutputStream();
     String inputString = "Testing this line";
     in = new ByteArrayInputStream(inputString.getBytes());
@@ -34,7 +33,7 @@ public class ImageViewTest {
   }
 
   @Test
-  public void testGetInput(){
+  public void testGetInput() {
     assertEquals("Testing this line", imageView.getInput());
   }
 

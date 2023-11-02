@@ -1,23 +1,17 @@
 package controllerTests;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.InputStream;
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 
 import controller.Controller;
 import controller.ImageController;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
-import model.SimpleImage;
-import model.StorageModel;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * This class tests various controller methods.
@@ -104,7 +98,6 @@ public class ImageControllerTest {
   }
 
 
-
   /**
    * Test load command.
    */
@@ -148,7 +141,6 @@ public class ImageControllerTest {
     assertEquals("Unable to locate image at specified path.", response);
     assertEquals(1, imageModel.getSize());
   }
-
 
 
   /**
@@ -197,7 +189,6 @@ public class ImageControllerTest {
   }
 
 
-
   /**
    * Test red-component command.
    */
@@ -237,7 +228,6 @@ public class ImageControllerTest {
     Image result = imageModel.getImage("man-red");
     assertTrue(isEqual(expected, result));
   }
-
 
 
   /**
@@ -359,8 +349,8 @@ public class ImageControllerTest {
         assertEquals(thisPixel.getValue(), otherPixel.getRed());
         assertEquals(thisPixel.getValue(), otherPixel.getGreen());
         assertEquals(thisPixel.getValue(), otherPixel.getBlue());
-        }
       }
+    }
   }
 
 
@@ -815,7 +805,7 @@ public class ImageControllerTest {
     //test results
     Image result = imageModel.getImage("man-brighter");
     for (int i = 0; i < result.getHeight(); i++) {
-      for (int j = 0; j <result.getWidth(); j++) {
+      for (int j = 0; j < result.getWidth(); j++) {
         Pixel thisPixel = result.getPixel(j, i);
 
         //ensure individual channels equal value of base image
@@ -855,7 +845,7 @@ public class ImageControllerTest {
     //test results
     Image result = imageModel.getImage("man-darker");
     for (int i = 0; i < result.getHeight(); i++) {
-      for (int j = 0; j <result.getWidth(); j++) {
+      for (int j = 0; j < result.getWidth(); j++) {
         Pixel thisPixel = result.getPixel(j, i);
 
         //ensure individual channels equal value of base image
@@ -1048,60 +1038,44 @@ public class ImageControllerTest {
   }
 
 
-//  /**
-//   * Test sepia command.
-//   */
-//  @Test
-//  public void testSepia() {
-//    ImageStorageModel imageModel = new ImageStorageModel();
-//    Controller imageController = new ImageController(imageModel);
-//
-//    //set file path to resources
-//    String workingDirectory = setWd();
-//
-//    //load base image
-//    String[] loadBase = imageController.parseCommand("load "
-//            + workingDirectory
-//            + "sample_images"
-//            + File.separator
-//            + "manhattan-small.png man");
-//    imageController.runCommand(loadBase);
-//    assertEquals(1, imageModel.getSize());
-//
-//    //run sepia command
-//    String[] functionCommand = imageController.parseCommand("sepia man man-sepia");
-//    imageController.runCommand(functionCommand);
-//    assertEquals(2, imageModel.getSize());
-//
-//    //load expected image
-//    String[] loadExpected = imageController.parseCommand("load "
-//            + workingDirectory
-//            + "sample_images"
-//            + File.separator + "manhattan-small-sepia.png man-sepia-expected");
-//    imageController.runCommand(loadExpected);
-//    assertEquals(3, imageModel.getSize());
-//
-//    //test results
-//    Image expected = imageModel.getImage("man-sepia-expected");
-//    Image result = imageModel.getImage("man-sepia");
-//    assertTrue(isEqual(expected, result));
-//  }
+  /**
+   * Test sepia command.
+   */
+  @Test
+  public void testSepia() {
+    ImageStorageModel imageModel = new ImageStorageModel();
+    Controller imageController = new ImageController(imageModel);
 
+    //set file path to resources
+    String workingDirectory = setWd();
 
+    //load base image
+    String[] loadBase = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator
+            + "manhattan-small.png man");
+    imageController.runCommand(loadBase);
+    assertEquals(1, imageModel.getSize());
 
+    //run sepia command
+    String[] functionCommand = imageController.parseCommand("sepia man man-sepia");
+    imageController.runCommand(functionCommand);
+    assertEquals(2, imageModel.getSize());
 
+    //load expected image
+    String[] loadExpected = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator + "manhattan-small-sepia.png man-sepia-expected");
+    imageController.runCommand(loadExpected);
+    assertEquals(3, imageModel.getSize());
 
-
-
-
-
-
-
-
-
-
-
-
+    //test results
+    Image expected = imageModel.getImage("man-sepia-expected");
+    Image result = imageModel.getImage("man-sepia");
+    assertTrue(isEqual(expected, result));
+  }
 
 
 }

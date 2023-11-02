@@ -68,9 +68,9 @@ public class LinearColorTransformationCommand implements CommandController {
     int green;
     int blue;
 
-    for (int j = 0; j < width; j++) {
-      for (int i = 0; i < height; i++) {
-        Pixel currPixel = image.getPixel(i, j);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Pixel currPixel = image.getPixel(j, i);
 
         red = (int) (transformation[0][0] * currPixel.getRed()
                 + transformation[0][1] * currPixel.getGreen()

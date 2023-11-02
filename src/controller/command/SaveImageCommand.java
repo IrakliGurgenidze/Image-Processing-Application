@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -32,8 +31,8 @@ public class SaveImageCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      if(args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
-              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))){
+      if (args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
+              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
         return "File path and image name must be enclosed in \"\" if they contain a space.";
       }
       return "Invalid input. Usage: " + getUsage();
@@ -66,7 +65,7 @@ public class SaveImageCommand implements CommandController {
     int width = image.getWidth();
     int height = image.getHeight();
     String[] split = imagePath.split("\\.");
-    if(split.length != 2){
+    if (split.length != 2) {
       throw new IOException("Path does not include file extension.");
     }
     String ext = split[1];
@@ -80,9 +79,9 @@ public class SaveImageCommand implements CommandController {
         bufferedImage.setRGB(j, i, color.getRGB());
       }
     }
-    try{
+    try {
       ImageIO.write(bufferedImage, ext, new File(imagePath));
-    }catch(IOException e){
+    } catch (IOException e) {
       throw new IOException("Path not valid.");
     }
   }

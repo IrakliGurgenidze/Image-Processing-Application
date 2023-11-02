@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * This interface outlines generic methods for the controller of an image editing application.
@@ -22,7 +21,7 @@ public interface Controller {
    * @param args String[], the command and arguments to be run
    * @return String, status of operation
    */
- String runCommand(String[] args);
+  String runCommand(String[] args);
 
   /**
    * Loads and runs the script commands in the given file

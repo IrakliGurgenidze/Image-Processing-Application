@@ -1,7 +1,7 @@
 package controller.command;
 
-import model.ImageStorageModel;
 import model.Image;
+import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 

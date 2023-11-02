@@ -71,14 +71,13 @@ public class ModelTestUtilities {
   /**
    * Helper method to test the results of an image.
    *
-   * @param result double array of expected values for a specific channel
-   * @param img image to be checked
+   * @param result  double array of expected values for a specific channel
+   * @param img     image to be checked
    * @param channel 0 for red, 1 for green, 2 for blue
    */
-  public static void verifyImage(double[][] result, Image img, int channel)
-  {
-    for(int i = 0; i < img.getHeight(); i++) {
-      for(int j = 0; j < img.getWidth(); j++) {
+  public static void verifyImage(double[][] result, Image img, int channel) {
+    for (int i = 0; i < img.getHeight(); i++) {
+      for (int j = 0; j < img.getWidth(); j++) {
         if (channel == 0) {
           assertEquals(result[i][j], img.getPixel(i, j).getRed(), 0.0001);
         } else if (channel == 1) {

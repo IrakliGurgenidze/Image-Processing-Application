@@ -1,7 +1,5 @@
 package controller.command;
 
-import java.io.IOException;
-
 import model.Image;
 import model.ImageStorageModel;
 import model.utilities.ImageUtil;
@@ -26,8 +24,8 @@ public class LoadImageCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      if(args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
-              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))){
+      if (args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
+              || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
         return "File path and image name must be enclosed in \"\" if they contain a space.";
       }
       return "Invalid input. Usage: " + getUsage();

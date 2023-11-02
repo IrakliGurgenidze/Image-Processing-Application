@@ -1,7 +1,6 @@
 import controller.ImageController;
 import model.ImageStorageModel;
 import view.ImageView;
-import java.util.Scanner;
 
 /**
  * Main driver class for this project.
@@ -22,12 +21,12 @@ public class Main {
 
     imageView.displayStatus("Image Processing Application by Rocky and Griffin");
     //run until break detected
-    while(true) {
+    while (true) {
       imageView.displayStatus(">> ");
       String commandLine = imageView.getInput();
       String[] parsedCommand = imageController.parseCommand(commandLine);
       String executionStatus = imageController.runCommand(parsedCommand);
-      if(executionStatus.equals("quit")) {
+      if (executionStatus.equals("quit")) {
         imageView.displayStatus("Quitting program...");
         break;
       }

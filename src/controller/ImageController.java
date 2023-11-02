@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.List;
-import java.util.ArrayList;
 
 import controller.command.BlueComponentCommand;
 import controller.command.BrightenCommand;
@@ -86,7 +86,7 @@ public class ImageController implements Controller {
       try {
         File file = new File(args[1]);
         return run(file);
-      }catch(RuntimeException e){
+      } catch (RuntimeException e) {
         return "Invalid file.";
       }
     } else {

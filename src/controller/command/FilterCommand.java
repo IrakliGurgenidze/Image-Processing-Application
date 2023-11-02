@@ -25,6 +25,7 @@ public class FilterCommand implements CommandController {
     this.filterName = filterName;
     filters = new Filter();
   }
+
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {

@@ -11,10 +11,10 @@ import java.util.Scanner;
  */
 public class ImageView implements View {
   private final OutputStream out;
-  private InputStream in;
-  private Scanner scan;
+  private final InputStream in;
+  private final Scanner scan;
 
-  public ImageView(InputStream in, OutputStream out){
+  public ImageView(InputStream in, OutputStream out) {
     this.in = in;
     this.out = out;
     this.scan = new Scanner(this.in);
@@ -22,14 +22,14 @@ public class ImageView implements View {
 
   @Override
   public void displayStatus(String status) throws IOException {
-    if(!status.equals(">> ")) {
+    if (!status.equals(">> ")) {
       status = status + "\n";
     }
     this.out.write(status.getBytes(StandardCharsets.UTF_8));
   }
 
   @Override
-  public String getInput(){
+  public String getInput() {
     return scan.nextLine();
   }
 }

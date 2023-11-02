@@ -1,16 +1,16 @@
 package modelTests;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.fail;
 
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 /**
  * This class tests the methods and features of ImageStorageModel.

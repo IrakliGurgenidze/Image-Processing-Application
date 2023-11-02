@@ -15,6 +15,7 @@ public interface View {
 
   /**
    * Retrieves user input and sends it to controller to be parsed.
+   *
    * @return String, the line of user input
    */
   String getInput();

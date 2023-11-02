@@ -22,27 +22,27 @@ public class RGBCombineCommand implements CommandController {
     this.imageStorageModel = imageStorageModel;
   }
 
-    @Override
-    public String execute(String[] args) {
-      if (args.length != 5) {
-        return "Invalid input. Usage: " + getUsage();
-      } else {
-        String combinedImageName = args[1];
-        String redImageName = args[2];
-        String greenImageName = args[3];
-        String blueImageName = args[4];
+  @Override
+  public String execute(String[] args) {
+    if (args.length != 5) {
+      return "Invalid input. Usage: " + getUsage();
+    } else {
+      String combinedImageName = args[1];
+      String redImageName = args[2];
+      String greenImageName = args[3];
+      String blueImageName = args[4];
 
-        Image combinedImage = combine(redImageName, greenImageName, blueImageName,
-                combinedImageName);
+      Image combinedImage = combine(redImageName, greenImageName, blueImageName,
+              combinedImageName);
 
-        if (combinedImage != null) {
-          imageStorageModel.insertImage(combinedImage);
-          return "Completed rgb-combine operation.";
-        }
-
-        return "Unable to complete rgb-combine operation.";
+      if (combinedImage != null) {
+        imageStorageModel.insertImage(combinedImage);
+        return "Completed rgb-combine operation.";
       }
+
+      return "Unable to complete rgb-combine operation.";
     }
+  }
 
   @Override
   public String getUsage() {

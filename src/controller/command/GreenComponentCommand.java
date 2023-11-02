@@ -25,7 +25,7 @@ public class GreenComponentCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      return "Invalid input. Usage: "  + getUsage();
+      return "Invalid input. Usage: " + getUsage();
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];

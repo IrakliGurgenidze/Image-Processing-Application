@@ -1,12 +1,11 @@
 package controller.command;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * This command lists all the stored commands and their usages.
  */
-public class HelpCommand implements CommandController{
+public class HelpCommand implements CommandController {
   private final Map<String, CommandController> commands;
 
   public HelpCommand(Map<String, CommandController> commands) {
@@ -17,7 +16,7 @@ public class HelpCommand implements CommandController{
   public String execute(String[] args) {
     StringBuilder helpMessage = new StringBuilder();
     //for each command, get its usage
-    for(CommandController x: commands.values()) {
+    for (CommandController x : commands.values()) {
       helpMessage.append(x.getUsage());
       helpMessage.append("\n\n");
     }
