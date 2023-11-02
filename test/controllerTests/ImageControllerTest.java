@@ -50,7 +50,7 @@ public class ImageControllerTest {
   private String setWd() {
     return System.getProperty("user.dir")
             + File.separator
-            + "test"
+            + "resources"
             + File.separator;
   }
 
@@ -1112,11 +1112,7 @@ public class ImageControllerTest {
     ImageStorageModel imageModel = new ImageStorageModel();
     Controller imageController = new ImageController(imageModel);
     String workingDirectory = setWd();
-    File script = new File(workingDirectory
-            + File.separator
-            + "controllerTests"
-            + File.separator
-            + "testing_script.txt");
+    File script = new File(workingDirectory + "example_script.txt");
     imageController.run(script);
     assertEquals(10, imageModel.getSize());
   }
