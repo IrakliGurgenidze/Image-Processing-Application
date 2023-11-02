@@ -26,7 +26,8 @@ public class LinearColorTransformationCommand implements CommandController {
    * @param imageStorageModel  state of image database
    * @param transformationName name of transformation to be applied
    */
-  public LinearColorTransformationCommand(ImageStorageModel imageStorageModel, String transformationName) {
+  public LinearColorTransformationCommand(ImageStorageModel imageStorageModel,
+                                          String transformationName) {
     this.imageStorageModel = imageStorageModel;
     this.transformationName = transformationName;
     this.transformations = new LinearColorTransformation();
@@ -53,8 +54,8 @@ public class LinearColorTransformationCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "sepia image-name dest-image-name: produce a sepia-toned version of\n " +
-            "the given image and store the result in another image with the given name.";
+    return "sepia image-name dest-image-name: produce a sepia-toned version of\n "
+            + "the given image and store the result in another image with the given name.";
   }
 
   //helper method to compute and return the linear color transformation of an image
@@ -68,9 +69,9 @@ public class LinearColorTransformationCommand implements CommandController {
     int green;
     int blue;
 
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Pixel currPixel = image.getPixel(j, i);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel currPixel = image.getPixel(x, y);
 
         red = (int) (transformation[0][0] * currPixel.getRed()
                 + transformation[0][1] * currPixel.getGreen()
@@ -84,7 +85,7 @@ public class LinearColorTransformationCommand implements CommandController {
                 + transformation[2][1] * currPixel.getGreen()
                 + transformation[2][2] * currPixel.getBlue());
 
-        transformedImage.setPixel(j, i, new Pixel(red, green, blue));
+        transformedImage.setPixel(x, y, new Pixel(red, green, blue));
       }
     }
 

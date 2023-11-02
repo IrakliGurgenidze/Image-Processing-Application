@@ -44,9 +44,9 @@ public class RedComponentCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "red-component image-name dest-image-name: Create an image with the\n " +
-            "red-component of the image with the given name, and refer to it henceforth in\n" +
-            "the program by the given destination name.";
+    return "red-component image-name dest-image-name: Create an image with the\n "
+            + "red-component of the image with the given name, and refer to it henceforth in\n"
+            + "the program by the given destination name.";
   }
 
   //helper function to return the green component of an image
@@ -55,9 +55,9 @@ public class RedComponentCommand implements CommandController {
             source.getHeight(),
             resultImageName);
 
-    for (int i = 0; i < source.getHeight(); i++) {
-      for (int j = 0; j < source.getWidth(); j++) {
-        redImage.setPixel(j, i, new Pixel(source.getPixel(j, i).getRed(), 0, 0));
+    for (int x = 0; x < source.getWidth(); x++) {
+      for (int y = 0; y < source.getHeight(); y++) {
+        redImage.setPixel(x, y, new Pixel(source.getPixel(x, y).getRed(), 0, 0));
       }
     }
     return redImage;

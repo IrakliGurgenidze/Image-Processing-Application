@@ -40,15 +40,16 @@ public class RGBCombineCommand implements CommandController {
         return "Completed rgb-combine operation.";
       }
 
-      return "Unable to complete rgb-combine operation.";
+      return "Unable to complete rgb-combine operation. Please ensure images exist, and have "
+              + "the same dimensions.";
     }
   }
 
   @Override
   public String getUsage() {
-    return "rgb-combine image-name red-image green-image blue-image: Combine the\n " +
-            "three greyscale images into a single image that gets its red, green and\n " +
-            "blue components from the three images respectively.";
+    return "rgb-combine image-name red-image green-image blue-image: Combine the\n "
+            + "three greyscale images into a single image that gets its red, green and\n "
+            + "blue components from the three images respectively.";
   }
 
   //helper method to combine RGB channels from 3 images
@@ -68,13 +69,31 @@ public class RGBCombineCommand implements CommandController {
       System.out.println("Invalid request. Image with name " + blue + " not found.");
       return null;
     }
+
+    //ensure that images have same dimensions
+    int width = redImage.getWidth();
+    if (redImage.getWidth() != width
+            || greenImage.getWidth() != width
+            || blueImage.getWidth() != width) {
+      System.out.println("Invalid request. Images must be of same dimensions.");
+      return null;
+    }
+
+    int height = redImage.getHeight();
+    if (redImage.getHeight() != height
+            || greenImage.getHeight() != height
+            || blueImage.getHeight() != height) {
+      System.out.println("Invalid request. Images must be of same dimensions.");
+      return null;
+    }
+
     Image combinedImage = new SimpleImage(redImage.getWidth(), redImage.getHeight(), combined);
 
-    for (int i = 0; i < redImage.getHeight(); i++) {
-      for (int j = 0; j < redImage.getWidth(); j++) {
-        Pixel currRedPixel = redImage.getPixel(j, i);
-        Pixel currGreenPixel = greenImage.getPixel(j, i);
-        Pixel currBluePixel = blueImage.getPixel(j, i);
+    for (int x = 0; x < redImage.getWidth(); x++) {
+      for (int y = 0; y < redImage.getHeight(); y++) {
+        Pixel currRedPixel = redImage.getPixel(x, y);
+        Pixel currGreenPixel = greenImage.getPixel(x, y);
+        Pixel currBluePixel = blueImage.getPixel(x, y);
 
         int redComp = currRedPixel.getRed();
         int greenComp = currGreenPixel.getGreen();
@@ -82,7 +101,7 @@ public class RGBCombineCommand implements CommandController {
 
         Pixel combinedPixel = new Pixel(redComp, greenComp, blueComp);
 
-        combinedImage.setPixel(j, i, combinedPixel);
+        combinedImage.setPixel(x, y, combinedPixel);
       }
     }
     return combinedImage;

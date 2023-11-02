@@ -38,8 +38,8 @@ public class HorizontalFlipCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "horizontal-flip image-name dest-image-name: Flip an image horizontally\n " +
-            "to create a new image, referred to henceforth by the given destination name.";
+    return "horizontal-flip image-name dest-image-name: Flip an image horizontally\n "
+            + "to create a new image, referred to henceforth by the given destination name.";
   }
 
   //helper method to return the horizontally flipped image
@@ -48,14 +48,14 @@ public class HorizontalFlipCommand implements CommandController {
     int width = source.getWidth();
 
     Image newImage = new SimpleImage(width, height, resultImageName);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Pixel currPixel = source.getPixel(j, i);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel currPixel = source.getPixel(x, y);
 
         //horizontal flip -> new x coordinate
-        int flippedX = width - j - 1;
+        int flippedX = width - x - 1;
 
-        newImage.setPixel(flippedX, i, currPixel);
+        newImage.setPixel(flippedX, y, currPixel);
       }
     }
     return newImage;

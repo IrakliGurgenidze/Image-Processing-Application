@@ -959,6 +959,48 @@ public class ImageControllerTest {
 
 
   /**
+   * Test rgb-combine command, invalid image sizes.
+   */
+  @Test
+  public void testRGBCombineInvalid() {
+    ImageStorageModel imageModel = new ImageStorageModel();
+    Controller imageController = new ImageController(imageModel);
+
+    //set file path to resources
+    String workingDirectory = setWd();
+
+    //load base image
+    String[] loadBase = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator
+            + "manhattan-small.png man");
+    imageController.runCommand(loadBase);
+    assertEquals(1, imageModel.getSize());
+
+    //run rgb-split command
+    String[] functionCommand = imageController.parseCommand("rgb-split man red green blue");
+    imageController.runCommand(functionCommand);
+    assertEquals(4, imageModel.getSize());
+
+    //load different image
+    String[] loadCropped = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator
+            + "manhattan-small-cropped.png crop");
+    imageController.runCommand(loadCropped);
+    assertEquals(5, imageModel.getSize());
+
+
+    //run rgb-combine command
+    functionCommand = imageController.parseCommand("rgb-combine combine-result red green crop");
+    assertEquals("Unable to complete rgb-combine operation. Please ensure images exist, "
+                    + "and have the same dimensions.", imageController.runCommand(functionCommand));
+  }
+
+
+  /**
    * Test blur command.
    */
   @Test

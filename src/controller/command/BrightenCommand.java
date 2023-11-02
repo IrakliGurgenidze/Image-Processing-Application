@@ -46,31 +46,31 @@ public class BrightenCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "brighten increment image-name dest-image-name: brighten the image by the given \n" +
-            "increment to create a new image, referred to henceforth by the given destination\n " +
-            "name. The increment may be positive (brightening) or negative (darkening).";
+    return "brighten increment image-name dest-image-name: brighten the image by the given \n"
+            + "increment to create a new image, referred to henceforth by the given destination\n "
+            + "name. The increment may be positive (brightening) or negative (darkening).";
   }
 
   //helper function to compute and return a brightened image
-  private Image brighten(int increment, Image image, String destImageName) {
-    int height = image.getHeight();
-    int width = image.getWidth();
+  private Image brighten(int increment, Image source, String resultImageName) {
+    int height = source.getHeight();
+    int width = source.getWidth();
 
-    Image brightenedImage = new SimpleImage(width, height, destImageName);
+    Image brightenedImage = new SimpleImage(width, height, resultImageName);
 
     int red;
     int green;
     int blue;
 
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Pixel currPixel = image.getPixel(j, i);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel currPixel = source.getPixel(x, y);
 
         red = currPixel.getRed() + increment;
         green = currPixel.getGreen() + increment;
         blue = currPixel.getBlue() + increment;
 
-        brightenedImage.setPixel(j, i, new Pixel(red, green, blue));
+        brightenedImage.setPixel(x, y, new Pixel(red, green, blue));
       }
     }
 

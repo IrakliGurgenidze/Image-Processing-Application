@@ -56,8 +56,8 @@ public class SaveImageCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "save image-path image-name: Save the image with the given name to the\n " +
-            "specified path which should include the name of the file.";
+    return "save image-path image-name: Save the image with the given name to the\n "
+            + "specified path which should include the name of the file.";
   }
 
   //helper method to save an image to a specified path location
@@ -72,11 +72,12 @@ public class SaveImageCommand implements CommandController {
 
     BufferedImage bufferedImage = new BufferedImage(width, height, 1);
 
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Pixel pixel = image.getPixel(j, i);
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel pixel = image.getPixel(x, y);
         Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
-        bufferedImage.setRGB(j, i, color.getRGB());
+        bufferedImage.setRGB(x, y, color.getRGB());
       }
     }
     try {

@@ -44,8 +44,8 @@ public class LoadImageCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "load image-path image-name: Load an image from the specified path and refer\n " +
-            "to it henceforth in the program by the given image name.";
+    return "load image-path image-name: Load an image from the specified path and refer\n "
+            + "to it henceforth in the program by the given image name.";
   }
 
   //helper method to read an image from a file

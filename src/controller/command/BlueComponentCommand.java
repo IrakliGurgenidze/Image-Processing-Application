@@ -44,9 +44,9 @@ public class BlueComponentCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "blue-component image-name dest-image-name: Create an image with the\n " +
-            "blue-component of the image with the given name, and refer to it henceforth in\n" +
-            "the program by the given destination name.";
+    return "blue-component image-name dest-image-name: Create an image with the\n "
+            + "blue-component of the image with the given name, and refer to it henceforth in\n"
+            + "the program by the given destination name.";
   }
 
   //helper method to return the blue component of an image
@@ -55,11 +55,12 @@ public class BlueComponentCommand implements CommandController {
             source.getHeight(),
             resultImageName);
 
-    for (int i = 0; i < source.getHeight(); i++) {
-      for (int j = 0; j < source.getWidth(); j++) {
-        blueImage.setPixel(j, i, new Pixel(0, 0,
-                source.getPixel(j, i).getBlue()));
+    for (int x = 0; x < source.getWidth(); x++) {
+      for (int y = 0; y < source.getHeight(); y++) {
+        blueImage.setPixel(x, y, new Pixel(0, 0,
+                source.getPixel(x, y).getBlue()));
       }
+
     }
     return blueImage;
   }

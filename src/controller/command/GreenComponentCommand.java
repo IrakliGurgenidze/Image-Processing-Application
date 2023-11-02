@@ -44,9 +44,9 @@ public class GreenComponentCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "green-component image-name dest-image-name: Create an image with the\n " +
-            "green-component of the image with the given name, and refer to it henceforth in\n" +
-            "the program by the given destination name.";
+    return "green-component image-name dest-image-name: Create an image with the\n "
+            + "green-component of the image with the given name, and refer to it henceforth in\n"
+            + "the program by the given destination name.";
   }
 
   //helper function to return the green component of an image
@@ -55,9 +55,9 @@ public class GreenComponentCommand implements CommandController {
             source.getHeight(),
             resultImageName);
 
-    for (int i = 0; i < source.getHeight(); i++) {
-      for (int j = 0; j < source.getWidth(); j++) {
-        greenImage.setPixel(j, i, new Pixel(0, source.getPixel(j, i).getGreen(), 0));
+    for (int x = 0; x < source.getWidth(); x++) {
+      for (int y = 0; y < source.getHeight(); y++) {
+        greenImage.setPixel(x, y, new Pixel(0, source.getPixel(x, y).getGreen(), 0));
       }
     }
     return greenImage;

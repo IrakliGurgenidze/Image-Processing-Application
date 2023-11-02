@@ -37,14 +37,14 @@ public class ImageUtil {
     int blue;
 
     SimpleImage simpleImage = new SimpleImage(width, height, imageName);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Color color = new Color(bufferedImage.getRGB(j, i));
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Color color = new Color(bufferedImage.getRGB(x, y));
         red = color.getRed();
         green = color.getGreen();
         blue = color.getBlue();
         Pixel pixel = new Pixel(red, green, blue);
-        simpleImage.setPixel(j, i, pixel);
+        simpleImage.setPixel(x, y, pixel);
       }
     }
 
@@ -91,13 +91,13 @@ public class ImageUtil {
 
     SimpleImage simpleImage = new SimpleImage(width, height, imageName);
 
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
         Pixel pixel = new Pixel(r, g, b);
-        simpleImage.setPixel(j, i, pixel);
+        simpleImage.setPixel(x, y, pixel);
       }
     }
 

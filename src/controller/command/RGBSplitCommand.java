@@ -3,7 +3,7 @@ package controller.command;
 import model.ImageStorageModel;
 
 /**
- * This command stores the each RGB channel in an image seperately.
+ * This command stores each RGB channel in an image separately.
  */
 public class RGBSplitCommand implements CommandController {
 
@@ -39,11 +39,11 @@ public class RGBSplitCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "rgb-split image-name dest-image-name-red dest-image-name-green\n " +
-            "dest-image-name-blue: split the given image into three images containing\n" +
-            " its red, green and blue components respectively. These would be the same\n " +
-            "images that would be individually produced with the red-component,\n " +
-            "green-component and blue-component commands.";
+    return "rgb-split image-name dest-image-name-red dest-image-name-green\n "
+            + "dest-image-name-blue: split the given image into three images containing\n"
+            + " its red, green and blue components respectively. These would be the same\n "
+            + "images that would be individually produced with the red-component,\n "
+            + "green-component and blue-component commands.";
   }
 
   //store red channel
