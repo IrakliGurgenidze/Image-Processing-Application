@@ -1120,5 +1120,16 @@ public class ImageControllerTest {
     assertTrue(isEqual(expected, result));
   }
 
+  @Test
+  public void testRun(){
+    ImageStorageModel imageModel = new ImageStorageModel();
+    Controller imageController = new ImageController(imageModel);
+
+    File script = new File("/Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/example_script.txt");
+
+    imageController.run(script);
+    assertEquals(10, imageModel.getSize());
+  }
+
 
 }

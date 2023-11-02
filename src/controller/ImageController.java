@@ -103,9 +103,14 @@ public class ImageController implements Controller {
   public String run(File scriptFile) {
     try (BufferedReader br = new BufferedReader(new FileReader(scriptFile))) {
       String line;
-      while ((line = br.readLine()) != null && !line.startsWith("#")) {
+      while ((line = br.readLine()) != null) {
+        if(line.startsWith("#")){
+          continue;
+        }
         String[] args = parseCommand(line);
-        runCommand(args);
+        if(args.length > 0){
+          runCommand(args);
+        }
       }
     } catch (IOException e) {
       return "Invalid script file.";

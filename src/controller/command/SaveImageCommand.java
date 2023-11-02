@@ -48,7 +48,16 @@ public class SaveImageCommand implements CommandController {
         return "Image with name " + imageName + " not found.";
       } else {
         try {
-          saveImage(image, imagePath);
+          String[] split = imagePath.split("\\.");
+          if (split.length != 2) {
+            throw new IOException("Path does not include file extension.");
+          }
+          String ext = split[1];
+          if(ext.equals("ppm")){
+
+          }else{
+            saveImage(image, imagePath);
+          }
           return "Image saved to specified path.";
         } catch (IOException e) {
           return e.getMessage();
@@ -68,9 +77,6 @@ public class SaveImageCommand implements CommandController {
     int width = image.getWidth();
     int height = image.getHeight();
     String[] split = imagePath.split("\\.");
-    if (split.length != 2) {
-      throw new IOException("Path does not include file extension.");
-    }
     String ext = split[1];
 
     BufferedImage bufferedImage = new BufferedImage(width, height, 1);
