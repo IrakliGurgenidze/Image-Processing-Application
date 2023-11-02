@@ -1124,12 +1124,8 @@ public class ImageControllerTest {
   public void testRun(){
     ImageStorageModel imageModel = new ImageStorageModel();
     Controller imageController = new ImageController(imageModel);
-
-    //set file path to resources
     String workingDirectory = setWd();
-
     File script = new File(workingDirectory + "example_script.txt");
-
     imageController.run(script);
     assertEquals(10, imageModel.getSize());
   }

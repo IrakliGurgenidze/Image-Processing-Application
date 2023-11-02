@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 
@@ -48,16 +49,7 @@ public class SaveImageCommand implements CommandController {
         return "Image with name " + imageName + " not found.";
       } else {
         try {
-          String[] split = imagePath.split("\\.");
-          if (split.length != 2) {
-            throw new IOException("Path does not include file extension.");
-          }
-          String ext = split[1];
-          if(ext.equals("ppm")){
-
-          }else{
-            saveImage(image, imagePath);
-          }
+          saveImage(image, imagePath);
           return "Image saved to specified path.";
         } catch (IOException e) {
           return e.getMessage();
@@ -77,35 +69,59 @@ public class SaveImageCommand implements CommandController {
     int width = image.getWidth();
     int height = image.getHeight();
     String[] split = imagePath.split("\\.");
-    String ext = split[1];
-
-    BufferedImage bufferedImage = new BufferedImage(width, height, 1);
-
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        Pixel pixel = image.getPixel(x, y);
-        Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
-        bufferedImage.setRGB(x, y, color.getRGB());
-      }
+    if (split.length != 2) {
+      throw new IOException("Path does not include file extension.");
     }
+    String ext = split[1];
 
     File outFile = new File(imagePath);
     File outDir = outFile.getParentFile();
 
-    if(outDir != null) {
+    if (outDir != null) {
       try {
         Files.createDirectories(outDir.toPath());
-      }catch (IOException e) {
+      } catch (IOException e) {
         throw new IOException("Failed to create directory.");
       }
     }
 
-    try {
-      ImageIO.write(bufferedImage, ext, outFile);
-      bufferedImage.flush();
-    } catch (IOException e) {
-      throw new IOException("Path not valid.");
+    if (ext.equals("ppm")) {
+      try(PrintWriter ppmWriter = new PrintWriter(imagePath)) {
+        ppmWriter.println("P3");
+        ppmWriter.println(width + " " + height);
+        ppmWriter.println("255");
+
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            Pixel pixel = image.getPixel(j, i);
+            int red = pixel.getRed();
+            int green = pixel.getGreen();
+            int blue = pixel.getBlue();
+            ppmWriter.println(red + " " + green + " " + blue);
+          }
+        }
+      } catch (IOException e) {
+        throw new IOException("Failed to save PPM.");
+      }
+    } else {
+      BufferedImage bufferedImage = new BufferedImage(width, height, 1);
+
+
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          Pixel pixel = image.getPixel(x, y);
+          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+          bufferedImage.setRGB(x, y, color.getRGB());
+        }
+      }
+
+
+      try {
+        ImageIO.write(bufferedImage, ext, outFile);
+        bufferedImage.flush();
+      } catch (IOException e) {
+        throw new IOException("Path not valid.");
+      }
     }
   }
 }

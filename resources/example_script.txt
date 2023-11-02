@@ -1,4 +1,4 @@
-load /Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/mushrooms.jpg mushroom
+load resources/mushrooms.jpg mushroom
 
 #brighten mushroom by adding 10
 brighten 10 mushroom mushroom-brighter
@@ -13,13 +13,13 @@ horizontal-flip mushroom-vertical mushroom-vertical-horizontal
 value-component mushroom mushroom-greyscale
 
 #save mushroom-brighter
-save /Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/test_image_results/mushroom-brighter.jpg mushroom-brighter
+save resources/test_image_results/mushroom-brighter.jpg mushroom-brighter
 
 #save mushroom-greyscale
-save /Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/test_image_results/mushroom-greyscale.ppm mushroom-greyscale
+save resources/test_image_results/mushroom-greyscale.ppm mushroom-greyscale
 
 #overwrite mushroom with another file
-load /Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/mushrooms.jpg mushroom
+load resources/mushrooms.jpg mushroom
 
 #give the mushroom a red tint
 rgb-split mushroom mushroom-red mushroom-green mushroom-blue
@@ -30,4 +30,4 @@ brighten 50 mushroom-red mushroom-red-brighter
 #combine them back, but by using the brightened red we get a red tint
 rgb-combine mushroom-red-tint mushroom-red-brighter mushroom-green mushroom-blue
 
-save /Users/griffinravo/IdeaProjects/pdp_assignment_4/resources/test_image_results/mushroom-red-tint.png mushroom-red-tint
+save resources/test_image_results/mushroom-red-tint.png mushroom-red-tint
