@@ -50,7 +50,7 @@ public class HorizontalFlipCommand implements CommandController {
     Image newImage = new SimpleImage(width, height, destImageName);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Pixel currPixel = image.getPixel(i, j);
+        Pixel currPixel = image.getPixel(j, i);
 
         //horizontal flip -> new x coordinate
         int flippedX = width - i - 1;

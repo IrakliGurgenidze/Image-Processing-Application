@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ArrayList;
 
 import controller.command.BlueComponentCommand;
 import controller.command.BrightenCommand;
@@ -18,6 +22,7 @@ import controller.command.IntensityComponentCommand;
 import controller.command.LinearColorTransformationCommand;
 import controller.command.LoadImageCommand;
 import controller.command.LumaComponentCommand;
+import controller.command.QuitCommand;
 import controller.command.RGBCombineCommand;
 import controller.command.RGBSplitCommand;
 import controller.command.RedComponentCommand;
@@ -30,13 +35,16 @@ public class ImageController implements Controller {
   private final ImageStorageModel imageStore;
   private final Map<String, CommandController> commands = new HashMap<>();
 
+
   public ImageController(ImageStorageModel imageStore) {
     this.imageStore = imageStore;
+
     commands.put("load", new LoadImageCommand(imageStore));
     commands.put("save", new SaveImageCommand(imageStore));
     commands.put("blur", new FilterCommand(imageStore, "blur"));
     commands.put("sharpen", new FilterCommand(imageStore, "sharpen"));
-    commands.put("sepia", new LinearColorTransformationCommand(imageStore, "sepia"));
+    commands.put("sepia", new LinearColorTransformationCommand(imageStore,
+            "sepia"));
     commands.put("brighten", new BrightenCommand(imageStore));
     commands.put("value-component", new ValueComponentCommand(imageStore));
     commands.put("intensity-component", new IntensityComponentCommand(imageStore));
@@ -49,28 +57,50 @@ public class ImageController implements Controller {
     commands.put("rgb-split", new RGBSplitCommand(imageStore));
     commands.put("rgb-combine", new RGBCombineCommand(imageStore));
     commands.put("help", new HelpCommand(commands));
+    commands.put("quit", new QuitCommand());
   }
 
   @Override
   public String[] parseCommand(String command) {
-    return command.split(" ");
+    // Define a regular expression to split by spaces outside of double quotes
+    Pattern pattern = Pattern.compile("([^\"]\\S*|\".+?\")\\s*");
+    Matcher matcher = pattern.matcher(command);
+
+    // Create a list to store the arguments
+    List<String> arguments = new ArrayList<>();
+
+    while (matcher.find()) {
+      String arg = matcher.group(1);
+      // Remove double quotes if present
+      if (arg.startsWith("\"") && arg.endsWith("\"")) {
+        arg = arg.substring(1, arg.length() - 1);
+      }
+      arguments.add(arg);
+    }
+
+    return arguments.toArray(new String[0]);
   }
 
-  public void runCommand(String[] args) throws IOException {
+  public String runCommand(String[] args) {
     if (args[0].equals("run")) {
-      run(new File(args[1]));
+      try {
+        File file = new File(args[1]);
+        return run(file);
+      }catch(RuntimeException e){
+        return "Invalid file.";
+      }
     } else {
-      try{
-        CommandController command = commands.get(args[0]);
-        command.execute(args);
-      } catch(Exception e){
-        System.out.println("Invalid command.");
+      CommandController command = commands.get(args[0]);
+      if (command == null) {
+        return "Invalid command.";
+      } else {
+        return command.execute(args);
       }
     }
   }
 
   @Override
-  public void run(File scriptFile) {
+  public String run(File scriptFile) {
     try (BufferedReader br = new BufferedReader(new FileReader(scriptFile))) {
       String line;
       while ((line = br.readLine()) != null && !line.startsWith("#")) {
@@ -78,8 +108,9 @@ public class ImageController implements Controller {
         runCommand(args);
       }
     } catch (IOException e) {
-      System.out.println("Invalid script file.");
+      return "Invalid script file.";
     }
+    return "Running file " + scriptFile.getName() + "...";
   }
 
 }

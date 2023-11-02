@@ -64,13 +64,13 @@ public class BrightenCommand implements CommandController {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Pixel currPixel = image.getPixel(i, j);
+        Pixel currPixel = image.getPixel(j, i);
 
         red = currPixel.getRed() + increment;
         green = currPixel.getGreen() + increment;
         blue = currPixel.getBlue() + increment;
 
-        brightenedImage.setPixel(i, j, new Pixel(red, green, blue));
+        brightenedImage.setPixel(j, i, new Pixel(red, green, blue));
       }
     }
 

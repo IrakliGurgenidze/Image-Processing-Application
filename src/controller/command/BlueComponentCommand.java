@@ -57,8 +57,8 @@ public class BlueComponentCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        blueImage.setPixel(i, j, new Pixel(0, 0,
-                source.getPixel(i, j).getBlue()));
+        blueImage.setPixel(j, i, new Pixel(0, 0,
+                source.getPixel(j, i).getBlue()));
       }
     }
     return blueImage;

@@ -58,9 +58,9 @@ public class ValueComponentCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        Pixel currPixel = source.getPixel(i, j);
+        Pixel currPixel = source.getPixel(j, i);
 
-        valueImage.setPixel(i, j, new Pixel(currPixel.getValue()));
+        valueImage.setPixel(j, i, new Pixel(currPixel.getValue()));
       }
     }
     return valueImage;

@@ -57,9 +57,9 @@ public class LumaComponentCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        Pixel currPixel = source.getPixel(i, j);
+        Pixel currPixel = source.getPixel(j, i);
 
-        lumaImage.setPixel(i, j, new Pixel((int) currPixel.getLuma()));
+        lumaImage.setPixel(j, i, new Pixel((int) currPixel.getLuma()));
       }
     }
     return lumaImage;

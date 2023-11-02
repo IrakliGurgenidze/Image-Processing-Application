@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -64,7 +65,11 @@ public class SaveImageCommand implements CommandController {
   private void saveImage(Image image, String imagePath) throws IOException {
     int width = image.getWidth();
     int height = image.getHeight();
-    String ext = imagePath.split("\\.")[1];
+    String[] split = imagePath.split("\\.");
+    if(split.length != 2){
+      throw new IOException("Path does not include file extension.");
+    }
+    String ext = split[1];
 
     BufferedImage bufferedImage = new BufferedImage(width, height, 1);
 
@@ -75,6 +80,11 @@ public class SaveImageCommand implements CommandController {
         bufferedImage.setRGB(j, i, color.getRGB());
       }
     }
-    ImageIO.write(bufferedImage, ext, new File(imagePath));
+    try{
+      ImageIO.write(bufferedImage, ext, new File(imagePath));
+      new FileOutputStream(imagePath).getChannel().force(true);
+    }catch(IOException e){
+      throw new IOException("Path not valid.");
+    }
   }
 }

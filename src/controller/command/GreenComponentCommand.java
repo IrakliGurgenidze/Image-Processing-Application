@@ -57,7 +57,7 @@ public class GreenComponentCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        greenImage.setPixel(i, j, new Pixel(0, source.getPixel(i, j).getGreen(), 0));
+        greenImage.setPixel(j, i, new Pixel(0, source.getPixel(j, i).getGreen(), 0));
       }
     }
     return greenImage;

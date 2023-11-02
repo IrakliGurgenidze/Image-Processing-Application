@@ -72,9 +72,9 @@ public class RGBCombineCommand implements CommandController {
 
     for (int i = 0; i < redImage.getHeight(); i++) {
       for (int j = 0; j < redImage.getWidth(); j++) {
-        Pixel currRedPixel = redImage.getPixel(i, j);
-        Pixel currGreenPixel = greenImage.getPixel(i, j);
-        Pixel currBluePixel = blueImage.getPixel(i, j);
+        Pixel currRedPixel = redImage.getPixel(j, i);
+        Pixel currGreenPixel = greenImage.getPixel(j, i);
+        Pixel currBluePixel = blueImage.getPixel(j, i);
 
         int redComp = currRedPixel.getRed();
         int greenComp = currGreenPixel.getGreen();
@@ -82,7 +82,7 @@ public class RGBCombineCommand implements CommandController {
 
         Pixel combinedPixel = new Pixel(redComp, greenComp, blueComp);
 
-        combinedImage.setPixel(i, j, combinedPixel);
+        combinedImage.setPixel(j, i, combinedPixel);
       }
     }
     return combinedImage;

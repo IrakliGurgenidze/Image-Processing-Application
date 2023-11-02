@@ -3,6 +3,9 @@ package controller.command;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This command lists all the stored commands and their usages.
+ */
 public class HelpCommand implements CommandController{
   private final Map<String, CommandController> commands;
 

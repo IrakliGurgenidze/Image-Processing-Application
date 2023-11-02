@@ -29,7 +29,7 @@ public interface Controller {
    *
    * @param scriptFile File, the file to be loaded
    */
-  void run(File scriptFile);
+  String run(File scriptFile);
 
 
 }

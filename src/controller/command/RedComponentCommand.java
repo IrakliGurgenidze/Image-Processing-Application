@@ -57,7 +57,7 @@ public class RedComponentCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        redImage.setPixel(i, j, new Pixel(source.getPixel(i, j).getRed(), 0, 0));
+        redImage.setPixel(j, i, new Pixel(source.getPixel(j, i).getRed(), 0, 0));
       }
     }
     return redImage;

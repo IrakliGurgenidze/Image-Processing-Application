@@ -54,7 +54,7 @@ public class VerticalFlipCommand implements CommandController {
 
     for (int i = 0; i < source.getHeight(); i++) {
       for (int j = 0; j < source.getWidth(); j++) {
-        Pixel currPixel = source.getPixel(i, j);
+        Pixel currPixel = source.getPixel(j, i);
         int flippedI = source.getHeight() - i - 1;
 
         verticalFlipImage.setPixel(flippedI, j, currPixel);

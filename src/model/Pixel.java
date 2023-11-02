@@ -37,7 +37,6 @@ public class Pixel {
   }
 
   //helper function to clamp a pixel value within 0-255
-  //FIXME may need to change clamp values based on image filetype
   private int clamp(int value, int min, int max) {
     if (value < min) {
       return min;
