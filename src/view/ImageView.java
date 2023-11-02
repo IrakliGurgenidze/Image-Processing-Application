@@ -11,7 +11,6 @@ import java.util.Scanner;
  */
 public class ImageView implements View {
   private final OutputStream out;
-  private final InputStream in;
   private final Scanner scan;
 
   public ImageView(InputStream in, OutputStream out) {
