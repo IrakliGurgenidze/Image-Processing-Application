@@ -16,8 +16,6 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
-    Scanner sc = new Scanner(System.in);
-
     ImageStorageModel imageStorageModel = new ImageStorageModel();
     ImageController imageController = new ImageController(imageStorageModel);
     ImageView imageView = new ImageView(System.in, System.out);
