@@ -16,7 +16,7 @@ value-component mushroom mushroom-greyscale
 save resources/result_images/mushroom-brighter.jpg mushroom-brighter
 
 #save mushroom-greyscale
-save resources/test_image_results/mushroom-greyscale.ppm mushroom-greyscale
+save resources/result_images/mushroom-greyscale.ppm mushroom-greyscale
 
 #overwrite mushroom with another file
 load resources/mushrooms.jpg mushroom
@@ -30,4 +30,4 @@ brighten 50 mushroom-red mushroom-red-brighter
 #combine them back, but by using the brightened red we get a red tint
 rgb-combine mushroom-red-tint mushroom-red-brighter mushroom-green mushroom-blue
 
-save resources/test_image_results/mushroom-red-tint.png mushroom-red-tint
+save resources/result_images/mushroom-red-tint.png mushroom-red-tint
