@@ -6,6 +6,13 @@ package model;
 public interface Image {
 
   /**
+   * Returns the image body as an array of pixels.
+   *
+   * @return Pixel[][], the image body
+   */
+  Pixel[][] getImageBody();
+
+  /**
    * Returns the width of the image by number of pixels.
    *
    * @return int, width of image

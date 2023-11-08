@@ -5,6 +5,8 @@ import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 
+import java.io.FileNotFoundException;
+
 /**
  * This command brightens or darkens an image based on given increment.
  */

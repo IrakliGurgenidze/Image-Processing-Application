@@ -20,8 +20,9 @@ public interface Controller {
    *
    * @param args String[], the command and arguments to be run
    * @return String, status of operation
+   * @throws IllegalArgumentException if command cannot be run due to mis-input
    */
-  String runCommand(String[] args);
+  String runCommand(String[] args) throws IllegalArgumentException;
 
   /**
    * Loads and runs the script commands in the given file.

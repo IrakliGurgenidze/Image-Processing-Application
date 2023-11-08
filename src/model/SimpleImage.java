@@ -34,6 +34,10 @@ public class SimpleImage implements Image {
     this.imageBody = new Pixel[height][width];
   }
 
+  public Pixel[][] getImageBody(){
+    return imageBody;
+  }
+
   @Override
   public int getWidth() {
     return width;

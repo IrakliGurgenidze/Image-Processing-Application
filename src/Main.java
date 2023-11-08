@@ -24,8 +24,16 @@ public class Main {
     while (true) {
       imageView.displayStatus(">> ");
       String commandLine = imageView.getInput();
+
       String[] parsedCommand = imageController.parseCommand(commandLine);
-      String executionStatus = imageController.runCommand(parsedCommand);
+      String executionStatus;
+
+      try {
+        executionStatus = imageController.runCommand(parsedCommand);
+      }catch(IllegalArgumentException e){
+        executionStatus = e.getMessage();
+      }
+
       if (executionStatus.equals("quit")) {
         imageView.displayStatus("Quitting program...");
         break;

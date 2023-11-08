@@ -11,24 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import controller.command.BlueComponentCommand;
-import controller.command.BrightenCommand;
-import controller.command.CommandController;
-import controller.command.FilterCommand;
-import controller.command.GreenComponentCommand;
-import controller.command.HelpCommand;
-import controller.command.HorizontalFlipCommand;
-import controller.command.IntensityComponentCommand;
-import controller.command.LinearColorTransformationCommand;
-import controller.command.LoadImageCommand;
-import controller.command.LumaComponentCommand;
-import controller.command.QuitCommand;
-import controller.command.RGBCombineCommand;
-import controller.command.RGBSplitCommand;
-import controller.command.RedComponentCommand;
-import controller.command.SaveImageCommand;
-import controller.command.ValueComponentCommand;
-import controller.command.VerticalFlipCommand;
+import controller.command.*;
 import model.ImageStorageModel;
 
 /**
@@ -62,6 +45,7 @@ public class ImageController implements Controller {
     commands.put("vertical-flip", new VerticalFlipCommand(imageStore));
     commands.put("rgb-split", new RGBSplitCommand(imageStore));
     commands.put("rgb-combine", new RGBCombineCommand(imageStore));
+    commands.put("compress", new CompressCommand(imageStore));
     commands.put("help", new HelpCommand(commands));
     commands.put("quit", new QuitCommand());
   }
@@ -88,22 +72,21 @@ public class ImageController implements Controller {
   }
 
   @Override
-  public String runCommand(String[] args) {
+  public String runCommand(String[] args) throws IllegalArgumentException {
     if (args[0].equals("run")) {
       try {
         File file = new File(args[1]);
         return run(file);
       } catch (RuntimeException e) {
-        return "Invalid file.";
-      }
-    } else {
-      CommandController command = commands.get(args[0]);
-      if (command == null) {
-        return "Invalid command.";
-      } else {
-        return command.execute(args);
+        throw new IllegalArgumentException("Invalid file.");
       }
     }
+
+    CommandController command = commands.get(args[0]);
+    if (command == null) {
+      throw new IllegalArgumentException("Invalid command.");
+    }
+    return command.execute(args);
   }
 
   @Override

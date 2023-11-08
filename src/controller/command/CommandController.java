@@ -9,8 +9,9 @@ public interface CommandController {
    *
    * @param args String[], the arguments necessary to execute the given command
    * @return String, status of command execution
+   * @throws IllegalArgumentException, if command cannot run due to mis-input
    */
-  String execute(String[] args);
+  String execute(String[] args) throws IllegalArgumentException;
 
   /**
    * Gets the usage for the command.
