@@ -25,22 +25,26 @@ public class BrightenCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 4) {
-      return "Invalid input. Usage: " + getUsage();
-    } else {
+      throw new IllegalArgumentException("Invalid input, looking for 4 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
+    }
+
+    else {
       try {
         int increment = Integer.parseInt(args[1]);
         String sourceImageName = args[2];
         String destImageName = args[3];
         Image sourceImage = imageStorageModel.getImage(sourceImageName);
         if (sourceImage == null) {
-          return "Invalid request. Image with name + " + sourceImageName
-                  + "not found.";
+          throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
+                  + "not found.");
         } else {
           Image destImage = brighten(increment, sourceImage, destImageName);
           imageStorageModel.insertImage(destImage);
         }
       } catch (NumberFormatException e) {
-        return "Invalid increment.";
+        throw new IllegalArgumentException("Brightening increment invalid. "
+                + "Please enter an integer.");
       }
       return "Completed brighten operation.";
     }

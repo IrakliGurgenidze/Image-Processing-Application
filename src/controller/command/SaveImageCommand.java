@@ -37,14 +37,15 @@ public class SaveImageCommand implements CommandController {
               || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
         return "File path and image name must be enclosed in \"\" if they contain a space.";
       }
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     } else {
       String imagePath = args[1];
       String imageName = args[2];
 
       Image image = imageStorageModel.getImage(imageName);
       if (image == null) {
-        return "Image with name " + imageName + " not found.";
+        throw new IllegalArgumentException("Image with name " + imageName + " not found.");
       } else {
         try {
           saveImage(image, imagePath);

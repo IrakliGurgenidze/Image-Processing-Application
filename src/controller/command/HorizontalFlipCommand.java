@@ -25,7 +25,8 @@ public class HorizontalFlipCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String destImageName = args[2];

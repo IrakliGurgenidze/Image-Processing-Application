@@ -18,8 +18,8 @@ public class Main {
     ImageStorageModel imageStorageModel = new ImageStorageModel();
     ImageController imageController = new ImageController(imageStorageModel);
     ImageView imageView = new ImageView(System.in, System.out);
-
     imageView.displayStatus("Image Processing Application by Rocky and Griffin");
+
     //run until break detected
     while (true) {
       imageView.displayStatus(">> ");
@@ -28,16 +28,19 @@ public class Main {
       String[] parsedCommand = imageController.parseCommand(commandLine);
       String executionStatus;
 
+      //run command but catch exceptions
       try {
         executionStatus = imageController.runCommand(parsedCommand);
-      }catch(IllegalArgumentException e){
+      } catch(Exception e){
         executionStatus = e.getMessage();
       }
 
+      //quit program
       if (executionStatus.equals("quit")) {
         imageView.displayStatus("Quitting program...");
         break;
       }
+
       imageView.displayStatus(executionStatus);
     }
   }

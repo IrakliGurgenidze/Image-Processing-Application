@@ -25,15 +25,16 @@ public class IntensityComponentCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     } else {
       String sourceImageName = args[1];
       String resultImageName = args[2];
 
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        return "Invalid request. Image with name + " + sourceImageName
-                + "not found.";
+        throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
+                + "not found.");
       } else {
         Image resultImage = getIntensityComponent(sourceImage, resultImageName);
         imageStorageModel.insertImage(resultImage);

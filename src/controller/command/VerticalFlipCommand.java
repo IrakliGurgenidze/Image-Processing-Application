@@ -25,14 +25,15 @@ public class VerticalFlipCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 3) {
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     }
     String sourceImageName = args[1];
     String resultImageName = args[2];
 
     Image sourceImage = imageStorageModel.getImage(sourceImageName);
     if (sourceImage == null) {
-      return "Image with name " + sourceImageName + " not found.";
+      throw new IllegalArgumentException("Image with name " + sourceImageName + " not found.");
     } else {
       Image resultImage = getVerticalFlip(sourceImage, resultImageName);
       imageStorageModel.insertImage(resultImage);

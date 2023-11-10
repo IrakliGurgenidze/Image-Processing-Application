@@ -28,17 +28,18 @@ public class LoadImageCommand implements CommandController {
               || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
         return "File path and image name must be enclosed in \"\" if they contain a space.";
       }
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     } else {
       String imagePath = args[1];
       String imageName = args[2];
       Image image = loadImage(imagePath, imageName);
-      if (image != null) {
-        imageStorageModel.insertImage(image);
-        return "Image loaded.";
+      if (image == null) {
+        throw new IllegalArgumentException("Unable to locate image at specified path.");
       }
 
-      return "Unable to locate image at specified path.";
+      imageStorageModel.insertImage(image);
+      return "Image loaded.";
     }
   }
 

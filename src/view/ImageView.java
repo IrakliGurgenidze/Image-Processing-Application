@@ -23,6 +23,7 @@ public class ImageView implements View {
     if (!status.equals(">> ")) {
       status = status + "\n";
     }
+
     this.out.write(status.getBytes(StandardCharsets.UTF_8));
   }
 

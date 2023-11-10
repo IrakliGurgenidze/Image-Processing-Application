@@ -14,7 +14,8 @@ public class CompressCommand implements CommandController{
     @Override
     public String execute(String[] args) {
         if(args.length != 4) {
-            throw new IllegalArgumentException("Invalid input. Usage: " + getUsage());
+            throw new IllegalArgumentException("Invalid input, looking for 4 arguments but only found "
+                    + args.length + ". Correct usage: " + getUsage());
         }
 
         int compression;

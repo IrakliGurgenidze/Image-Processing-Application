@@ -25,7 +25,8 @@ public class RGBCombineCommand implements CommandController {
   @Override
   public String execute(String[] args) {
     if (args.length != 5) {
-      return "Invalid input. Usage: " + getUsage();
+      throw new IllegalArgumentException("Invalid input, looking for 5 arguments but only found "
+              + args.length + ". Correct usage: " + getUsage());
     } else {
       String combinedImageName = args[1];
       String redImageName = args[2];
@@ -35,13 +36,13 @@ public class RGBCombineCommand implements CommandController {
       Image combinedImage = combine(redImageName, greenImageName, blueImageName,
               combinedImageName);
 
-      if (combinedImage != null) {
-        imageStorageModel.insertImage(combinedImage);
-        return "Completed rgb-combine operation.";
+      if (combinedImage == null) {
+        throw new IllegalArgumentException("Unable to complete rgb-combine operation. Please ensure images exist, and have "
+                + "the same dimensions.");
       }
 
-      return "Unable to complete rgb-combine operation. Please ensure images exist, and have "
-              + "the same dimensions.";
+      imageStorageModel.insertImage(combinedImage);
+      return "Completed rgb-combine operation.";
     }
   }
 
