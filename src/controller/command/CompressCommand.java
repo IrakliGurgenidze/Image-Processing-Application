@@ -11,6 +11,7 @@ public class CompressCommand implements CommandController{
     public CompressCommand(ImageStorageModel imageStorageModel){
         this.imageStorageModel = imageStorageModel;
     }
+
     @Override
     public String execute(String[] args) {
         if(args.length != 4) {

@@ -57,17 +57,14 @@ public class RGBCombineCommand implements CommandController {
   private Image combine(String red, String green, String blue, String combined) {
     Image redImage = imageStorageModel.getImage(red);
     if (redImage == null) {
-      System.out.println("Invalid request. Image with name " + red + " not found.");
       return null;
     }
     Image greenImage = imageStorageModel.getImage(green);
     if (greenImage == null) {
-      System.out.println("Invalid request. Image with name " + green + " not found.");
       return null;
     }
     Image blueImage = imageStorageModel.getImage(blue);
     if (blueImage == null) {
-      System.out.println("Invalid request. Image with name " + blue + " not found.");
       return null;
     }
 
@@ -76,7 +73,6 @@ public class RGBCombineCommand implements CommandController {
     if (redImage.getWidth() != width
             || greenImage.getWidth() != width
             || blueImage.getWidth() != width) {
-      System.out.println("Invalid request. Images must be of same dimensions.");
       return null;
     }
 
@@ -84,7 +80,6 @@ public class RGBCombineCommand implements CommandController {
     if (redImage.getHeight() != height
             || greenImage.getHeight() != height
             || blueImage.getHeight() != height) {
-      System.out.println("Invalid request. Images must be of same dimensions.");
       return null;
     }
 

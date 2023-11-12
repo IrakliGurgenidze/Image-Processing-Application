@@ -46,6 +46,7 @@ public class ImageController implements Controller {
     commands.put("rgb-split", new RGBSplitCommand(imageStore));
     commands.put("rgb-combine", new RGBCombineCommand(imageStore));
     commands.put("compress", new CompressCommand(imageStore));
+    commands.put("histogram", new HistogramCommand(imageStore));
     commands.put("help", new HelpCommand(commands));
     commands.put("quit", new QuitCommand());
   }
@@ -103,7 +104,7 @@ public class ImageController implements Controller {
         }
       }
     } catch (IOException e) {
-      return "Invalid script file.";
+      throw new IllegalArgumentException("Invalid script file.");
     }
     return "Running file " + scriptFile.getName() + "...";
   }
