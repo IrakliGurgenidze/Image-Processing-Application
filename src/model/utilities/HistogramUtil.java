@@ -25,12 +25,14 @@ public class HistogramUtil {
 
         BufferedImage histogram = new BufferedImage(width, height, 1);
         Graphics graphics = histogram.getGraphics();
+        graphics.fillRect(0,0,width,height);
 
         //draw grid lines for histogram, currently every line is 1
         //FIXME might want to decrease grid lines
-        for (int i = 0; i < 256; i++) {
-            graphics.drawLine(i, 0, i, 200);
-        }
+        /*graphics.setColor(Color.BLACK);
+        for (int i = 0; i < 256; i+=8) {
+            graphics.drawLine(i, 0, i, 256);
+        }*/
 
 
         //get the histogram for each channel
@@ -75,22 +77,45 @@ public class HistogramUtil {
     }
 
     private static void drawColors(int[][] channels, Graphics graphics) {
+        int maxFreq = getMaxFrequency(channels);
+        int prev = -256;
         //draw the line for the value in each bin of each color
-        graphics.setColor(Color.red);
-        for (int i = 0; i < channels[0].length; i++) {
-            graphics.drawLine(i, 256, i, 256 - channels[0][i]);
+        graphics.setColor(Color.RED);
+        for (int i = 1; i < channels[0].length; i++) {
+            int scaledVal = (int) ((double) channels[0][i] / maxFreq*256);
+            graphics.drawLine(i-1, 256-prev, i, 256-scaledVal);
+            prev = scaledVal;
         }
 
-        graphics.setColor(Color.green);
-        for (int i = 0; i < channels[0].length; i++) {
-            graphics.drawLine(i, 256, i, 256 - channels[1][i]);
+
+        prev = -256;
+        graphics.setColor(Color.GREEN);
+        for (int i = 1; i < channels[1].length; i++) {
+            int scaledVal = (int) ((double) channels[1][i] / maxFreq*256);
+            graphics.drawLine(i-1, 256-prev, i, 256-scaledVal);
+            prev = scaledVal;
         }
 
-        graphics.setColor(Color.blue);
-        for (int i = 0; i < channels[0].length; i++) {
-            graphics.drawLine(i, 256, i, 256 - channels[2][i]);
+
+        prev = -256;
+        graphics.setColor(Color.BLUE);
+        for (int i = 1; i < channels[2].length; i++) {
+            int scaledVal = (int) ((double) channels[2][i] / maxFreq*256);
+            graphics.drawLine(i-1, 256-prev, i, 256-scaledVal);
+            prev = scaledVal;
         }
     }
 
+    private static int getMaxFrequency(int[][] arrays) {
+        int max = 0;
+        for (int[] array : arrays) {
+            for (int value : array) {
+                if (value > max) {
+                    max = value;
+                }
+            }
+        }
+        return max;
+    }
 
 }
