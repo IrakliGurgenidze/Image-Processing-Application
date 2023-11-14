@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * This class represents the "model" of an image processing application.
@@ -9,7 +10,7 @@ import java.util.Hashtable;
 public class ImageStorageModel implements StorageModel {
 
   //list of images loaded during this session
-  private final Hashtable<String, Image> images = new Hashtable<>();
+  private final Map<String, Image> images = new Hashtable<>();
 
   @Override
   public Image getImage(String name) {

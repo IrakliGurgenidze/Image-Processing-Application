@@ -1,13 +1,14 @@
 package model.utilities;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Helper class to contain various linear color transformations.
  * Transformation data is stored here and is accessible by name.
  */
 public class LinearColorTransformation {
-  Hashtable<String, double[][]> linearTransformations = new Hashtable<>();
+  Map<String, double[][]> linearTransformations = new Hashtable<>();
 
   /**
    * The constructor for a linear color transformation object.

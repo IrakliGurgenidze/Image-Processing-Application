@@ -9,10 +9,17 @@ import model.utilities.HistogramUtil;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ *
+ */
 public class HistogramCommand implements CommandController{
 
     private final ImageStorageModel imageStorageModel;
 
+    /**
+     * The constructor to initialize the histogram command.
+     * @param imageStorageModel the state of the storage model
+     */
     public HistogramCommand(ImageStorageModel imageStorageModel){
         this.imageStorageModel = imageStorageModel;
     }
@@ -30,7 +37,7 @@ public class HistogramCommand implements CommandController{
                     + "not found.");
         }
 
-        Image destImage = getHistogramImage(sourceImage, destImageName);
+        Image destImage = getHistogram(sourceImage, destImageName);
         imageStorageModel.insertImage(destImage);
 
         return "Completed histogram creation. File saved as: " + destImageName;
@@ -42,9 +49,9 @@ public class HistogramCommand implements CommandController{
                 "image. The image is saved in the database under the destination image name.";
     }
 
-    private Image getHistogramImage(Image sourceImage, String destImageName){
+    private Image getHistogram(Image sourceImage, String destImageName){
         //uses the util method to get the buffered image histogram
-        BufferedImage histogram = HistogramUtil.getHistogram(sourceImage);
+        BufferedImage histogram = HistogramUtil.getHistogramImage(sourceImage);
 
         //similar to ImageUtil, the histogram is read into simple image format
         int width = histogram.getWidth();

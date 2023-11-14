@@ -8,6 +8,10 @@ import java.util.Map;
 public class HelpCommand implements CommandController {
   private final Map<String, CommandController> commands;
 
+  /**
+   * The constructor to initialize the help command.
+   * @param commands the state of the storage model
+   */
   public HelpCommand(Map<String, CommandController> commands) {
     this.commands = commands;
   }

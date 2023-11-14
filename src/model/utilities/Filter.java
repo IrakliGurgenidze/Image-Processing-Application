@@ -1,13 +1,13 @@
 package model.utilities;
 
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * Helper static class to contain filters and their information.
  * model.utilities.Filter data is stored here, and can be accessed by name.
  */
 public class Filter {
-  Hashtable<String, double[][]> filters = new Hashtable<>();
+  Map<String, double[][]> filters = new Hashtable<>();
 
   /**
    * Constructor for a filter object.

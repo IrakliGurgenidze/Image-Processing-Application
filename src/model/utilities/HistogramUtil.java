@@ -4,7 +4,9 @@ import model.Image;
 import model.Pixel;
 
 import java.awt.*;
+import java.util.List;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 
 /**
@@ -18,7 +20,7 @@ public class HistogramUtil {
      * @param image the given image whose RGB values will be represented in a histogram
      * @return the BufferedImage form of the RGB histogram
      */
-    public static BufferedImage getHistogram(Image image) {
+    public static BufferedImage getHistogramImage(Image image) {
         //height and width of histogram
         final int width = 256;
         final int height = 256;
@@ -43,6 +45,44 @@ public class HistogramUtil {
         drawColors(new int[][]{redHistogram, greenHistogram, blueHistogram}, graphics);
 
         return histogram;
+    }
+
+    public static Image ColorCorrect(Image image){
+        int[] redChannel = getChannel(image, 0);
+        int[] greenChannel = getChannel(image, 1);
+        int[] blueChannel = getChannel(image, 2);
+
+        int[] redPeaks = findPeaks(redChannel);
+        int[] greenPeaks = findPeaks(greenChannel);
+        int[] bluePeaks = findPeaks(blueChannel);
+
+        int avg = averagePeakVal(new int[][]{redPeaks, greenPeaks, bluePeaks});
+
+
+        return null;
+    }
+
+    private static int findOffset(){
+        return 0;
+    }
+
+    private static int averagePeakVal(int[][] channels){
+        int sum = 0;
+    }
+
+    private static int[] findPeaks(int[] channel){
+        List<Integer> peaks = new ArrayList<>();
+        for(int i = 0; i < channel.length; i++){
+            if(channel[i] > 10 && channel[i] < 245){
+                peaks.add(i);
+            }
+        }
+
+        int[] peaksArray = new int[peaks.size()];
+        for(int i = 0; i < peaksArray.length; i++){
+            peaksArray[i] = peaks.get(i);
+        }
+        return peaksArray;
     }
 
     private static int[] getChannel(Image image, int channel) {
@@ -77,16 +117,18 @@ public class HistogramUtil {
     }
 
     private static void drawColors(int[][] channels, Graphics graphics) {
+        //need to get max freq val to scale image vertically
         int maxFreq = getMaxFrequency(channels);
+
         int prev = -256;
         //draw the line for the value in each bin of each color
         graphics.setColor(Color.RED);
         for (int i = 1; i < channels[0].length; i++) {
+            //the scaled y value is just the (channel value / maxFreq * 256) since image is 256x256
             int scaledVal = (int) ((double) channels[0][i] / maxFreq*256);
             graphics.drawLine(i-1, 256-prev, i, 256-scaledVal);
             prev = scaledVal;
         }
-
 
         prev = -256;
         graphics.setColor(Color.GREEN);
@@ -95,7 +137,6 @@ public class HistogramUtil {
             graphics.drawLine(i-1, 256-prev, i, 256-scaledVal);
             prev = scaledVal;
         }
-
 
         prev = -256;
         graphics.setColor(Color.BLUE);

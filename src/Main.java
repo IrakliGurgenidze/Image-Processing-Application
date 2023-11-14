@@ -1,5 +1,7 @@
+import controller.Controller;
 import controller.ImageController;
 import model.ImageStorageModel;
+import model.StorageModel;
 import view.ImageView;
 
 import java.io.File;
