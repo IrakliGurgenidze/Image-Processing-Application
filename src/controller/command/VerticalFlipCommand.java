@@ -34,11 +34,10 @@ public class VerticalFlipCommand implements CommandController {
     Image sourceImage = imageStorageModel.getImage(sourceImageName);
     if (sourceImage == null) {
       throw new IllegalArgumentException("Image with name " + sourceImageName + " not found.");
-    } else {
+    }
       Image resultImage = getVerticalFlip(sourceImage, resultImageName);
       imageStorageModel.insertImage(resultImage);
       return "Completed vertical-flip operation.";
-    }
   }
 
   @Override

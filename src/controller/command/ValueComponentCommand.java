@@ -33,13 +33,12 @@ public class ValueComponentCommand implements CommandController {
 
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
-      } else {
+        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+                + " not found.");
+      }
         Image resultImage = getValueComponent(sourceImage, resultImageName);
         imageStorageModel.insertImage(resultImage);
         return "Completed value-component operation.";
-      }
     }
   }
 

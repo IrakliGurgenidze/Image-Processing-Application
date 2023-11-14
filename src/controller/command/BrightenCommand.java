@@ -34,8 +34,8 @@ public class BrightenCommand implements CommandController {
             String destImageName = args[3];
             Image sourceImage = imageStorageModel.getImage(sourceImageName);
             if (sourceImage == null) {
-                throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
-                        + "not found.");
+                throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+                        + " not found.");
             } else {
                 Image destImage = brighten(increment, sourceImage, destImageName);
                 imageStorageModel.insertImage(destImage);

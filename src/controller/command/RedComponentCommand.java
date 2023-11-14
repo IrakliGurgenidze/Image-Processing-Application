@@ -33,13 +33,12 @@ public class RedComponentCommand implements CommandController {
 
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
-      } else {
+        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+                + " not found.");
+      }
         Image resultImage = getRedComponent(sourceImage, resultImageName);
         imageStorageModel.insertImage(resultImage);
         return "Completed red-component operation.";
-      }
     }
   }
 

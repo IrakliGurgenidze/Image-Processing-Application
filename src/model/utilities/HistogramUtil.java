@@ -68,6 +68,7 @@ public class HistogramUtil {
 
     private static int averagePeakVal(int[][] channels){
         int sum = 0;
+        return 0;
     }
 
     private static int[] findPeaks(int[] channel){

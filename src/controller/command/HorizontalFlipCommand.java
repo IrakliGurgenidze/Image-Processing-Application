@@ -27,7 +27,7 @@ public class HorizontalFlipCommand implements CommandController {
     if (args.length != 3) {
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
-    } else {
+    }
       String sourceImageName = args[1];
       String destImageName = args[2];
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
@@ -38,7 +38,6 @@ public class HorizontalFlipCommand implements CommandController {
       Image destImage = horizontalFlip(sourceImage, destImageName);
       imageStorageModel.insertImage(destImage);
       return "Completed horizontal-flip operation.";
-    }
   }
 
   @Override

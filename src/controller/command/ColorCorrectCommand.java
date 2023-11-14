@@ -26,8 +26,8 @@ public class ColorCorrectCommand implements CommandController{
         String destImageName = args[2];
         Image sourceImage = imageStorageModel.getImage(sourceImageName);
         if (sourceImage == null) {
-            throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
-                    + "not found.");
+            throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+                    + " not found.");
         }
 
         Image colorCorrected = colorCorrect(sourceImage, destImageName);

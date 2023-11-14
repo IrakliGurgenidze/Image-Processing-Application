@@ -43,13 +43,12 @@ public class LinearColorTransformationCommand implements CommandController {
       String destImageName = args[2];
       Image sourceImage = imageStorageModel.getImage(sourceImageName);
       if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name + " + sourceImageName
-                + "not found.");
-      } else {
+        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+                + " not found.");
+      }
         Image destImage = applyLinearTransformation(destImageName, sourceImage);
         imageStorageModel.insertImage(destImage);
         return "Completed color transformation.";
-      }
     }
   }
 

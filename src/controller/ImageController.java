@@ -34,6 +34,8 @@ public class ImageController implements Controller {
     commands.put("sharpen", new FilterCommand(imageStore, "sharpen"));
     commands.put("sepia", new LinearColorTransformationCommand(imageStore,
             "sepia"));
+    commands.put("greyscale", new LinearColorTransformationCommand(imageStore,
+            "greyscale"));
     commands.put("brighten", new BrightenCommand(imageStore));
     commands.put("value-component", new ValueComponentCommand(imageStore));
     commands.put("intensity-component", new IntensityComponentCommand(imageStore));
