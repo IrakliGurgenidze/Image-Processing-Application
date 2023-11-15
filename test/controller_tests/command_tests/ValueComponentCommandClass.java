@@ -1,13 +1,12 @@
 package controller_tests.command_tests;
 
-import org.junit.Test;
+import model.Image;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class HistogramCommandTest extends AbstractCommandTest{
-
+public class ValueComponentCommandClass extends AbstractCommandTest{
   @Override
   public void testCommand() {
-
   }
 }

@@ -20,7 +20,6 @@ import model.ImageStorageModel;
 public class ImageController implements Controller {
   private final Map<String, CommandController> commands = new HashMap<>();
 
-
   /**
    * Public constructor for an Image Controller. Populates list of commands.
    *

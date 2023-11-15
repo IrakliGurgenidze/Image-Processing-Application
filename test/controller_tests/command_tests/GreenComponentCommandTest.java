@@ -8,14 +8,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A JUnit Test class for  GreenComponentCommand.
+ * A JUnit Test class for GreenComponentCommand.
  */
 public class GreenComponentCommandTest extends AbstractCommandTest{
-  /**
-   * Test the command with the provided sample images.
-   */
-  @Test
-  public void testGreenComponent(){
+  @Override
+  public void testCommand(){
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

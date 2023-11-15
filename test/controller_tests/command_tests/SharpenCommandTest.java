@@ -6,25 +6,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A JUnit Test class for RedComponentCommand.
+ * A JUnit Test class for Filter's Sharpen.
  */
-public class RedComponentCommandTest extends AbstractCommandTest{
+public class SharpenCommandTest extends AbstractCommandTest{
   @Override
-  public void testCommand(){
+  public void testCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("red-component man manr");
+    String[] funcCmd = imageController.parseCommand("sharpen man mansh");
     imageController.runCommand(funcCmd);
     assertEquals(imageModel.getSize(), 2);
 
-    String[] loadExpected = loadImage("manhattan-small-red.png", "msr");
+    String[] loadExpected = loadImage("manhattan-small-sharpen.png", "msb");
     imageController.runCommand(loadExpected);
     assertEquals(imageModel.getSize(), 3);
 
-    Image expected = imageModel.getImage("msr");
-    Image result = imageModel.getImage("manr");
+    Image expected = imageModel.getImage("msb");
+    Image result = imageModel.getImage("mansh");
     assertTrue(isEqual(expected, result));
   }
 }

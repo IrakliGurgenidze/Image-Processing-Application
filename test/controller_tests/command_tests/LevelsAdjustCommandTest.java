@@ -15,7 +15,7 @@ public class LevelsAdjustCommandTest extends AbstractCommandTest {
    * Test the command with the provided sample images.
    */
   @Test
-  public void testLevelsAdjust(){
+  public void testCommand(){
     String[] loadBase = loadImage("galaxy.png", "gt");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

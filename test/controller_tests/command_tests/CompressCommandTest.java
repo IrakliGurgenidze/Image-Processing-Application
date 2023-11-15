@@ -120,4 +120,9 @@ public class CompressCommandTest extends AbstractCommandTest {
       }
     }
   }
+
+  @Override
+  public void testCommand() {
+
+  }
 }

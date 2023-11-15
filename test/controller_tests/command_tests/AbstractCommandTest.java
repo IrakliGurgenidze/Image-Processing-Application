@@ -1,5 +1,7 @@
 package controller_tests.command_tests;
 
+import org.junit.Test;
+
 import java.io.File;
 
 import controller.Controller;
@@ -12,6 +14,12 @@ import model.Pixel;
  * Abstract class with helper methods for tests of commands.
  */
 public abstract class AbstractCommandTest {
+
+  /**
+   * Test the command with the provided sample images.
+   */
+  @Test
+  public abstract void testCommand();
 
   ImageStorageModel imageModel = new ImageStorageModel();
   Controller imageController = new ImageController(imageModel);
