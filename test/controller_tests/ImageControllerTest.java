@@ -128,13 +128,12 @@ public class ImageControllerTest {
 
 
     //invalid file path, non-existent file
-    loadCommand = imageController.parseCommand("load "
+    final String[] invalidCommand = imageController.parseCommand("load "
             + workingDirectory
             + "sample_images"
             + File.separator
             + "non-existent.png ne");
-    response = imageController.runCommand(loadCommand);
-    assertEquals("Unable to locate image at specified path.", response);
+    assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(invalidCommand));
     assertEquals(1, imageModel.getSize());
   }
 
@@ -1120,6 +1119,42 @@ public class ImageControllerTest {
             + "testing_script.txt");
     imageController.run(script);
     assertEquals(10, imageModel.getSize());
+  }
+
+  @Test
+  public void testCompression() {
+    ImageStorageModel imageModel = new ImageStorageModel();
+    Controller imageController = new ImageController(imageModel);
+
+    //set file path to resources
+    String workingDirectory = setWd();
+
+    //load base image
+    String[] loadBase = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator
+            + "manhattan-small.png man");
+    imageController.runCommand(loadBase);
+    assertEquals(1, imageModel.getSize());
+
+    //run sepia command
+    String[] functionCommand = imageController.parseCommand("compress 50 man man-compress");
+    imageController.runCommand(functionCommand);
+    assertEquals(2, imageModel.getSize());
+
+    //load expected image
+    String[] loadExpected = imageController.parseCommand("load "
+            + workingDirectory
+            + "sample_images"
+            + File.separator + "manhattan-small-sepia.png man-sepia-expected");
+    imageController.runCommand(loadExpected);
+    assertEquals(3, imageModel.getSize());
+
+    //test results
+    Image expected = imageModel.getImage("man-sepia-expected");
+    Image result = imageModel.getImage("man-sepia");
+//    assertTrue(isEqual(expected, result));
   }
 
 
