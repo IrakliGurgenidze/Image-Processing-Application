@@ -717,8 +717,4 @@ public class ImageControllerTest extends AbstractCommandTest {
   }
 
 
-  @Override
-  public void testCommand() {
-    return;
-  }
 }

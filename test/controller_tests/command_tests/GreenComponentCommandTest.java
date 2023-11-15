@@ -11,8 +11,12 @@ import static org.junit.Assert.assertTrue;
  * A JUnit Test class for GreenComponentCommand.
  */
 public class GreenComponentCommandTest extends AbstractCommandTest{
-  @Override
-  public void testCommand(){
+
+  /**
+   * Test green-component command.
+   */
+  @Test
+  public void testGreenComponentCommand(){
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

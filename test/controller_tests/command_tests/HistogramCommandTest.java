@@ -4,10 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A JUnit test for the histogram command.
+ */
 public class HistogramCommandTest extends AbstractCommandTest{
 
-  @Override
-  public void testCommand() {
-
-  }
 }

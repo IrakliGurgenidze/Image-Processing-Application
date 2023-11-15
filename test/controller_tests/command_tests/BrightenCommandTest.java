@@ -1,5 +1,7 @@
 package controller_tests.command_tests;
 
+import org.junit.Test;
+
 import model.Image;
 
 import static org.junit.Assert.assertEquals;
@@ -10,16 +12,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class BrightenCommandTest extends AbstractCommandTest{
 
-  @Override
-  public void testCommand(){
-    testPositive();
-    testNegative();
-  }
-
   /**
    * Tests the positive increment.
    */
-  public void testPositive(){
+  @Test
+  public void testPositiveBrighten(){
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());
@@ -37,18 +34,22 @@ public class BrightenCommandTest extends AbstractCommandTest{
     assertTrue(isEqual(expected, result));
   }
 
-  public void testNegative(){
+  /**
+   * Tests the negative increment.
+   */
+  @Test
+  public void testNegativeBrighten(){
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
-    assertEquals(3, imageModel.getSize());
+    assertEquals(1, imageModel.getSize());
 
     String[] funcCmd = imageController.parseCommand("brighten -50 man mandarker");
     imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 4);
+    assertEquals(imageModel.getSize(), 2);
 
     String[] loadExpected = loadImage("manhattan-small-darker-by-50.png", "manbr");
     imageController.runCommand(loadExpected);
-    assertEquals(imageModel.getSize(), 4);
+    assertEquals(imageModel.getSize(), 3);
 
     Image expected = imageModel.getImage("manbr");
     Image result = imageModel.getImage("mandarker");

@@ -15,12 +15,6 @@ import model.Pixel;
  */
 public abstract class AbstractCommandTest {
 
-  /**
-   * Test the command with the provided sample images.
-   */
-  @Test
-  public abstract void testCommand();
-
   ImageStorageModel imageModel = new ImageStorageModel();
   Controller imageController = new ImageController(imageModel);
   String workingDirectory = setWd();

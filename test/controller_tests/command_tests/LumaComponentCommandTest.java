@@ -1,5 +1,7 @@
 package controller_tests.command_tests;
 
+import org.junit.Test;
+
 import model.Image;
 
 import static org.junit.Assert.assertEquals;
@@ -9,8 +11,12 @@ import static org.junit.Assert.assertTrue;
  * A JUnit Test class for LumaComponentCommand.
  */
 public class LumaComponentCommandTest extends AbstractCommandTest{
-  @Override
-  public void testCommand(){
+
+  /**
+   * A simple test for the luma-component command.
+   */
+  @Test
+  public void testLumaComponentCommand(){
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());
