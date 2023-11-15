@@ -6,6 +6,7 @@ import java.io.File;
 
 import controller.Controller;
 import controller.ImageController;
+import controller_tests.command_tests.AbstractCommandTest;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
@@ -17,43 +18,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * This class tests various controller methods.
  */
-public class ImageControllerTest {
-
-
-  //helper method to determine the equivalency of two images
-  private boolean isEqual(Image thisImg, Image otherImg) {
-    if (thisImg.getHeight() != otherImg.getHeight()) {
-      return false;
-    }
-
-    if (thisImg.getWidth() != otherImg.getWidth()) {
-      return false;
-    }
-
-    //check contents of each pixel
-    for (int i = 0; i < thisImg.getHeight(); i++) {
-      for (int j = 0; j < thisImg.getWidth(); j++) {
-        Pixel thisPixel = thisImg.getPixel(j, i);
-        Pixel otherPixel = otherImg.getPixel(j, i);
-        if (thisPixel.getRed() != otherPixel.getRed()
-                || thisPixel.getGreen() != otherPixel.getGreen()
-                || thisPixel.getBlue() != otherPixel.getBlue()) {
-
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  //helper method to set working directory to the "resources" folder
-  private String setWd() {
-    return System.getProperty("user.dir")
-            + File.separator
-            + "test"
-            + File.separator;
-  }
+public class ImageControllerTest extends AbstractCommandTest {
 
   /**
    * Test parseCommand.
