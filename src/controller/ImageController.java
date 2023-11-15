@@ -48,7 +48,9 @@ public class ImageController implements Controller {
     commands.put("rgb-split", new RGBSplitCommand(imageStore));
     commands.put("rgb-combine", new RGBCombineCommand(imageStore));
     commands.put("compress", new CompressCommand(imageStore));
+    commands.put("levels-adjust", new LevelsAdjustCommand(imageStore));
     commands.put("histogram", new HistogramCommand(imageStore));
+    commands.put("color-correct", new ColorCorrectCommand(imageStore));
     commands.put("help", new HelpCommand(commands));
     commands.put("quit", new QuitCommand());
   }
