@@ -1,14 +1,13 @@
 package controller.command;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
-
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * This command compresses an image to facilitate more efficient storage.
@@ -40,7 +39,12 @@ public class CompressCommand implements CommandController {
       compression = Integer.parseInt(args[1]);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Invalid input. Compression value invalid. "
-              + "Please enter an integer 0-100.");
+              + "Please enter an integer in the range of 0-100.");
+    }
+
+    if ((compression < 0) || (compression > 100)) {
+      throw new IllegalArgumentException("Invalid input. Compression value invalid. "
+              + "Please enter an integer in the range of 0-100.");
     }
 
     //extract image names and fetch source image
@@ -88,8 +92,6 @@ public class CompressCommand implements CommandController {
       }
 
       maxDimension = 1 << msbPosition;
-
-      System.out.println(maxDimension);
     }
 
     //get padded RGB channels, indexing order is [0]->R, [1]->G, [2]->B
@@ -106,7 +108,7 @@ public class CompressCommand implements CommandController {
     }
 
     //apply transformation to each channel
-    for(double[][] channel : paddedChannels) {
+    for (double[][] channel : paddedChannels) {
       haar(channel);
     }
 
@@ -114,7 +116,7 @@ public class CompressCommand implements CommandController {
     filterValues(paddedChannels, compressionRatio);
 
     //invert transformation
-    for(double[][] channel : paddedChannels) {
+    for (double[][] channel : paddedChannels) {
       inverseHaar(channel);
     }
 
@@ -188,7 +190,7 @@ public class CompressCommand implements CommandController {
     //length and bound
     int n = transformedChannel.length;
     int c = 2;
-    while(c <= n) {
+    while (c <= n) {
 
       //inverse columns
       for (int col = 0; col < c; col++) {
@@ -214,7 +216,7 @@ public class CompressCommand implements CommandController {
                 0, rowInverseResult.length);
       }
 
-      c = c*2;
+      c = c * 2;
     }
   }
 
@@ -242,8 +244,8 @@ public class CompressCommand implements CommandController {
   }
 
   /*
-    This method "inverts" a 1-dimensional sequence of values, reverting the
-    transformation applied by its sister function.
+   This method "inverts" a 1-dimensional sequence of values, reverting the
+   transformation applied by its sister function.
   */
   private double[] invert(double[] sequence) {
 
@@ -298,8 +300,7 @@ public class CompressCommand implements CommandController {
     Double[] sortedValues = uniqueValues.toArray(new Double[0]);
     Arrays.sort(sortedValues);
 
-    //find the threshold value
-    int thresholdIndex = (int) ((compressionRatio / 100.0) * sortedValues.length);
+    int thresholdIndex = (int) ((compressionRatio / 100.0) * (sortedValues.length - 1));
     return sortedValues[thresholdIndex];
   }
 
@@ -308,7 +309,7 @@ public class CompressCommand implements CommandController {
     double[][] result = new double[channel.length][channel[0].length];
     for (int row = 0; row < channel.length; row++) {
       for (int col = 0; col < channel[row].length; col++) {
-        if (Math.abs(channel[row][col]) < threshold) {
+        if (Math.abs(channel[row][col]) <= threshold) {
           result[row][col] = 0.0;
         } else {
           result[row][col] = channel[row][col];
