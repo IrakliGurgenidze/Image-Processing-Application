@@ -268,7 +268,7 @@ public class CompressCommand implements CommandController {
 
   //helper method to filter out values below compression threshold
   private void filterValues(double[][][] channels, int compressionRatio) {
-    Set<Integer> uniqueValues = getUniqueValues(channels);
+    Set<Double> uniqueValues = getUniqueValues(channels);
     double threshold = calculateThreshold(uniqueValues, compressionRatio);
 
     // Apply threshold to all channels
@@ -279,12 +279,12 @@ public class CompressCommand implements CommandController {
 
 
   //helper function to extract unique values from the channels
-  private Set<Integer> getUniqueValues(double[][][] channels) {
-    Set<Integer> uniqueValues = new HashSet<>();
+  private Set<Double> getUniqueValues(double[][][] channels) {
+    Set<Double> uniqueValues = new HashSet<>();
     for (double[][] channel : channels) {
       for (int row = 0; row < channel.length; row++) {
         for (int col = 0; col < channel[row].length; col++) {
-          uniqueValues.add((int) Math.abs(channel[row][col]));
+          uniqueValues.add(Math.abs(channel[row][col]));
         }
       }
     }
@@ -293,9 +293,9 @@ public class CompressCommand implements CommandController {
   }
 
   //helper function to calculate threshold value
-  private double calculateThreshold(Set<Integer> uniqueValues, int compressionRatio) {
+  private double calculateThreshold(Set<Double> uniqueValues, int compressionRatio) {
     //convert set to array for sorting
-    Integer[] sortedValues = uniqueValues.toArray(new Integer[0]);
+    Double[] sortedValues = uniqueValues.toArray(new Double[0]);
     Arrays.sort(sortedValues);
 
     //find the threshold value
