@@ -2,8 +2,9 @@ package controller_tests.command_tests;
 
 import org.junit.Test;
 
-import model.Image;
 import java.io.File;
+
+import model.Image;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

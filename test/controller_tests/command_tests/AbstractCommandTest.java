@@ -74,17 +74,13 @@ public abstract class AbstractCommandTest {
             && pixel.getGreen() == 0
             && pixel.getBlue() == 0) {
       return true;
-    }
-
-    else if (pixel.getRed() == 0
+    } else if (pixel.getRed() == 0
             && pixel.getGreen() != 0
             && pixel.getBlue() == 0) {
       return true;
-    }
-
-    else return pixel.getRed() == 0
-              && pixel.getGreen() == 0
-              && pixel.getBlue() != 0;
+    } else return pixel.getRed() == 0
+            && pixel.getGreen() == 0
+            && pixel.getBlue() != 0;
   }
 
 

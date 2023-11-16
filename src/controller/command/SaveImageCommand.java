@@ -25,8 +25,8 @@ public class SaveImageCommand implements CommandController {
     if (args.length != 3) {
       if (args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
               || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
-        throw new IllegalArgumentException("File path and image name must be enclosed in \"\" if " +
-                "they contain a space.");
+        throw new IllegalArgumentException("File path and image name must be enclosed in \"\" if "
+                + "they contain a space.");
       }
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());

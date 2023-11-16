@@ -20,7 +20,7 @@ public class BrightenCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) throws IllegalArgumentException{
+  public String execute(String[] args) throws IllegalArgumentException {
 
     //expecting 4 arguments
     if (args.length != 4) {

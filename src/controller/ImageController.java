@@ -114,9 +114,7 @@ public class ImageController implements Controller {
     //ensure file exists
     try {
       File scriptFile = new File(scriptPath);
-    }
-
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       view.displayStatus("Command line argument file not found.");
 
       //exit program if file not found

@@ -68,7 +68,7 @@ public class ModelTestUtilities {
     basicImageBody[2][0] = new Pixel(50, 50, 40);
     basicImageBody[2][1] = new Pixel(20, 10, 30);
     basicImageBody[2][2] = new Pixel(30, 70, 10);
-    
+
     return new SimpleImage("default", basicImageBody);
   }
 

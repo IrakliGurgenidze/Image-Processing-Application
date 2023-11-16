@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for RedComponentCommand.
  */
-public class RedComponentCommandTest extends AbstractCommandTest{
+public class RedComponentCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the red-component command.
    */
   @Test
-  public void testRedComponentCommand(){
+  public void testRedComponentCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

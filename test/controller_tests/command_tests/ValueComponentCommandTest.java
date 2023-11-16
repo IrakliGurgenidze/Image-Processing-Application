@@ -6,18 +6,17 @@ import model.Image;
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A JUnit test class for the value-component command.
  */
-public class ValueComponentCommandTest extends AbstractCommandTest{
+public class ValueComponentCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the luma-component command.
    */
   @Test
-  public void testValueComponentCommand(){
+  public void testValueComponentCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

@@ -10,13 +10,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * A JUnit test for the histogram command.
  */
-public class HistogramCommandTest extends AbstractCommandTest{
+public class HistogramCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the histogram command.
    */
   @Test
-  public void testHistogramCommand(){
+  public void testHistogramCommand() {
     String[] loadBase = loadImage("galaxy.png", "gal");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());
@@ -37,7 +37,7 @@ public class HistogramCommandTest extends AbstractCommandTest{
         Pixel thisPixel = expected.getPixel(x, y);
         Pixel otherPixel = result.getPixel(x, y);
 
-        if(isPureRGB(thisPixel)) {
+        if (isPureRGB(thisPixel)) {
           assertEquals(thisPixel.getRed(), otherPixel.getRed());
           assertEquals(thisPixel.getGreen(), otherPixel.getGreen());
           assertEquals(thisPixel.getBlue(), otherPixel.getBlue());

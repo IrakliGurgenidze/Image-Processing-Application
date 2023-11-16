@@ -13,13 +13,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit test class for LoadCommand.
  */
-public class LoadCommandTest extends AbstractCommandTest{
+public class LoadCommandTest extends AbstractCommandTest {
 
   /**
    * Tests the load command.
    */
   @Test
-  public void loadTest(){
+  public void loadTest() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     String response = imageController.runCommand(loadBase);
     assertEquals("Image loaded.", response);
@@ -33,7 +33,7 @@ public class LoadCommandTest extends AbstractCommandTest{
     assertEquals(1, imageModel.getSize()); //model should not have changed
 
     //invalid file path, non-existent file
-    final String [] loadInvalid = loadImage("non-existent.jpg", "ne");
+    final String[] loadInvalid = loadImage("non-existent.jpg", "ne");
     assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(loadInvalid));
     assertEquals(1, imageModel.getSize());
   }
@@ -70,7 +70,7 @@ public class LoadCommandTest extends AbstractCommandTest{
     assertTrue(isEqual(expected, result));
 
     //invalid file path, non-existent file
-    final String [] loadInvalid = loadImage("non-existent.ppm", "ne");
+    final String[] loadInvalid = loadImage("non-existent.ppm", "ne");
     assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(loadInvalid));
     assertEquals(2, imageModel.getSize());
   }

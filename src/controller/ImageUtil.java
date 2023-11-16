@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import model.Image;
 import model.Pixel;
 import model.SimpleImage;
 
@@ -27,7 +28,7 @@ public class ImageUtil {
    * @return the model.SimpleImage equivalent of the given image
    * @throws IOException if the image file does not exist
    */
-  public static SimpleImage readColor(String fileName, String imageName) throws IOException {
+  public static Image readColor(String fileName, String imageName) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(fileName));
     int width = bufferedImage.getWidth();
     int height = bufferedImage.getHeight();
@@ -60,7 +61,7 @@ public class ImageUtil {
    * @return the model. SimpleImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
    */
-  public static SimpleImage readColorPPM(String fileName, String imageName)
+  public static Image readColorPPM(String fileName, String imageName)
           throws FileNotFoundException {
 
     Scanner sc;

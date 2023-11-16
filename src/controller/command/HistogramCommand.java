@@ -1,7 +1,6 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
 import model.StorageModel;
 
 /**
@@ -42,7 +41,8 @@ public class HistogramCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "histogram image-name dest-image-name: creates an histogram for the RGB intensities of the given" +
-            "image. The image is saved in the database under the destination image name.";
+    return "histogram image-name dest-image-name: creates an histogram for the RGB intensities of "
+            + "the given image. The image is saved in the database under the destination image "
+            + "name.";
   }
 }

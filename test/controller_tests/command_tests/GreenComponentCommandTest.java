@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for GreenComponentCommand.
  */
-public class GreenComponentCommandTest extends AbstractCommandTest{
+public class GreenComponentCommandTest extends AbstractCommandTest {
 
   /**
    * Test green-component command.
    */
   @Test
-  public void testGreenComponentCommand(){
+  public void testGreenComponentCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

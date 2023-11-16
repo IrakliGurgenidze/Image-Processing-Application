@@ -4,19 +4,9 @@ import org.junit.Test;
 
 import java.io.File;
 
-import controller.Controller;
-import controller.ImageController;
 import controller_tests.command_tests.AbstractCommandTest;
-import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.StorageModel;
-import view.ImageView;
-import view.View;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 
 /**
  * This class tests various controller methods.
@@ -71,7 +61,6 @@ public class ImageControllerTest extends AbstractCommandTest {
     imageController.run(script);
     assertEquals(10, imageModel.getSize());
   }
-
 
 
 }

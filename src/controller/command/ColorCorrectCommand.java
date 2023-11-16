@@ -2,8 +2,6 @@ package controller.command;
 
 import controller.SplitUtil;
 import model.Image;
-import model.Pixel;
-import model.SimpleImage;
 import model.StorageModel;
 
 
@@ -40,7 +38,7 @@ public class ColorCorrectCommand implements CommandController {
     }
 
     Image colorCorrected = sourceImage.colorCorrectImage(destImageName);
-    if(split){
+    if (split) {
       colorCorrected = SplitUtil.splitImage(sourceImage, colorCorrected, splitPcnt, destImageName);
     }
     imageStorageModel.insertImage(colorCorrected);
@@ -49,26 +47,28 @@ public class ColorCorrectCommand implements CommandController {
 
   @Override
   public String getUsage() {
-    return "color-correct image-name dest-image-name: corrects the colors of an image by aligning the" +
-            "meaningful peaks of its RGB histogram. Referred to henceforth as dest-image-name." +
-            "split p: may be added as two additional parameters if split preview of operation is desired.";
+    return "color-correct image-name dest-image-name: corrects the colors of an image by "
+            + "aligning the meaningful peaks of its RGB histogram. Referred to henceforth as "
+            + "dest-image-name. split p: may be added as two additional parameters if split "
+            + "preview of operation is desired.";
   }
 
-  private void checkSplit(String[] args) throws IllegalArgumentException{
-    if(args.length == 5 && args[3].equals("split")){
+  //check for split keyword
+  private void checkSplit(String[] args) throws IllegalArgumentException {
+    if (args.length == 5 && args[3].equals("split")) {
       split = true;
       try {
         splitPcnt = Integer.parseInt(args[4]);
-      }catch(NumberFormatException e){
+      } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Split percentage must be an integer between 0-100");
       }
-      if(splitPcnt < 1 || splitPcnt > 99){
+      if (splitPcnt < 1 || splitPcnt > 99) {
         throw new IllegalArgumentException("Split percentage must be an integer between 0-100");
       }
 
-    }else if (args.length != 3) {
-      throw new IllegalArgumentException("Invalid input, looking for 3 or 5 arguments but only found "
-              + args.length + ". Correct usage: " + getUsage());
+    } else if (args.length != 3) {
+      throw new IllegalArgumentException("Invalid input, looking for 3 or 5 arguments but "
+              + "only found " + args.length + ". Correct usage: " + getUsage());
     }
   }
 }

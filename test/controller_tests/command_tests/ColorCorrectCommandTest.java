@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for ColorCorrectCommand.
  */
-public class ColorCorrectCommandTest extends AbstractCommandTest{
+public class ColorCorrectCommandTest extends AbstractCommandTest {
 
   /**
    * Tests the color correct command.
    */
   @Test
-  public void testColorCorrectCommand(){
+  public void testColorCorrectCommand() {
     String[] loadBase = loadImage("galaxy-tinge.png", "gt");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

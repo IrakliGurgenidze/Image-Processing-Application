@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for Filter's Sharpen.
  */
-public class SharpenCommandTest extends AbstractCommandTest{
+public class SharpenCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the sharpen-command.

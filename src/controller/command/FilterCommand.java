@@ -49,7 +49,7 @@ public class FilterCommand implements CommandController {
 
     Image filteredImage = sourceImage.applyFilter(filter, destImageName);
 
-    if(split){
+    if (split) {
       filteredImage = SplitUtil.splitImage(sourceImage, filteredImage, splitPcnt, destImageName);
     }
 
@@ -60,27 +60,27 @@ public class FilterCommand implements CommandController {
   @Override
   public String getUsage() {
     return filterName + "image-name dest-image-name: " + filterName + "the given image and\n "
-            + "store the result in another image with the given name." +
-            " split p: may be added as two additional parameters if split preview of operation is "
-            + "desired. ";
+            + "store the result in another image with the given name."
+            + " split p: may be added as two additional parameters if split preview of operation is"
+            + " desired. ";
   }
 
   //checks to see if the argument contains split parameter
-  private void checkSplit(String[] args) throws IllegalArgumentException{
-    if(args.length == 5 && args[3].equals("split")){
+  private void checkSplit(String[] args) throws IllegalArgumentException {
+    if (args.length == 5 && args[3].equals("split")) {
       split = true;
       try {
         splitPcnt = Integer.parseInt(args[4]);
-      }catch(NumberFormatException e){
+      } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Split percentage must be an integer between 0-100");
       }
-      if(splitPcnt < 1 || splitPcnt > 99){
+      if (splitPcnt < 1 || splitPcnt > 99) {
         throw new IllegalArgumentException("Split percentage must be an integer between 0-100");
       }
 
-    }else if (args.length != 3) {
-      throw new IllegalArgumentException("Invalid input, looking for 3 or 5 arguments but only found "
-              + args.length + ". Correct usage: " + getUsage());
+    } else if (args.length != 3) {
+      throw new IllegalArgumentException("Invalid input, looking for 3 or 5 arguments but only "
+              + "found " + args.length + ". Correct usage: " + getUsage());
     }
   }
 }

@@ -1,5 +1,3 @@
-import java.io.File;
-
 import controller.Controller;
 import controller.ImageController;
 import model.ImageStorageModel;

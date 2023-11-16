@@ -21,7 +21,7 @@ public class LoadImageCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) throws IllegalArgumentException{
+  public String execute(String[] args) throws IllegalArgumentException {
     if (args.length != 3) {
       if (args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
               || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {
@@ -35,9 +35,7 @@ public class LoadImageCommand implements CommandController {
     String imageName = args[2];
     try {
       imageStorageModel.loadImage(imagePath, imageName);
-    }
-
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
     return "Image loaded.";

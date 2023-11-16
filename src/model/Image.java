@@ -156,13 +156,12 @@ public interface Image {
    * Method to adjust the levels of an image.
    *
    * @param resultImageName name of the level-adjusted image
-   * @param b int, the black value for the level adjustment
-   * @param m int, the mid value for the level adjustment
-   * @param w int, the white value for the level adjustment
+   * @param b               int, the black value for the level adjustment
+   * @param m               int, the mid value for the level adjustment
+   * @param w               int, the white value for the level adjustment
    * @return the level-adjusted version of this image
    */
   Image adjustLevels(String resultImageName, int b, int m, int w);
 
-  //FIXME need to add split view
 
 }

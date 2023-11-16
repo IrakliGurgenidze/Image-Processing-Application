@@ -16,7 +16,7 @@ public class SepiaCommandTest extends AbstractCommandTest {
    * A simple test for the sepia command.
    */
   @Test
-  public void testSepiaCommand(){
+  public void testSepiaCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

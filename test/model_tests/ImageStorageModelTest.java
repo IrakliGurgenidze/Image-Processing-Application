@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import model.Image;
 import model.ImageStorageModel;
-import model.Pixel;
 import model.SimpleImage;
+import model.StorageModel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +22,7 @@ public class ImageStorageModelTest {
    */
   @Test
   public void testInsertAndGetImage() {
-    ImageStorageModel model = new ImageStorageModel();
+    StorageModel model = new ImageStorageModel();
 
     //model should be empty
     assertEquals(0, model.getSize());
@@ -50,11 +50,11 @@ public class ImageStorageModelTest {
    */
   @Test
   public void testRemoveImage() {
-    ImageStorageModel model = new ImageStorageModel();
+    StorageModel model = new ImageStorageModel();
 
     //try removing an image
     assertThrows(IllegalArgumentException.class,
-        () -> model.removeImage("default"));
+            () -> model.removeImage("default"));
 
     //model should be empty
     assertEquals(0, model.getSize());
@@ -78,7 +78,7 @@ public class ImageStorageModelTest {
    */
   @Test
   public void testImageEmptyStorageModel() {
-    ImageStorageModel model = new ImageStorageModel();
+    StorageModel model = new ImageStorageModel();
 
     //model should be empty
     assertEquals(0, model.getSize());

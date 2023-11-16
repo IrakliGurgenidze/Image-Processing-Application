@@ -22,7 +22,7 @@ public class IntensityComponentCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) throws IllegalArgumentException{
+  public String execute(String[] args) throws IllegalArgumentException {
     if (args.length != 3) {
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());

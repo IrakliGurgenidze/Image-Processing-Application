@@ -2,12 +2,7 @@ package controller_tests.command_tests;
 
 import org.junit.Test;
 
-import java.io.File;
-
-import controller.Controller;
-import controller.ImageController;
 import model.Image;
-import model.ImageStorageModel;
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
@@ -16,13 +11,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for BrightenCommand.
  */
-public class BrightenCommandTest extends AbstractCommandTest{
+public class BrightenCommandTest extends AbstractCommandTest {
 
   /**
    * Tests the positive increment.
    */
   @Test
-  public void testPositiveBrighten(){
+  public void testPositiveBrighten() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());
@@ -44,7 +39,7 @@ public class BrightenCommandTest extends AbstractCommandTest{
    * Tests the negative increment.
    */
   @Test
-  public void testNegativeBrighten(){
+  public void testNegativeBrighten() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

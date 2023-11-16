@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for Filter's Blur.
  */
-public class BlurCommandTest extends AbstractCommandTest{
+public class BlurCommandTest extends AbstractCommandTest {
 
   /**
    * Test blur command.
    */
   @Test
-  public void testBlurCommand(){
+  public void testBlurCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

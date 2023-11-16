@@ -72,6 +72,7 @@ public class HistogramUtil {
     return applyOffset(image, new int[]{redOffset, greenOffset, blueOffset}, destImageName);
   }
 
+  //helper method to get the histogram of an image
   private static BufferedImage getHistogramImage(Image image) {
     //height and width of histogram
     final int width = 256;
@@ -99,6 +100,7 @@ public class HistogramUtil {
     return histogram;
   }
 
+  //helper method to get the channel of an image
   private static int[] getChannel(Image image, int channel) {
     //histograms with bin for each possible color intensity value (0-255)
     int[] histogram = new int[256];
@@ -130,6 +132,7 @@ public class HistogramUtil {
     return histogram;
   }
 
+  //helper method to draw the histogram
   private static void drawColors(int[][] channels, Graphics graphics) {
     //need to get max freq val to scale image vertically
     int maxFreq = getMaxFrequency(channels);
@@ -164,6 +167,7 @@ public class HistogramUtil {
     }
   }
 
+  //get the max frequency of the channel
   private static int getMaxFrequency(int[][] arrays) {
     int max = 0;
     for (int[] array : arrays) {
@@ -176,6 +180,7 @@ public class HistogramUtil {
     return max;
   }
 
+  //apply offset to image
   private static Image applyOffset(Image image, int[] offsets, String destImageName) {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -200,6 +205,7 @@ public class HistogramUtil {
     return new SimpleImage(destImageName, correctedImage);
   }
 
+  //get average peak value
   private static int averagePeakVal(int[] peaks) {
     double sum = 0;
     for (int peak : peaks) {
@@ -208,6 +214,7 @@ public class HistogramUtil {
     return (int) Math.round(sum / 3);
   }
 
+  //find a peak in a channel
   private static int findPeak(int[] channel) {
     int peakLoc = 0;
     for (int i = 10; i < 245; i++) {

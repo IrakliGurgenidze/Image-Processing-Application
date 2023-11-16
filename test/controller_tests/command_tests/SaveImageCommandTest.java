@@ -1,14 +1,18 @@
 package controller_tests.command_tests;
+
 import org.junit.Test;
+
+import java.io.File;
+
+import model.Image;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import java.io.File;
-import model.Image;
 
 /**
  * A JUnit test class for SaveImageCommand.
  */
-public class SaveImageCommandTest extends AbstractCommandTest{
+public class SaveImageCommandTest extends AbstractCommandTest {
   /**
    * Test save command.
    */

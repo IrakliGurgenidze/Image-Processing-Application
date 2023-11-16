@@ -1,9 +1,8 @@
 package model.utilities;
+
 import model.Image;
 import model.Pixel;
 import model.SimpleImage;
-
-import java.util.Arrays;
 
 /**
  * This class contains utility methods for the LevelsAdjustCommand.
@@ -12,10 +11,11 @@ public class LevelsAdjustUtil {
 
   /**
    * Method to perform a get a level adjusted image.
-   * @param image Image, the image to be adjusted
-   * @param b int, the black value of the adjustment
-   * @param m int, the mid value of the adjustment
-   * @param w int, the white value of the adjustment
+   *
+   * @param image         Image, the image to be adjusted
+   * @param b             int, the black value of the adjustment
+   * @param m             int, the mid value of the adjustment
+   * @param w             int, the white value of the adjustment
    * @param destImageName String, the name of the adjusted image
    * @return the new adjusted image
    */
@@ -39,12 +39,12 @@ public class LevelsAdjustUtil {
     return new SimpleImage(destImageName, adjustedImage);
   }
 
+  //solves y = ax^2 + bx + c
   private static int solveQuadratic(double[] coefs, int x) {
-    //solves y = ax^2 + bx + c
     double a = coefs[0];
     double b = coefs[1];
     double c = coefs[2];
-    return (int)Math.round((a * x * x + b * x + c));
+    return (int) Math.round((a * x * x + b * x + c));
   }
 
   //calculate quadratic coefficients

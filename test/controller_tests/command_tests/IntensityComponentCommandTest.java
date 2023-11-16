@@ -6,18 +6,17 @@ import model.Image;
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A JUnit test class for the intensity-component command.
  */
-public class IntensityComponentCommandTest extends AbstractCommandTest{
+public class IntensityComponentCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the luma-component command.
    */
   @Test
-  public void testIntensityComponentCommand(){
+  public void testIntensityComponentCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

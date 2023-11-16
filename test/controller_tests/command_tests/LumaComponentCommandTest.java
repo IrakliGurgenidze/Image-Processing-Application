@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for LumaComponentCommand.
  */
-public class LumaComponentCommandTest extends AbstractCommandTest{
+public class LumaComponentCommandTest extends AbstractCommandTest {
 
   /**
    * A simple test for the luma-component command.
    */
   @Test
-  public void testLumaComponentCommand(){
+  public void testLumaComponentCommand() {
     String[] loadBase = loadImage("manhattan-small.png", "man");
     imageController.runCommand(loadBase);
     assertEquals(1, imageModel.getSize());

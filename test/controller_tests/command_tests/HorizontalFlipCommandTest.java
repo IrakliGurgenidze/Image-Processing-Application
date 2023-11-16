@@ -2,12 +2,7 @@ package controller_tests.command_tests;
 
 import org.junit.Test;
 
-import java.io.File;
-
-import controller.Controller;
-import controller.ImageController;
 import model.Image;
-import model.ImageStorageModel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A JUnit Test class for HorizontalFlipCommand.
  */
-public class HorizontalFlipCommandTest extends AbstractCommandTest{
+public class HorizontalFlipCommandTest extends AbstractCommandTest {
 
   /**
    * Tests a single horizontalFlip command.
