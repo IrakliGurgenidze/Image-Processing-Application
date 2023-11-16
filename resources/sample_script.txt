@@ -1,65 +1,102 @@
+#load base image
 load resources/mushroom.jpg mushroom
 
+#red-component demo
 red-component mushroom mushroom-red
-
 save resources/mushroom_images/mushroom-red.jpg mushroom-red
 
+#green-component demo
 green-component mushroom mushroom-green
-
 save resources/mushroom_images/mushroom-green.jpg mushroom-green
 
+#blue-component demo
 blue-component mushroom mushroom-blue
-
 save resources/mushroom_images/mushroom-blue.jpg mushroom-blue
 
+#value-component demo
 value-component mushroom mushroom-value
-
 save resources/mushroom_images/mushroom-value.jpg mushroom-value
 
+#intensity-component demo
 intensity-component mushroom mushroom-intensity
-
 save resources/mushroom_images/mushroom-intensity.jpg mushroom-intensity
 
+#luma-component demo
 luma-component mushroom mushroom-luma
-
 save resources/mushroom_images/mushroom-luma.jpg mushroom-luma
 
+#horizontal-flip demo
 horizontal-flip mushroom mushroom-horizontal
-
 save resources/mushroom_images/mushroom-horizontal.jpg mushroom-horizontal
 
+#vertical-flip demo
 vertical-flip mushroom mushroom-vertical
-
 save resources/mushroom_images/mushroom-vertical.jpg mushroom-vertical
 
+#brighten and darken demo
 brighten 25 mushroom mushroom-brighter
-
 brighten -25 mushroom mushroom-darker
-
 save resources/mushroom_images/mushroom-brighter.jpg mushroom-brighter
-
 save resources/mushroom_images/mushroom-darker.jpg mushroom-darker
 
+#blur demo
 blur mushroom mushroom-blurred
-
 save resources/mushroom_images/mushroom-blurred.jpg mushroom-blurred
 
+#sepia demo
 sepia mushroom mushroom-sepia
-
 save resources/mushroom_images/mushroom-sepia.jpg mushroom-sepia
 
+#sharpen demo
 sharpen mushroom mushroom-sharpened
-
 save resources/mushroom_images/mushroom-sharpened.jpg mushroom-sharpened
 
+#rgb-split demo
 rgb-split mushroom mushroom-red-comp mushroom-green-comp mushroom-blue-comp
-
 save resources/mushroom_images/mushroom-red-comp.jpg mushroom-red-comp
-
 save resources/mushroom_images/mushroom-green-comp.jpg mushroom-green-comp
-
 save resources/mushroom_images/mushroom-blue-comp.jpg mushroom-blue-comp
 
+#rgb-combine demo
 rgb-combine mushroom-combined mushroom-red-comp mushroom-green-comp mushroom-blue-comp
-
 save resources/mushroom_images/mushroom-combined.jpg mushroom-combined
+
+#compression, 50%
+compress 50 mushroom mushroom-compressed-50
+histogram mushroom-compressed-50 mushroom-compressed-50-hist
+save resources/mushroom_images/mushroom-compressed-50.png mushroom-compressed-50
+save resources/mushroom_images/mushroom-compressed-50-hist.png mushroom-compressed-50-hist
+
+
+#compression, 90%
+compress 90 mushroom mushroom-compressed-90
+histogram mushroom-compressed-90 mushroom-compressed-90-hist
+save resources/mushroom_images/mushroom-compressed-90.jpg mushroom-compressed-90
+save resources/mushroom_images/mushroom-compressed-90-hist.png mushroom-compressed-90-hist
+
+#color-correction demo
+color-correct mushroom mushroom-color-corrected
+histogram mushroom-color-corrected mushroom-color-corrected-hist
+save resources/mushroom_images/mushroom-color-corrected.png mushroom-color-corrected
+save resources/mushroom_images/mushroom-color-corrected-hist.png mushroom-color-corrected-hist
+
+#level-adjustment A
+levels-adjust 30 80 200 mushroom mushroom-level-A
+histogram mushroom-level-A mushroom-level-A-hist
+save resources/mushroom_images/mushroom-level-A.png mushroom-level-A
+save resources/mushroom_images/mushroom-level-A-hist.png mushroom-level-A-hist
+
+#level-adjustment B
+levels-adjust 70 180 200 mushroom mushroom-level-B
+histogram mushroom-level-B mushroom-level-B-hist
+save resources/mushroom_images/mushroom-level-B.png mushroom-level-B
+save resources/mushroom_images/mushroom-level-B-hist.png mushroom-level-B-hist
+
+#split demo A
+sepia mushroom mushroom-splitA split 50
+save resources/mushroom_images/mushroom-splitA.jpg mushroom-splitA
+
+#split demo B
+color-correct mushroom mushroom-splitB split 50
+save resources/mushroom_images/mushroom-splitB.jpg mushroom-splitB
+
