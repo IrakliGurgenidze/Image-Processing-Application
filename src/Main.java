@@ -31,6 +31,4 @@ public class Main {
     //run controller
     imageController.go();
   }
-
-
 }
