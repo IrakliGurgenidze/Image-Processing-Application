@@ -23,7 +23,7 @@ public class LevelsAdjustUtil {
 
     Pixel[][] adjustedImage = new Pixel[height][width];
 
-    int[] coefficients = adjQuadratic(b, m, w);
+    double[] coefficients = adjQuadratic(b, m, w);
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -37,16 +37,15 @@ public class LevelsAdjustUtil {
     return new SimpleImage(destImageName, adjustedImage);
   }
 
-  private static int solveQuadratic(int[] coefs, int x) {
+  private static int solveQuadratic(double[] coefs, int x) {
     //solves y = ax^2 + bx + c
-    int a = coefs[0];
-    int b = coefs[1];
-    int c = coefs[2];
-
-    return (a * (x * x) + b * x + c * x);
+    double a = coefs[0];
+    double b = coefs[1];
+    double c = coefs[2];
+    return (int)(a * x * x + b * x + c);
   }
 
-  private static int[] adjQuadratic(int b, int m, int w) {
+  private static double[] adjQuadratic(int b, int m, int w) {
     //calculations to find coefficients
     double A = (b * b) * (m - w) - b * ((m * m) - (w * w)) + w * (m * m) - m * (w * w);
     double Aa = -b * (128 - 255) + 128 * w - 255 * m;
@@ -57,12 +56,7 @@ public class LevelsAdjustUtil {
     double coefB = Ab / A;
     double coefC = Ac / A;
 
-    //clamping the coefficients between 0-255
-    coefA = Math.max(0, Math.min(255, coefA));
-    coefB = Math.max(0, Math.min(255, coefB));
-    coefC = Math.max(0, Math.min(255, coefC));
-
-    return new int[]{(int) coefA, (int) coefB, (int) coefC};
+    return new double[]{coefA, coefB, coefC};
   }
 
 
