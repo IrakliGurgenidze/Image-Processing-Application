@@ -62,6 +62,7 @@ public class ImageUtil {
    */
   public static SimpleImage readColorPPM(String fileName, String imageName)
           throws FileNotFoundException {
+
     Scanner sc;
 
     try {
@@ -90,6 +91,8 @@ public class ImageUtil {
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
+
+    sc.nextInt();
 
     Pixel[][] simpleImage = new Pixel[height][width];
     //SimpleImage simpleImage = new SimpleImage(width, height, imageName);

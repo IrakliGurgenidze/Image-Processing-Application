@@ -35,7 +35,9 @@ public class LoadImageCommand implements CommandController {
     String imageName = args[2];
     try {
       imageStorageModel.loadImage(imagePath, imageName);
-    } catch (Exception e) {
+    }
+
+    catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }
     return "Image loaded.";
