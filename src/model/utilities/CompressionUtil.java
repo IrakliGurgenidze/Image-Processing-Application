@@ -132,7 +132,7 @@ public class CompressionUtil {
    This method performs the inverse of a Haar transform on an already
    transformed matrix of values.
   */
-  public static void inverseHaar(double[][] transformedChannel) {
+  private static void inverseHaar(double[][] transformedChannel) {
     if (transformedChannel.length != transformedChannel[0].length) {
       throw new IllegalStateException("Haar Wavelet Transform cannot be applied to non-square"
               + " arrays.");

@@ -14,7 +14,7 @@ public interface Controller {
    *
    * @throws IOException on view display errors
    */
-  void go() throws IOException;
+  void controllerGo() throws IOException;
 
   /**
    * This method "runs" the controller with a script filepath,
@@ -23,7 +23,7 @@ public interface Controller {
    * @param scriptPath String, the of the script to be run
    * @throws IOException on view display errors
    */
-  void go(String scriptPath) throws IOException;
+  void controllerGo(String scriptPath) throws IOException;
 
   /**
    * Method to take in a single line of input, and split it into related keywords.

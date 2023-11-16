@@ -79,7 +79,7 @@ public class ImageController implements Controller {
   }
 
   @Override
-  public void go() throws IOException {
+  public void controllerGo() throws IOException {
     view.displayStatus("Image Processing Application by Rocky and Griffin");
 
     String executionStatus;
@@ -88,7 +88,7 @@ public class ImageController implements Controller {
     while (true) {
       view.displayStatus(">> ");
       String commandLine = view.getInput();
-      if(commandLine.isEmpty()) {
+      if (commandLine.isEmpty()) {
         continue;
       }
 
@@ -112,7 +112,7 @@ public class ImageController implements Controller {
   }
 
   @Override
-  public void go(String scriptPath) throws IOException {
+  public void controllerGo(String scriptPath) throws IOException {
 
     //ensure file exists
     try {
