@@ -8,7 +8,7 @@ import model.Image;
 /**
  * A JUnit test class for SaveImageCommand.
  */
-public class SaveImageCommand extends AbstractCommandTest{
+public class SaveImageCommandTest extends AbstractCommandTest{
   /**
    * Test save command.
    */
