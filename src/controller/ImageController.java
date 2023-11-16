@@ -165,13 +165,14 @@ public class ImageController implements Controller {
         File file = new File(args[1]);
         return run(file);
       } catch (RuntimeException e) {
-        throw new IllegalArgumentException("Invalid file.");
+        throw new IllegalArgumentException("Invalid file name.");
       }
     }
 
     CommandController command = commands.get(args[0]);
     if (command == null) {
-      throw new IllegalArgumentException("Invalid command.");
+      throw new IllegalArgumentException("Invalid command. Please type help for a "
+              + "list of valid commands");
     }
     return command.execute(args);
   }
