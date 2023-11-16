@@ -36,6 +36,17 @@ public class Pixel {
     this.blue = clampedValue;
   }
 
+  /**
+   * Public constructor for a copy of an existing pixel.
+   *
+   * @param pixel Pixel, pixel to be copied
+   */
+  public Pixel(Pixel pixel) {
+    this.red = pixel.getRed();
+    this.green = pixel.getGreen();
+    this.blue = pixel.getBlue();
+  }
+
   //helper function to clamp a pixel value within 0-255
   private int clamp(int value, int min, int max) {
     if (value < min) {
@@ -77,35 +88,60 @@ public class Pixel {
 
 
   // ----------- getters and setters ----------- //
+
+  /**
+   * Getter for pixel's red channel value.
+   *
+   * @return int, value of pixel's red channel
+   */
   public int getRed() {
     return red;
   }
 
+  /**
+   * Setter for pixel's red channel.
+   *
+   * @param red int, value to set red channel to
+   */
   public void setRed(int red) {
     this.red = clamp(red, 0, 255);
   }
 
+  /**
+   * Getter for pixel's green channel value.
+   *
+   * @return int, value of pixel's green channel
+   */
   public int getGreen() {
     return green;
   }
 
+  /**
+   * Setter for pixel's green channel.
+   *
+   * @param green int, value to set green channel to
+   */
   public void setGreen(int green) {
     this.green = clamp(green, 0, 255);
   }
 
+  /**
+   * Getter for pixel's blue channel value.
+   *
+   * @return int, value of pixel's blue channel
+   */
   public int getBlue() {
     return blue;
   }
 
+  /**
+   * Setter for pixel's blue channel.
+   *
+   * @param blue int, value to set blue channel to
+   */
   public void setBlue(int blue) {
     this.blue = clamp(blue, 0, 255);
   }
 
-  //sets all pixels to an equal value
-  public void setAll(int value) {
-    int clampedValue = clamp(value, 0, 255);
-    this.red = clampedValue;
-    this.green = clampedValue;
-    this.blue = clampedValue;
-  }
+
 }

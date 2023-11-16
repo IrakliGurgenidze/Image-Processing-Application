@@ -1,5 +1,9 @@
 package model;
 
+import model.utilities.CompressionUtil;
+import model.utilities.HistogramUtil;
+import model.utilities.LevelsAdjustUtil;
+
 /**
  * Simple image implementation of Image interface.
  */
@@ -34,8 +38,25 @@ public class SimpleImage implements Image {
     this.imageBody = new Pixel[height][width];
   }
 
-  public Pixel[][] getImageBody(){
-    return imageBody;
+  /**
+   * The constructor to create an image from an array of pixels.
+   *
+   * @param name      String, name of image
+   * @param imageBody String, pixel array to become the body of the image
+   * @throws IllegalArgumentException if the image body is of illegal dimensions
+   */
+  public SimpleImage(String name, Pixel[][] imageBody) throws IllegalArgumentException {
+    int width = imageBody[0].length;
+    int height = imageBody.length;
+
+    if (width < 1) {
+      throw new IllegalArgumentException("Width and Height must be positive integers.");
+    }
+
+    this.width = width;
+    this.height = height;
+    this.name = name;
+    this.imageBody = imageBody;
   }
 
   @Override
@@ -58,15 +79,37 @@ public class SimpleImage implements Image {
     if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
       throw new IndexOutOfBoundsException("Coordinates are out of bounds.");
     }
-    return imageBody[y][x];
+
+    //return a deep copy of the selected pixel
+    return new Pixel(imageBody[y][x]);
   }
 
   @Override
-  public void setPixel(int x, int y, Pixel pixel) throws IndexOutOfBoundsException {
-    if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
-      throw new IndexOutOfBoundsException("Coordinates are out of bounds.");
+  public Image getRedComponent(String resultImageName) {
+    Pixel[][] redImage = new Pixel[height][width];
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel currPixel = this.getPixel(x, y);
+        redImage[y][x] = new Pixel(currPixel.getRed(), 0, 0);
+      }
     }
-    imageBody[y][x] = pixel;
+
+    return new SimpleImage(resultImageName, redImage);
+  }
+
+  @Override
+  public Image getGreenComponent(String resultImageName) {
+    Pixel[][] greenImage = new Pixel[height][width];
+
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel currPixel = this.getPixel(x, y);
+        greenImage[y][x] = new Pixel(0, currPixel.getGreen(), 0);
+      }
+    }
+
+    return new SimpleImage(resultImageName, greenImage);
   }
 
 

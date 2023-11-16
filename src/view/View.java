@@ -12,7 +12,6 @@ public interface View {
    */
   void displayStatus(String status) throws IOException;
 
-
   /**
    * Retrieves user input and sends it to controller to be parsed.
    *

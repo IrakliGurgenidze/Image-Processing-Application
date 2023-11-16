@@ -1,11 +1,29 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * This interface outlines generic methods for the controller of an image editing application.
  */
 public interface Controller {
+
+
+  /**
+   * This method "runs" the controller, giving it control over the program execution.
+   *
+   * @throws IOException on view display errors
+   */
+  void go() throws IOException;
+
+  /**
+   * This method "runs" the controller with a script filepath,
+   * executing the script and then ending the program.
+   *
+   * @param scriptPath String, the of the script to be run
+   * @throws IOException on view display errors
+   */
+  void go(String scriptPath) throws IOException;
 
   /**
    * Method to take in a single line of input, and split it into related keywords.

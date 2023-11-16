@@ -1,9 +1,8 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
+
 
 /**
  * This command computes and stores the vertical flip of an image.
@@ -11,14 +10,14 @@ import model.SimpleImage;
 public class VerticalFlipCommand implements CommandController {
 
   //model state
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of the image database
    */
-  public VerticalFlipCommand(ImageStorageModel imageStorageModel) {
+  public VerticalFlipCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
@@ -35,9 +34,10 @@ public class VerticalFlipCommand implements CommandController {
     if (sourceImage == null) {
       throw new IllegalArgumentException("Image with name " + sourceImageName + " not found.");
     }
-      Image resultImage = getVerticalFlip(sourceImage, resultImageName);
-      imageStorageModel.insertImage(resultImage);
-      return "Completed vertical-flip operation.";
+
+    Image resultImage = sourceImage.getVerticalFlip(resultImageName);
+    imageStorageModel.insertImage(resultImage);
+    return "Completed vertical-flip operation.";
   }
 
   @Override

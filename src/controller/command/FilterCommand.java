@@ -1,10 +1,9 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
 import model.utilities.Filter;
+
 
 /**
  * This command applies a filter to an image and stores the result.
@@ -32,16 +31,16 @@ public class FilterCommand implements CommandController {
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
     }
-      String sourceImageName = args[1];
-      String destImageName = args[2];
-      Image sourceImage = imageStorageModel.getImage(sourceImageName);
-      if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
-                + " not found.");
-      }
-        Image filteredImage = applyFilter(destImageName, sourceImage);
-        imageStorageModel.insertImage(filteredImage);
-        return "Completed " + filterName + " operation.";
+    String sourceImageName = args[1];
+    String destImageName = args[2];
+    Image sourceImage = imageStorageModel.getImage(sourceImageName);
+    if (sourceImage == null) {
+      throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+              + " not found.");
+    }
+    Image filteredImage = sourceImage.applyFilter(filter, destImageName);
+    imageStorageModel.insertImage(filteredImage);
+    return "Completed " + filterName + " operation.";
   }
 
   @Override

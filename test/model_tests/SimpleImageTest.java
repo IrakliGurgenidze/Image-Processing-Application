@@ -47,29 +47,23 @@ public class SimpleImageTest {
    * Simple tests for setPixel() and getPixel().
    */
   @Test
-  public void testSetAndGetPixel() {
+  public void testGetPixel() {
     Image img = ModelTestUtilities.constructBasicImage();
 
     //calls should throw IndexOutOfBoundsException
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.setPixel(-1, 0, new Pixel(0, 0, 0)));
+        () -> img.getPixel(-1, 0));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.setPixel(0, -1, new Pixel(0, 0, 0)));
+        () -> img.getPixel(0, -1));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.setPixel(3, 0, new Pixel(0, 0, 0)));
+        () -> img.getPixel(3, 0));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.setPixel(0, 3, new Pixel(0, 0, 0)));
+        () -> img.getPixel(0, 3));
 
     //verify that pixel is returned correctly
     assertEquals(10, img.getPixel(0, 0).getRed());
     assertEquals(40, img.getPixel(0, 0).getGreen());
     assertEquals(30, img.getPixel(0, 0).getBlue());
-
-    //set pixel value
-    img.setPixel(0, 0, new Pixel(300, 50, -10));
-    assertEquals(255, img.getPixel(0, 0).getRed());
-    assertEquals(50, img.getPixel(0, 0).getGreen());
-    assertEquals(0, img.getPixel(0, 0).getBlue());
   }
 
 

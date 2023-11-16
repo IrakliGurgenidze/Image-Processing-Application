@@ -1,8 +1,7 @@
 package controller.command;
 
-import model.Image;
-import model.ImageStorageModel;
-import model.utilities.ImageUtil;
+import model.StorageModel;
+
 
 /**
  * This command loads an image and stores it in the database.
@@ -10,14 +9,14 @@ import model.utilities.ImageUtil;
 public class LoadImageCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public LoadImageCommand(ImageStorageModel imageStorageModel) {
+  public LoadImageCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

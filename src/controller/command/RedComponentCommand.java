@@ -1,9 +1,8 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
+
 
 /**
  * This command computes and stores the red component of an image.
@@ -11,14 +10,14 @@ import model.SimpleImage;
 public class RedComponentCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public RedComponentCommand(ImageStorageModel imageStorageModel) {
+  public RedComponentCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

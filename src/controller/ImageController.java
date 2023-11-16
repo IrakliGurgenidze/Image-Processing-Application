@@ -11,21 +11,45 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import controller.command.*;
-import model.ImageStorageModel;
+import controller.command.BlueComponentCommand;
+import controller.command.BrightenCommand;
+import controller.command.ColorCorrectCommand;
+import controller.command.CommandController;
+import controller.command.CompressCommand;
+import controller.command.FilterCommand;
+import controller.command.GreenComponentCommand;
+import controller.command.HelpCommand;
+import controller.command.HistogramCommand;
+import controller.command.HorizontalFlipCommand;
+import controller.command.IntensityComponentCommand;
+import controller.command.LevelsAdjustCommand;
+import controller.command.LinearColorTransformationCommand;
+import controller.command.LoadImageCommand;
+import controller.command.LumaComponentCommand;
+import controller.command.QuitCommand;
+import controller.command.RGBCombineCommand;
+import controller.command.RGBSplitCommand;
+import controller.command.RedComponentCommand;
+import controller.command.SaveImageCommand;
+import controller.command.ValueComponentCommand;
+import controller.command.VerticalFlipCommand;
+import model.StorageModel;
+import view.View;
 
 /**
  * Implementation of Controller interface, controls an image store.
  */
 public class ImageController implements Controller {
   private final Map<String, CommandController> commands = new HashMap<>();
+  private View view;
 
   /**
    * Public constructor for an Image Controller. Populates list of commands.
    *
    * @param imageStore state of Image Model
    */
-  public ImageController(ImageStorageModel imageStore) {
+  public ImageController(StorageModel imageStore, View view) {
+    this.view = view;
 
     commands.put("load", new LoadImageCommand(imageStore));
     commands.put("save", new SaveImageCommand(imageStore));
@@ -52,6 +76,66 @@ public class ImageController implements Controller {
     commands.put("color-correct", new ColorCorrectCommand(imageStore));
     commands.put("help", new HelpCommand(commands));
     commands.put("quit", new QuitCommand());
+  }
+
+  @Override
+  public void go() throws IOException {
+    view.displayStatus("Image Processing Application by Rocky and Griffin");
+
+    String executionStatus;
+
+    //run until break detected
+    while (true) {
+      view.displayStatus(">> ");
+      String commandLine = view.getInput();
+
+      String[] parsedCommand = this.parseCommand(commandLine);
+
+      //run command but catch exceptions
+      try {
+        executionStatus = this.runCommand(parsedCommand);
+      } catch (Exception e) {
+        executionStatus = e.getMessage();
+      }
+
+      //quit program
+      if (executionStatus.equals("quit")) {
+        view.displayStatus("Quitting program...");
+        break;
+      }
+
+      view.displayStatus(executionStatus);
+    }
+  }
+
+  @Override
+  public void go(String scriptPath) throws IOException {
+
+    //ensure file exists
+    try {
+      File scriptFile = new File(scriptPath);
+    }
+
+    catch (RuntimeException e) {
+      view.displayStatus("Command line argument file not found.");
+
+      //exit program if file not found
+      System.exit(1);
+    }
+
+    //run arguments in script file
+    String[] runArgs = {"run", scriptPath};
+
+    try {
+      view.displayStatus(this.runCommand(runArgs));
+    } catch (Exception e) {
+      //display exceptions from script file (if any) then quit program
+      view.displayStatus(e.getMessage());
+      System.exit(1);
+    }
+
+    //exit program after script file is run
+    System.exit(0);
   }
 
   @Override

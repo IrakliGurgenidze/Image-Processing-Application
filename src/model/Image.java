@@ -6,13 +6,6 @@ package model;
 public interface Image {
 
   /**
-   * Returns the image body as an array of pixels.
-   *
-   * @return Pixel[][], the image body
-   */
-  Pixel[][] getImageBody();
-
-  /**
    * Returns the width of the image by number of pixels.
    *
    * @return int, width of image
@@ -34,7 +27,7 @@ public interface Image {
   String getName();
 
   /**
-   * Method to return a pixel at a given index in the image.
+   * Method to return the deep copy of a pixel at a given index in the image.
    *
    * @param x int, x-pos of pixel
    * @param y int, y-pos of pixel

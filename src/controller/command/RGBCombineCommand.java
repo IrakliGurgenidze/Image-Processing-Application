@@ -1,9 +1,10 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
+import model.StorageModel;
+
 
 /**
  * This command computes and stores an image that combines the RGB channels of 3 separate images.
@@ -11,14 +12,14 @@ import model.SimpleImage;
 public class RGBCombineCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public RGBCombineCommand(ImageStorageModel imageStorageModel) {
+  public RGBCombineCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 

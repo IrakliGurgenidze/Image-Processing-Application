@@ -1,9 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
 
 /**
  * This command computes and stores the green component of an image.
@@ -11,14 +9,14 @@ import model.SimpleImage;
 public class GreenComponentCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public GreenComponentCommand(ImageStorageModel imageStorageModel) {
+  public GreenComponentCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
@@ -28,17 +26,18 @@ public class GreenComponentCommand implements CommandController {
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
     }
-      String sourceImageName = args[1];
-      String resultImageName = args[2];
+    String sourceImageName = args[1];
+    String resultImageName = args[2];
 
-      Image sourceImage = imageStorageModel.getImage(sourceImageName);
-      if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
-                + " not found.");
-      }
-        Image resultImage = getGreenComponent(sourceImage, resultImageName);
-        imageStorageModel.insertImage(resultImage);
-        return "Completed green-component operation.";
+    Image sourceImage = imageStorageModel.getImage(sourceImageName);
+    if (sourceImage == null) {
+      throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+              + " not found.");
+    }
+
+    Image resultImage = sourceImage.getGreenComponent(resultImageName);
+    imageStorageModel.insertImage(resultImage);
+    return "Completed green-component operation.";
   }
 
   @Override

@@ -10,6 +10,7 @@ public class HelpCommand implements CommandController {
 
   /**
    * The constructor to initialize the help command.
+   *
    * @param commands the state of the storage model
    */
   public HelpCommand(Map<String, CommandController> commands) {

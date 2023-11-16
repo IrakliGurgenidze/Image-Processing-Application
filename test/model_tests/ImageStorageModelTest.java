@@ -74,15 +74,14 @@ public class ImageStorageModelTest {
   }
 
   /**
-   * Integration test for ImageStorageModel and Image.
+   * Empty test for ImageStorageModel and Image.
    */
   @Test
-  public void testImageAndImageStorageModel() {
+  public void testImageEmptyStorageModel() {
     ImageStorageModel model = new ImageStorageModel();
-    model.insertImage(ModelTestUtilities.constructBasicImage());
 
     //model should be empty
-    assertEquals(1, model.getSize());
+    assertEquals(0, model.getSize());
     assertNull(model.getImage("should be null"));
 
     //modify added image

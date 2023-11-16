@@ -1,9 +1,7 @@
 package controller.command;
 
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
 
 /**
  * This command computes and stores the blue component of an image.
@@ -11,14 +9,14 @@ import model.SimpleImage;
 public class BlueComponentCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public BlueComponentCommand(ImageStorageModel imageStorageModel) {
+  public BlueComponentCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
@@ -28,17 +26,20 @@ public class BlueComponentCommand implements CommandController {
       throw new IllegalArgumentException("Invalid input, looking for 3 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
     }
-      String sourceImageName = args[1];
-      String resultImageName = args[2];
 
-      Image sourceImage = imageStorageModel.getImage(sourceImageName);
-      if (sourceImage == null) {
-        throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
-                + " not found.");
-      }
-        Image resultImage = getBlueComponent(sourceImage, resultImageName);
-        imageStorageModel.insertImage(resultImage);
-        return "Completed blue-component operation.";
+    String sourceImageName = args[1];
+    String resultImageName = args[2];
+
+    Image sourceImage = imageStorageModel.getImage(sourceImageName);
+    if (sourceImage == null) {
+      throw new IllegalArgumentException("Invalid request. Image with name " + sourceImageName
+              + " not found.");
+    }
+
+    Image resultImage = sourceImage.getBlueComponent(resultImageName);
+    imageStorageModel.insertImage(resultImage);
+
+    return "Completed blue-component operation.";
   }
 
   @Override

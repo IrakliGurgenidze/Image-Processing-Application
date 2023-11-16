@@ -1,6 +1,7 @@
 package model.utilities;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Helper static class to contain filters and their information.

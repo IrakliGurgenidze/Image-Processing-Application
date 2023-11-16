@@ -2,26 +2,21 @@ package controller.command;
 
 import model.Image;
 import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
-import model.utilities.HistogramUtil;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import model.StorageModel;
 
 /**
  * This command creates a histogram representing the RGB channels of an image.
  */
 public class HistogramCommand implements CommandController {
 
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * The constructor to initialize the histogram command.
    *
    * @param imageStorageModel the state of the storage model
    */
-  public HistogramCommand(ImageStorageModel imageStorageModel) {
+  public HistogramCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
@@ -50,32 +45,4 @@ public class HistogramCommand implements CommandController {
     return "histogram image-name dest-image-name: creates an histogram for the RGB intensities of the given" +
             "image. The image is saved in the database under the destination image name.";
   }
-
-  private Image getHistogram(Image sourceImage, String destImageName) {
-    //uses the util method to get the buffered image histogram
-    BufferedImage histogram = HistogramUtil.getHistogramImage(sourceImage);
-
-    //similar to ImageUtil, the histogram is read into simple image format
-    int width = histogram.getWidth();
-    int height = histogram.getHeight();
-    int red;
-    int green;
-    int blue;
-
-    SimpleImage simpleHistogram = new SimpleImage(width, height, destImageName);
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        Color color = new Color(histogram.getRGB(x, y));
-        red = color.getRed();
-        green = color.getGreen();
-        blue = color.getBlue();
-        Pixel pixel = new Pixel(red, green, blue);
-        simpleHistogram.setPixel(x, y, pixel);
-      }
-    }
-
-    return simpleHistogram;
-  }
-
 }

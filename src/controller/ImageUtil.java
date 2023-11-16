@@ -1,4 +1,4 @@
-package model.utilities;
+package controller;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,7 +36,8 @@ public class ImageUtil {
     int green;
     int blue;
 
-    SimpleImage simpleImage = new SimpleImage(width, height, imageName);
+    Pixel[][] simpleImage = new Pixel[height][width];
+    //SimpleImage simpleImage = new SimpleImage(width, height, imageName);
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
         Color color = new Color(bufferedImage.getRGB(x, y));
@@ -44,15 +45,16 @@ public class ImageUtil {
         green = color.getGreen();
         blue = color.getBlue();
         Pixel pixel = new Pixel(red, green, blue);
-        simpleImage.setPixel(x, y, pixel);
+        simpleImage[y][x] = pixel;
+        //simpleImage.setPixel(x, y, pixel);
       }
     }
-
-    return simpleImage;
+    return new SimpleImage(imageName, simpleImage);
   }
 
   /**
-   * This method reads a color image of PPM format and creates its generic model.SimpleImage representation.
+   * This method reads a color image of PPM format and creates its generic model.SimpleImage
+   * representation.
    *
    * @param fileName the name of the image file
    * @return the model. SimpleImage equivalent of the given image
@@ -89,19 +91,21 @@ public class ImageUtil {
     int width = sc.nextInt();
     int height = sc.nextInt();
 
-    SimpleImage simpleImage = new SimpleImage(width, height, imageName);
+    Pixel[][] simpleImage = new Pixel[height][width];
+    //SimpleImage simpleImage = new SimpleImage(width, height, imageName);
 
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
         Pixel pixel = new Pixel(r, g, b);
-        simpleImage.setPixel(x, y, pixel);
+        //simpleImage.setPixel(x, y, pixel);
+        simpleImage[y][x] = pixel;
       }
     }
 
-    return simpleImage;
+    return new SimpleImage(imageName, simpleImage);
   }
 }
 

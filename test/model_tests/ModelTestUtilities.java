@@ -54,18 +54,22 @@ public class ModelTestUtilities {
       40 30 10
      */
 
-    Image img = new SimpleImage(3, 3, "default");
-    img.setPixel(0, 0, new Pixel(10, 40, 30));
-    img.setPixel(0, 1, new Pixel(0, 30, 30));
-    img.setPixel(0, 2, new Pixel(30, 20, 80));
-    img.setPixel(1, 0, new Pixel(20, 20, 10));
-    img.setPixel(1, 1, new Pixel(10, 50, 20));
-    img.setPixel(1, 2, new Pixel(0, 60, 40));
-    img.setPixel(2, 0, new Pixel(50, 50, 40));
-    img.setPixel(2, 1, new Pixel(20, 10, 30));
-    img.setPixel(2, 2, new Pixel(30, 70, 10));
+    Pixel[][] basicImageBody = new Pixel[3][3];
 
-    return img;
+    Image img = new SimpleImage(3, 3, "default");
+    basicImageBody[0][0] = new Pixel(10, 40, 30);
+    basicImageBody[0][1] = new Pixel(0, 30, 30);
+    basicImageBody[0][2] = new Pixel(30, 20, 80);
+
+    basicImageBody[1][0] = new Pixel(20, 20, 10);
+    basicImageBody[1][1] = new Pixel(10, 50, 20);
+    basicImageBody[1][2] = new Pixel(0, 60, 40);
+
+    basicImageBody[2][0] = new Pixel(50, 50, 40);
+    basicImageBody[2][1] = new Pixel(20, 10, 30);
+    basicImageBody[2][2] = new Pixel(30, 70, 10);
+    
+    return new SimpleImage("default", basicImageBody);
   }
 
   /**

@@ -1,17 +1,7 @@
 package controller.command;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
+import model.StorageModel;
 
-import javax.imageio.ImageIO;
-
-import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
 
 /**
  * This command saves an image from the database to a local location.
@@ -19,14 +9,14 @@ import model.Pixel;
 public class SaveImageCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
+  private final StorageModel imageStorageModel;
 
   /**
    * This constructor initializes the command.
    *
    * @param imageStorageModel state of image database
    */
-  public SaveImageCommand(ImageStorageModel imageStorageModel) {
+  public SaveImageCommand(StorageModel imageStorageModel) {
     this.imageStorageModel = imageStorageModel;
   }
 
