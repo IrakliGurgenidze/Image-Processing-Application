@@ -133,6 +133,7 @@ public class ImageController implements Controller {
     }
 
     //exit program after script file is run
+    view.displayStatus("Run of script file complete.");
     System.exit(0);
   }
 
