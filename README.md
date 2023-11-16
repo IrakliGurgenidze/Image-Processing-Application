@@ -95,7 +95,8 @@ Their naming convention is as follows: commandnameCommand. There is a separate c
 commands
 listed in the project description. Each command implements execute() in a manner relevant to their
 name, as described
-in the list at the first part of this document.
+in the list at the first part of this document. Added implementations for Compression, Histogram, Color Correction,
+and Level Correction.
 
 *Controller (Interface)*: Outlines all the necessary commands for the application's controller.
 Includes a method to parse a String in to relevant command keywords, a runCommand() method
@@ -108,6 +109,13 @@ from the user,
 and running commands with the parsed arguments. When a command is run, its command object is
 retrieved from the HashMap and
 execute() is called.
+
+*ImageUtil (Class)*: Provides methods to read png, gif, png, bitmap, and ppm files
+into a generic Image object used internally by ImageStorageModel. 
+
+*SplitUtil (Class)*: A utility file for operations involving the split keyword. 
+
+
 
 ### Run Instructions & Details ###
 

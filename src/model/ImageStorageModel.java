@@ -67,8 +67,8 @@ public class ImageStorageModel implements StorageModel {
           IOException {
     Image image = getImage(imageName);
     if (image == null) {
-      throw new IllegalArgumentException("Image with name " + imageName + " does not " +
-              "exist in database.");
+      throw new IllegalArgumentException("Image with name " + imageName + " does not "
+              + "exist in database.");
     }
     int height = image.getHeight();
     int width = image.getWidth();
