@@ -64,15 +64,15 @@ save resources/mushroom_images/mushroom-combined.jpg mushroom-combined
 #compression, 50%
 compress 50 mushroom mushroom-compressed-50
 histogram mushroom-compressed-50 mushroom-compressed-50-hist
-save resources/mushroom_images/mushroom-compressed-50.png mushroom-compressed-50
-save resources/mushroom_images/mushroom-compressed-50-hist.png mushroom-compressed-50-hist
+save resources/mushroom_images/mushroom-compressed-50.jpg mushroom-compressed-50
+save resources/mushroom_images/mushroom-compressed-50-hist.jpg mushroom-compressed-50-hist
 
 
 #compression, 90%
 compress 90 mushroom mushroom-compressed-90
 histogram mushroom-compressed-90 mushroom-compressed-90-hist
 save resources/mushroom_images/mushroom-compressed-90.jpg mushroom-compressed-90
-save resources/mushroom_images/mushroom-compressed-90-hist.png mushroom-compressed-90-hist
+save resources/mushroom_images/mushroom-compressed-90-hist.jpg mushroom-compressed-90-hist
 
 #color-correction demo
 color-correct mushroom mushroom-color-corrected
