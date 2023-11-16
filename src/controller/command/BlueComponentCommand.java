@@ -48,20 +48,4 @@ public class BlueComponentCommand implements CommandController {
             + "blue-component of the image with the given name, and refer to it henceforth in\n"
             + "the program by the given destination name.";
   }
-
-  //helper method to return the blue component of an image
-  private Image getBlueComponent(Image source, String resultImageName) {
-    Image blueImage = new SimpleImage(source.getWidth(),
-            source.getHeight(),
-            resultImageName);
-
-    for (int x = 0; x < source.getWidth(); x++) {
-      for (int y = 0; y < source.getHeight(); y++) {
-        blueImage.setPixel(x, y, new Pixel(0, 0,
-                source.getPixel(x, y).getBlue()));
-      }
-
-    }
-    return blueImage;
-  }
 }

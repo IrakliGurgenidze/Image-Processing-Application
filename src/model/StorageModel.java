@@ -1,5 +1,7 @@
 package model;
 
+import java.io.IOException;
+
 /**
  * This interface represents generic methods the "model" of an image processing application.
  * It contains a list of active images, and also provides methods to access and modify those images.

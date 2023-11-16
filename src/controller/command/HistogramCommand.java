@@ -34,7 +34,7 @@ public class HistogramCommand implements CommandController {
               + " not found.");
     }
 
-    Image destImage = getHistogram(sourceImage, destImageName);
+    Image destImage = sourceImage.getHistogram(destImageName);
     imageStorageModel.insertImage(destImage);
 
     return "Completed histogram creation. File saved as: " + destImageName;

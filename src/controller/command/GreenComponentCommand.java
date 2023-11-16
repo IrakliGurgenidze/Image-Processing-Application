@@ -46,18 +46,4 @@ public class GreenComponentCommand implements CommandController {
             + "green-component of the image with the given name, and refer to it henceforth in\n"
             + "the program by the given destination name.";
   }
-
-  //helper function to return the green component of an image
-  private Image getGreenComponent(Image source, String resultImageName) {
-    Image greenImage = new SimpleImage(source.getWidth(),
-            source.getHeight(),
-            resultImageName);
-
-    for (int x = 0; x < source.getWidth(); x++) {
-      for (int y = 0; y < source.getHeight(); y++) {
-        greenImage.setPixel(x, y, new Pixel(0, source.getPixel(x, y).getGreen(), 0));
-      }
-    }
-    return greenImage;
-  }
 }

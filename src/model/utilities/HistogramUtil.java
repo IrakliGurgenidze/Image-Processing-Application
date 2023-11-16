@@ -9,7 +9,8 @@ import model.Pixel;
 import model.SimpleImage;
 
 /**
- * This class contains the utility methods to draw a histogram on a buffered image.
+ * This class contains the utility methods for commands related to an image's RGB histogram.
+ * This currently includes Histogram and ColorCorrect.
  */
 public class HistogramUtil {
 

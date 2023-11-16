@@ -9,15 +9,19 @@ import controller.ImageController;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
+import model.StorageModel;
+import view.ImageView;
+import view.View;
 
 /**
  * Abstract class with helper methods for tests of commands.
  */
 public abstract class AbstractCommandTest {
 
-  ImageStorageModel imageModel = new ImageStorageModel();
-  Controller imageController = new ImageController(imageModel);
-  String workingDirectory = setWd();
+  protected final StorageModel imageModel = new ImageStorageModel();
+  protected final View imageView = new ImageView(System.in, System.out);
+  protected final Controller imageController = new ImageController(imageModel, imageView);
+  protected final String workingDirectory = setWd();
 
 
   //helper method to determine the equivalency of two images

@@ -28,23 +28,23 @@ public class RGBCombineCommand implements CommandController {
     if (args.length != 5) {
       throw new IllegalArgumentException("Invalid input, looking for 5 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
-    } else {
-      String combinedImageName = args[1];
-      String redImageName = args[2];
-      String greenImageName = args[3];
-      String blueImageName = args[4];
-
-      Image combinedImage = combine(redImageName, greenImageName, blueImageName,
-              combinedImageName);
-
-      if (combinedImage == null) {
-        throw new IllegalArgumentException("Unable to complete rgb-combine operation. Please ensure images exist, and have "
-                + "the same dimensions.");
-      }
-
-      imageStorageModel.insertImage(combinedImage);
-      return "Completed rgb-combine operation.";
     }
+    String combinedImageName = args[1];
+    String redImageName = args[2];
+    String greenImageName = args[3];
+    String blueImageName = args[4];
+
+    Image combinedImage = combine(redImageName, greenImageName, blueImageName,
+            combinedImageName);
+
+    if (combinedImage == null) {
+      throw new IllegalArgumentException("Unable to complete rgb-combine operation. " +
+              "Please ensure images exist, and have "
+              + "the same dimensions.");
+    }
+
+    imageStorageModel.insertImage(combinedImage);
+    return "Completed rgb-combine operation.";
   }
 
   @Override
@@ -55,7 +55,7 @@ public class RGBCombineCommand implements CommandController {
   }
 
   //helper method to combine RGB channels from 3 images
-  private Image combine(String red, String green, String blue, String combined) {
+  private Image combine(String red, String green, String blue, String combinedName) {
     Image redImage = imageStorageModel.getImage(red);
     if (redImage == null) {
       return null;
@@ -84,7 +84,8 @@ public class RGBCombineCommand implements CommandController {
       return null;
     }
 
-    Image combinedImage = new SimpleImage(redImage.getWidth(), redImage.getHeight(), combined);
+    Pixel[][] combinedImage = new Pixel[height][width];
+    //Image combinedImage = new SimpleImage(redImage.getWidth(), redImage.getHeight(), combined);
 
     for (int x = 0; x < redImage.getWidth(); x++) {
       for (int y = 0; y < redImage.getHeight(); y++) {
@@ -98,9 +99,9 @@ public class RGBCombineCommand implements CommandController {
 
         Pixel combinedPixel = new Pixel(redComp, greenComp, blueComp);
 
-        combinedImage.setPixel(x, y, combinedPixel);
+        combinedImage[y][x] = combinedPixel;
       }
     }
-    return combinedImage;
+    return new SimpleImage(combinedName, combinedImage);
   }
 }

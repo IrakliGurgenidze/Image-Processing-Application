@@ -57,7 +57,7 @@ public class LevelsAdjustCommand implements CommandController {
               + " not found.");
     }
     String destImageName = args[5];
-    Image adjustedImage = levelsAdjust(sourceImage, b, m, w, destImageName);
+    Image adjustedImage = sourceImage.adjustLevels(destImageName, b, m, w);
     imageStorageModel.insertImage(adjustedImage);
     return "Levels adjustment operation successful.";
   }

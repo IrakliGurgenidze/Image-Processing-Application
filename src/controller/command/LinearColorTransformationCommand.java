@@ -11,13 +11,10 @@ import model.utilities.LinearColorTransformation;
 public class LinearColorTransformationCommand implements CommandController {
 
   //state of image database
-  private final ImageStorageModel imageStorageModel;
-
+  private final StorageModel imageStorageModel;
   //name of transformation to be applied
   private final String transformationName;
-
-  //database of available LinearColorTransformations
-  private final LinearColorTransformation transformations;
+  private final double[][] transformation;
 
   /**
    * This constructor initializes the command.
@@ -30,7 +27,7 @@ public class LinearColorTransformationCommand implements CommandController {
     LinearColorTransformation lct = new LinearColorTransformation();
     this.imageStorageModel = imageStorageModel;
     this.transformationName = transformationName;
-    this.transformations = new LinearColorTransformation();
+    this.transformation = lct.getLinearTransformation(transformationName);
   }
 
   @Override
@@ -58,39 +55,5 @@ public class LinearColorTransformationCommand implements CommandController {
   public String getUsage() {
     return "sepia image-name dest-image-name: produce a sepia-toned version of\n "
             + "the given image and store the result in another image with the given name.";
-  }
-
-  //helper method to compute and return the linear color transformation of an image
-  private Image applyLinearTransformation(String destImageName, Image image) {
-    int width = image.getWidth();
-    int height = image.getHeight();
-    double[][] transformation = transformations.getLinearTransformation(transformationName);
-    Image transformedImage = new SimpleImage(width, height, destImageName);
-
-    int red;
-    int green;
-    int blue;
-
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        Pixel currPixel = image.getPixel(x, y);
-
-        red = (int) (transformation[0][0] * currPixel.getRed()
-                + transformation[0][1] * currPixel.getGreen()
-                + transformation[0][2] * currPixel.getBlue());
-
-        green = (int) (transformation[1][0] * currPixel.getRed()
-                + transformation[1][1] * currPixel.getGreen()
-                + transformation[1][2] * currPixel.getBlue());
-
-        blue = (int) (transformation[2][0] * currPixel.getRed()
-                + transformation[2][1] * currPixel.getGreen()
-                + transformation[2][2] * currPixel.getBlue());
-
-        transformedImage.setPixel(x, y, new Pixel(red, green, blue));
-      }
-    }
-
-    return transformedImage;
   }
 }

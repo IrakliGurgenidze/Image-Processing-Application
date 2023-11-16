@@ -25,18 +25,18 @@ public class RGBSplitCommand implements CommandController {
     if (args.length != 5) {
       throw new IllegalArgumentException("Invalid input, looking for 5 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
-    } else {
-      String sourceImageName = args[1];
-      String destImageRedName = args[2];
-      String destImageGreenName = args[3];
-      String destImageBlueName = args[4];
-
-      redSplit(sourceImageName, destImageRedName);
-      greenSplit(sourceImageName, destImageGreenName);
-      blueSplit(sourceImageName, destImageBlueName);
-
-      return "Completed rgb-split operation.";
     }
+    String sourceImageName = args[1];
+
+    String destImageRedName = args[2];
+    String destImageGreenName = args[3];
+    String destImageBlueName = args[4];
+
+    redSplit(sourceImageName, destImageRedName);
+    greenSplit(sourceImageName, destImageGreenName);
+    blueSplit(sourceImageName, destImageBlueName);
+
+    return "Completed rgb-split operation.";
   }
 
   @Override

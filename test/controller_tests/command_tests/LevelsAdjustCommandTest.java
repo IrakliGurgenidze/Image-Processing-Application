@@ -5,7 +5,6 @@ import org.junit.Test;
 import model.Image;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A JUnit Test class for LevelsAdjustCommand.

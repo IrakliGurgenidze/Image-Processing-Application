@@ -83,14 +83,6 @@ public class ImageStorageModelTest {
     //model should be empty
     assertEquals(0, model.getSize());
     assertNull(model.getImage("should be null"));
-
-    //modify added image
-    Image img = model.getImage("default");
-    img.setPixel(0, 0, new Pixel(-10, 50, 550));
-    Image result = model.getImage("default");
-    assertEquals(0, result.getPixel(0, 0).getRed());
-    assertEquals(50, result.getPixel(0, 0).getGreen());
-    assertEquals(255, result.getPixel(0, 0).getBlue());
   }
 
 

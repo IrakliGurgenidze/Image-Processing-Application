@@ -5,6 +5,7 @@ import controller.ImageController;
 import model.ImageStorageModel;
 import model.StorageModel;
 import view.ImageView;
+import view.View;
 
 /**
  * Main driver class for this project.

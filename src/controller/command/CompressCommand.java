@@ -1,13 +1,8 @@
 package controller.command;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import model.Image;
-import model.ImageStorageModel;
-import model.Pixel;
-import model.SimpleImage;
+import model.StorageModel;
+
 
 /**
  * This command compresses an image to facilitate more efficient storage.

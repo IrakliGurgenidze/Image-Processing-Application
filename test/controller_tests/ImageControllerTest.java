@@ -63,9 +63,6 @@ public class ImageControllerTest extends AbstractCommandTest {
    */
   @Test
   public void testRun() {
-    ImageStorageModel imageModel = new ImageStorageModel();
-    Controller imageController = new ImageController(imageModel);
-    String workingDirectory = setWd();
     File script = new File(workingDirectory
             + File.separator
             + "controller_tests"

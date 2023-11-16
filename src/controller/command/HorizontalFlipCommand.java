@@ -44,23 +44,4 @@ public class HorizontalFlipCommand implements CommandController {
     return "horizontal-flip image-name dest-image-name: Flip an image horizontally\n "
             + "to create a new image, referred to henceforth by the given destination name.";
   }
-
-  //helper method to return the horizontally flipped image
-  private Image horizontalFlip(Image source, String resultImageName) {
-    int height = source.getHeight();
-    int width = source.getWidth();
-
-    Image newImage = new SimpleImage(width, height, resultImageName);
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        Pixel currPixel = source.getPixel(x, y);
-
-        //horizontal flip -> new x coordinate
-        int flippedX = width - x - 1;
-
-        newImage.setPixel(flippedX, y, currPixel);
-      }
-    }
-    return newImage;
-  }
 }
