@@ -1,7 +1,5 @@
 package controller_tests.command_tests;
 
-import org.junit.Test;
-
 import java.io.File;
 
 import controller.Controller;
@@ -60,7 +58,7 @@ public abstract class AbstractCommandTest {
   }
 
   //helper method to load base image
-  protected String[] loadImage(String fileName, String destImageName){
+  protected String[] loadImage(String fileName, String destImageName) {
     return imageController.parseCommand("load "
             + workingDirectory
             + "sample_images"
@@ -68,6 +66,25 @@ public abstract class AbstractCommandTest {
             + fileName
             + " "
             + destImageName);
+  }
+
+  //helper method to determine whether a pixel is purely R, G, or B
+  protected boolean isPureRGB(Pixel pixel) {
+    if (pixel.getRed() != 0
+            && pixel.getGreen() == 0
+            && pixel.getBlue() == 0) {
+      return true;
+    }
+
+    else if (pixel.getRed() == 0
+            && pixel.getGreen() != 0
+            && pixel.getBlue() == 0) {
+      return true;
+    }
+
+    else return pixel.getRed() == 0
+              && pixel.getGreen() == 0
+              && pixel.getBlue() != 0;
   }
 
 
