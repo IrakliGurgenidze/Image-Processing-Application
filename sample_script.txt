@@ -99,4 +99,3 @@ save resources/mushroom_images/mushroom-splitA.jpg mushroom-splitA
 #split demo B
 color-correct mushroom mushroom-splitB split 50
 save resources/mushroom_images/mushroom-splitB.jpg mushroom-splitB
-
