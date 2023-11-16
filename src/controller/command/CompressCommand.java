@@ -20,7 +20,7 @@ public class CompressCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) {
+  public String execute(String[] args) throws IllegalArgumentException {
 
     //command takes 4 args: compress, percentage (an int), image-name, dest-image-name
     if (args.length != 4) {

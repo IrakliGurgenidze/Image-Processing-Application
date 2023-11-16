@@ -36,6 +36,7 @@ public class FilterCommand implements CommandController {
 
   @Override
   public String execute(String[] args) throws IllegalArgumentException {
+    //check for split param
     checkSplit(args);
 
     String sourceImageName = args[1];
@@ -61,6 +62,7 @@ public class FilterCommand implements CommandController {
             " split p: may be added as two additional parameters if split preview of operation is desired. ";
   }
 
+  //checks to see if the argument contains split parameter
   private void checkSplit(String[] args) throws IllegalArgumentException{
     if(args.length == 5 && args[3].equals("split")){
       split = true;

@@ -4,8 +4,6 @@ import model.Image;
 import model.Pixel;
 import model.SimpleImage;
 
-import javax.xml.crypto.dsig.SignatureMethod;
-
 /**
  * This class provides the utility to split an image based on a given percentage.
  */

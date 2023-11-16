@@ -21,7 +21,7 @@ public class SaveImageCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) {
+  public String execute(String[] args) throws IllegalArgumentException {
     if (args.length != 3) {
       if (args.length > 3 && (!args[1].startsWith("\"") || (!args[1].endsWith("\""))
               || ((!args[2].startsWith("\"") || !args[2].endsWith("\""))))) {

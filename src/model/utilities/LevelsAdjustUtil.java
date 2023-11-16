@@ -3,6 +3,8 @@ import model.Image;
 import model.Pixel;
 import model.SimpleImage;
 
+import java.util.Arrays;
+
 /**
  * This class contains utility methods for the LevelsAdjustCommand.
  */
@@ -42,7 +44,7 @@ public class LevelsAdjustUtil {
     double a = coefs[0];
     double b = coefs[1];
     double c = coefs[2];
-    return (int)(a * x * x + b * x + c);
+    return (int)Math.round((a * x * x + b * x + c));
   }
 
   private static double[] adjQuadratic(int b, int m, int w) {

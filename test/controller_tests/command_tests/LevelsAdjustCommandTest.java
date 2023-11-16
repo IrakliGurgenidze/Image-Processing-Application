@@ -29,12 +29,17 @@ public class LevelsAdjustCommandTest extends AbstractCommandTest {
 
     Image adj = imageModel.getImage("adj");
 
+    int[][][] expected = {
+            {{0,36,18}, {0,18,18}, {18,0,100}},
+            {{0,0,0}, {0,53,0}, {0,69,36}},
+            {{53,53,36}, {0,0,18}, {18,85,0}}
+    };
+
     for(int x = 0; x < adj.getWidth(); x++){
       for(int y = 0; y < adj.getHeight(); y++){
-        System.out.println(x + " " + y);
-        assertEquals(adj.getPixel(x,y).getRed(), 0);
-        assertEquals(adj.getPixel(x,y).getBlue(), 0);
-        assertEquals(adj.getPixel(x,y).getGreen(), 0);
+        assertEquals(adj.getPixel(x,y).getRed(), expected[y][x][0]);
+        assertEquals(adj.getPixel(x,y).getGreen(), expected[y][x][1]);
+        assertEquals(adj.getPixel(x,y).getBlue(), expected[y][x][2]);
       }
     }
   }

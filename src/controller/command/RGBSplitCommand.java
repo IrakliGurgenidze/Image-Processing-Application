@@ -21,7 +21,7 @@ public class RGBSplitCommand implements CommandController {
   }
 
   @Override
-  public String execute(String[] args) {
+  public String execute(String[] args) throws IllegalArgumentException {
     if (args.length != 5) {
       throw new IllegalArgumentException("Invalid input, looking for 5 arguments but only found "
               + args.length + ". Correct usage: " + getUsage());
