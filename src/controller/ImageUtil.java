@@ -38,7 +38,6 @@ public class ImageUtil {
     int blue;
 
     Pixel[][] simpleImage = new Pixel[height][width];
-    //SimpleImage simpleImage = new SimpleImage(width, height, imageName);
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
         Color color = new Color(bufferedImage.getRGB(x, y));
@@ -47,7 +46,6 @@ public class ImageUtil {
         blue = color.getBlue();
         Pixel pixel = new Pixel(red, green, blue);
         simpleImage[y][x] = pixel;
-        //simpleImage.setPixel(x, y, pixel);
       }
     }
     return new SimpleImage(imageName, simpleImage);
@@ -96,7 +94,6 @@ public class ImageUtil {
     sc.nextInt();
 
     Pixel[][] simpleImage = new Pixel[height][width];
-    //SimpleImage simpleImage = new SimpleImage(width, height, imageName);
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
@@ -104,7 +101,6 @@ public class ImageUtil {
         int g = sc.nextInt();
         int b = sc.nextInt();
         Pixel pixel = new Pixel(r, g, b);
-        //simpleImage.setPixel(x, y, pixel);
         simpleImage[y][x] = pixel;
       }
     }
