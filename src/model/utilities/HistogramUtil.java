@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import model.Image;
 import model.Pixel;
-
 import model.SimpleImage;
 
 /**
@@ -16,7 +15,8 @@ public class HistogramUtil {
 
   /**
    * Method to get the RGB histogram of an image.
-   * @param sourceImage Image, the image
+   *
+   * @param sourceImage   Image, the image
    * @param destImageName String, the name of the new histogram image
    * @return the new histogram image
    */
@@ -49,7 +49,8 @@ public class HistogramUtil {
 
   /**
    * Method to get the color corrected version of an image.
-   * @param image Image, the image to be corrected
+   *
+   * @param image         Image, the image to be corrected
    * @param destImageName String, the name of the new image
    * @return the new color corrected image
    */
@@ -81,11 +82,11 @@ public class HistogramUtil {
     graphics.fillRect(0, 0, width, height);
 
     //draw grid lines for histogram, currently every line is 1
-    //FIXME might want to decrease grid lines
-        /*graphics.setColor(Color.BLACK);
-        for (int i = 0; i < 256; i+=8) {
-            graphics.drawLine(i, 0, i, 256);
-        }*/
+    graphics.setColor(Color.LIGHT_GRAY);
+    for (int i = -1; i < 256; i += 12) {
+      graphics.drawLine(i, 0, i, 256);
+      graphics.drawLine(0, i, 256, i);
+    }
 
 
     //get the histogram for each channel
@@ -133,31 +134,33 @@ public class HistogramUtil {
     //need to get max freq val to scale image vertically
     int maxFreq = getMaxFrequency(channels);
 
-    int prev = -256;
-    //draw the line for the value in each bin of each color
+    //draw red line
+    int prevRed = (int) ((double) channels[0][0] / maxFreq * 256);
     graphics.setColor(Color.RED);
-    for (int i = 0; i < channels[0].length; i++) {
+    for (int i = 1; i < channels[0].length; i++) {
       //the scaled y value is just the (channel value / maxFreq * 256) since image is 256x256
       int scaledVal = (int) ((double) channels[0][i] / maxFreq * 256);
-      graphics.drawLine(i - 1, 256 - prev, i, 256 - scaledVal);
+      graphics.drawLine(i - 1, 255 - prevRed, i, 255 - scaledVal);
       //track prev val to connect to new scaled val
-      prev = scaledVal;
-    }
-    //reset prev val to -256 so that it scales to 0 to connect to first value
-    prev = -256;
-    graphics.setColor(Color.GREEN);
-    for (int i = 0; i < channels[1].length; i++) {
-      int scaledVal = (int) ((double) channels[1][i] / maxFreq * 256);
-      graphics.drawLine(i - 1, 256 - prev, i, 256 - scaledVal);
-      prev = scaledVal;
+      prevRed = scaledVal;
     }
 
-    prev = -256;
+    //draw green line
+    int prevGreen = (int) ((double) channels[1][0] / maxFreq * 256);
+    graphics.setColor(Color.GREEN);
+    for (int i = 1; i < channels[1].length; i++) {
+      int scaledVal = (int) ((double) channels[1][i] / maxFreq * 256);
+      graphics.drawLine(i - 1, 255 - prevGreen, i, 255 - scaledVal);
+      prevGreen = scaledVal;
+    }
+
+    //drw blue line
+    int prevBlue = (int) ((double) channels[2][0] / maxFreq * 256);
     graphics.setColor(Color.BLUE);
-    for (int i = 0; i < channels[2].length; i++) {
+    for (int i = 1; i < channels[2].length; i++) {
       int scaledVal = (int) ((double) channels[2][i] / maxFreq * 256);
-      graphics.drawLine(i - 1, 256 - prev, i, 256 - scaledVal);
-      prev = scaledVal;
+      graphics.drawLine(i - 1, 255 - prevBlue, i, 255 - scaledVal);
+      prevBlue = scaledVal;
     }
   }
 
