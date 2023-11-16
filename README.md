@@ -7,90 +7,31 @@ and the Command Design Pattern to create a basic, functional
 image manipulation and enhancement application. The application
 is run in the terminal and accepts user input via command line.
 The application supports PNG, JPG, PPM, and Bitmap image types and can
-perform the following commands:
+perform the commands outlined in the USEME. 
 
-- *load image-path image-name*: Load an image from the specified path and refer
-  to it henceforth in the program by the given image name.
+### Design Updates ###
 
+11/16: In order to properly adhere to the Command Design Pattern, changes were made to the 
+model interface in an effort to clearly include a catalog of basic commands supported by any Image 
+object. The model interface now contains methods representative of the commands and implements them 
+appropriately. Additionally, the model was refined to prevent the capability to manipulate image
+bodies, via the removal of the setPixel() method. There is now no way to directly modify an Image. 
 
-- *save image-path image-name*: Save the image with the given name to the
-  specified path which should include the name of the file.
+The controller can now only delegate manipulation to the model via a command, limiting 
+the controller's access and increasing security. This reduces cohesion between
+various segments of the application.
+A utility file for operations involving the split keyword was added in SplitUtil.
+This was moved to its own class to prevent clutter and provide a convenient location to expand
+split functionality. Additionally, we moved ImageUtil to ImageController
+because the Model shouldn't be in change of IO, but this isn't interface-related,
+so we didn't want it in the view either.
 
+Finally, the Main method was modified in order to ensure that all interaction with the user goes 
+directly through the view, and that all application processes are handled by the controller. The 
+controller is now in change of both view calls and model calls, and synchronizing the two 
+appropriately. This allows for a proper MVC architecture. 
 
-- *red-component image-name dest-image-name*: Create an image with the
-  red-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *green-component image-name dest-image-name*: Create an image with the
-  green-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *blue-component image-name dest-image-name*: Create an image with the
-  blue-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *value-component image-name dest-image-name*: Create an image with the
-  value-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *intensity-component image-name dest-image-name*: Create an image with the
-  intensity-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *luma-component image-name dest-image-name*: Create an image with the
-  luma-component of the image with the given name, and refer to it henceforth in
-  the program by the given destination name.
-
-
-- *horizontal-flip image-name dest-image-name*: Flip an image horizontally
-  to create a new image, referred to henceforth by the given destination name.
-
-
-- *vertical-flip image-name dest-image-name*: Flip an image vertically
-  to create a new image, referred to henceforth by the given destination name.
-
-
-- *brighten increment image-name dest-image-name*: brighten the image by the given
-  increment to create a new image, referred to henceforth by the given destination
-  name. The increment may be positive (brightening) or negative (darkening).
-
-
-- *rgb-split image-name dest-image-name-red dest-image-name-green
-  dest-image-name-blue*: split the given image into three images containing
-  its red, green and blue components respectively. These would be the same
-  images that would be individually produced with the red-component,
-  green-component and blue-component commands.
-
-
-- *rgb-combine image-name red-image green-image blue-image*: Combine the
-  three greyscale images into a single image that gets its red, green and
-  blue components from the three images respectively.
-
-
-- *blur image-name dest-image-name*: blur the given image and
-  store the result in another image with the given name.
-
-
-- *sharpen image-name dest-image-name*: sharpen the given image and
-  store the result in another image with the given name.
-
-
-- *sepia image-name dest-image-name*: produce a sepia-toned version of
-  the given image and store the result in another image with the given name.
-
-
-- *run fileName*: runs a script file with 1 command and its necessary arguments per line.
-
-
-- *help--* lists all commands and their usage.
-
-
-- *quit--* quits program
+11/1: First stable, complete project version. 
 
 ### Model ###
 
@@ -113,9 +54,6 @@ objects of type Image, with the image's name as the key. Implements methods to
 get, insert, and remove an image from the database. Also provides a method to retrieve
 the number of images currently stored.
 
-*ImageUtil (Class)*: Provides methods to read png, gif, png, bitmap, and ppm files
-into a generic Image object used internally by ImageStorageModel.
-
 *Filter (Class)*: An object that contains data of filters available in
 the application, as well as a method to access them by name. Initialized once at the start of
 any filter-related command.
@@ -123,6 +61,16 @@ any filter-related command.
 *LinearColorTransformation (Class)*: An object that contains data of linear color transformations
 available in the application, as well as a method to access them by name. Initialized once at the
 start of any color-transformation-related command.
+
+*HistogramUtil (Class)*: An object that contains all necessary methods to perform operations on
+an Image object that involve its RGB histogram. This currently includes the ColorCorrect and 
+Histogram commands. 
+
+*CompressionUtil (Class)*: An object that contains all necessary methods to run the compress 
+command on an Image object. 
+
+*LevelsAdjustUtil (Class)*: An object that contains all necessary methods to run levels adjust 
+command on an Image object. 
 
 ### View ###
 
@@ -166,6 +114,7 @@ execute() is called.
 To run this program, go to the directory of the "ImageProcessingApp.jar" file in your terminal.  
 In the command line, type: java -jar ImageProcessingApp.jar
 
+
 Successful compilation of the program should greet you with the following in the
 command terminal:  
 "Image Processing Application by Rocky and Griffin"
@@ -176,8 +125,12 @@ README.
 A reminder that the "help" command will print that same list. Quit will allow you to exit the
 program.
 
+You may also run the program with the command line argument "-file scriptFileName". The program will
+run the provided scriptFile by default, then quit. Script files may also be run within the 
+application. See Resources.
+
 *Resources*  
-Rather than individual commands, a script file can be used with the "run" command.
+Rather than individual commands in the terminal, a script file can be used with the "run" command.
 Try running the provided script, "sample_script.txt". See the "Details" section of the README for
 usage.
 
