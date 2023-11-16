@@ -88,6 +88,9 @@ public class ImageController implements Controller {
     while (true) {
       view.displayStatus(">> ");
       String commandLine = view.getInput();
+      if(commandLine.isEmpty()) {
+        continue;
+      }
 
       String[] parsedCommand = this.parseCommand(commandLine);
 
