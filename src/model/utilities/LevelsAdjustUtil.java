@@ -47,12 +47,25 @@ public class LevelsAdjustUtil {
     return (int)Math.round((a * x * x + b * x + c));
   }
 
+  //calculate quadratic coefficients
   private static double[] adjQuadratic(int b, int m, int w) {
     //calculations to find coefficients
-    double A = (b * b) * (m - w) - b * ((m * m) - (w * w)) + w * (m * m) - m * (w * w);
-    double Aa = -b * (128 - 255) + 128 * w - 255 * m;
-    double Ab = (b * b) * (128 - 255) + 255 * (m * m) - 128 * (w * w);
-    double Ac = (b * b) * (255 * m - 128 * w) - b * (255 * (m * m) - 128 * (w * w));
+    double A = (b * b) * (m - w)
+            - b * ((m * m) - (w * w))
+            + w * (m * m)
+            - m * (w * w);
+
+    double Aa = -b * (128 - 255)
+            + 128 * w
+            - 255 * m;
+
+    double Ab = (b * b) * (128 - 255)
+            + 255 * (m * m)
+            - 128 * (w * w);
+
+    double Ac = (b * b) * (255 * m - 128 * w)
+            - b * (255 * (m * m)
+            - 128 * (w * w));
 
     double coefA = Aa / A;
     double coefB = Ab / A;

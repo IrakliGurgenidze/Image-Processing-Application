@@ -17,7 +17,9 @@ public class SplitUtil {
      * @param destImageName String, the name of the resulting image
      * @return the resulting image after split operation
      */
-    public static Image splitImage(Image sourceImage, Image operatedImage, int percentage, String destImageName){
+    public static Image splitImage(Image sourceImage, Image operatedImage, int percentage,
+                                   String destImageName){
+
         int width = sourceImage.getWidth();
         int height = sourceImage.getHeight();
         int split = (int)(width * (percentage/100.0));

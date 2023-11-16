@@ -48,9 +48,11 @@ public class FilterCommand implements CommandController {
     }
 
     Image filteredImage = sourceImage.applyFilter(filter, destImageName);
+
     if(split){
       filteredImage = SplitUtil.splitImage(sourceImage, filteredImage, splitPcnt, destImageName);
     }
+
     imageStorageModel.insertImage(filteredImage);
     return "Completed " + filterName + " operation.";
   }
@@ -59,7 +61,8 @@ public class FilterCommand implements CommandController {
   public String getUsage() {
     return filterName + "image-name dest-image-name: " + filterName + "the given image and\n "
             + "store the result in another image with the given name." +
-            " split p: may be added as two additional parameters if split preview of operation is desired. ";
+            " split p: may be added as two additional parameters if split preview of operation is "
+            + "desired. ";
   }
 
   //checks to see if the argument contains split parameter
