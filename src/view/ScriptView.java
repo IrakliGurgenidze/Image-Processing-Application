@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * Represents the view of the program.
  */
-public interface View {
+public interface ScriptView {
 
   /**
    * Displays the status fetched from the controller based on last command.

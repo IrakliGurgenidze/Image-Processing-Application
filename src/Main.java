@@ -2,8 +2,8 @@ import controller.Controller;
 import controller.ImageController;
 import model.ImageStorageModel;
 import model.StorageModel;
-import view.ImageView;
-import view.View;
+import view.ScriptView;
+import view.ScriptViewImpl;
 
 /**
  * Main driver class for this project.
@@ -20,7 +20,7 @@ public class Main {
 
     //initialize model, view, and controller
     StorageModel imageStorageModel = new ImageStorageModel();
-    View imageView = new ImageView(System.in, System.out);
+    ScriptView imageView = new ScriptViewImpl(System.in, System.out);
     Controller imageController = new ImageController(imageStorageModel, imageView);
 
     //If command line arg -file exists

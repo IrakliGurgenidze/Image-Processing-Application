@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import view.ImageView;
+import view.ScriptViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImageViewTest {
-  private ImageView imageView;
+public class ScriptViewTest {
+  private ScriptViewImpl scriptView;
   private OutputStream out;
   private InputStream in;
 
@@ -23,18 +23,18 @@ public class ImageViewTest {
     out = new ByteArrayOutputStream();
     String inputString = "Testing this line";
     in = new ByteArrayInputStream(inputString.getBytes());
-    imageView = new ImageView(in, out);
+    scriptView = new ScriptViewImpl(in, out);
   }
 
   @Test
   public void testDisplayStatus() throws IOException {
-    imageView.displayStatus("TEST");
+    scriptView.displayStatus("TEST");
     assertEquals("TEST\n", out.toString());
   }
 
   @Test
   public void testGetInput() {
-    assertEquals("Testing this line", imageView.getInput());
+    assertEquals("Testing this line", scriptView.getInput());
   }
 
 }

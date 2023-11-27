@@ -34,21 +34,22 @@ import controller.command.SaveImageCommand;
 import controller.command.ValueComponentCommand;
 import controller.command.VerticalFlipCommand;
 import model.StorageModel;
-import view.View;
+import view.ScriptView;
+import view.ScriptView;
 
 /**
  * Implementation of Controller interface, controls an image store.
  */
 public class ImageController implements Controller {
   private final Map<String, CommandController> commands = new HashMap<>();
-  private View view;
+  private ScriptView view;
 
   /**
    * Public constructor for an Image Controller. Populates list of commands.
    *
    * @param imageStore state of Image Model
    */
-  public ImageController(StorageModel imageStore, View view) {
+  public ImageController(StorageModel imageStore, ScriptView view) {
     this.view = view;
 
     commands.put("load", new LoadImageCommand(imageStore));

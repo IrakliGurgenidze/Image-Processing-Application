@@ -9,11 +9,11 @@ import java.util.Scanner;
 /**
  * An implementation of View for the Image Processor.
  */
-public class ImageView implements View {
+public class ScriptViewImpl implements ScriptView {
   private final OutputStream out;
   private final Scanner scan;
 
-  public ImageView(InputStream in, OutputStream out) {
+  public ScriptViewImpl(InputStream in, OutputStream out) {
     this.out = out;
     this.scan = new Scanner(in);
   }
