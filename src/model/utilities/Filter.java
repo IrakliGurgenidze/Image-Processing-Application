@@ -8,7 +8,9 @@ import java.util.Map;
  * model.utilities.Filter data is stored here, and can be accessed by name.
  */
 public class Filter {
-  Map<String, double[][]> filters = new Hashtable<>();
+
+  //contains filter kernels, referenced by name
+  private final Map<String, double[][]> filters = new Hashtable<>();
 
   /**
    * Constructor for a filter object.
