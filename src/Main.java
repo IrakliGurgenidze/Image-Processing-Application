@@ -25,10 +25,10 @@ public class Main {
 
     //If command line arg -file exists
     if (args.length > 1 && args[0].equals("-file")) {
-      imageController.go(args[1]);
+      imageController.controllerGo(args[1]);
     }
 
     //run controller
-    imageController.go();
+    imageController.controllerGo();
   }
 }
