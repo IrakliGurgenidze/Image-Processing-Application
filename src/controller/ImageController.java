@@ -41,7 +41,7 @@ import view.View;
  */
 public class ImageController implements Controller {
   private final Map<String, CommandController> commands = new HashMap<>();
-  private View view;
+  private final View view;
 
   /**
    * Public constructor for an Image Controller. Populates list of commands.

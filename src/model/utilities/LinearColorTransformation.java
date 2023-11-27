@@ -8,7 +8,7 @@ import java.util.Map;
  * Transformation data is stored here and is accessible by name.
  */
 public class LinearColorTransformation {
-  Map<String, double[][]> linearTransformations = new Hashtable<>();
+  private final Map<String, double[][]> linearTransformations = new Hashtable<>();
 
   /**
    * The constructor for a linear color transformation object.
