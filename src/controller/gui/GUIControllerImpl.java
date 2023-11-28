@@ -1,5 +1,8 @@
 package controller.gui;
 
+import java.io.File;
+
+import controller.ImageUtil;
 import model.Image;
 import model.ImageStorageModel;
 import model.StorageModel;
@@ -31,8 +34,12 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
-  public void loadImage() {
-
+  public void loadImage(String filePath, String imageName) {
+    //FIXME will not work on windows?
+    model.loadImage(filePath, imageName);
+    baseImage = model.getImage(imageName);
+    currentImage = baseImage;
+    view.displayImage(currentImage);
   }
 
   @Override
@@ -155,6 +162,12 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void toggleSplitView() {
 
+  }
+
+  @Override
+  public void clear(){
+    currentImage = baseImage;
+    view.displayImage(baseImage);
   }
 
   @Override

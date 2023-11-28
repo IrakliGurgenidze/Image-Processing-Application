@@ -8,7 +8,7 @@ public interface Features {
   /**
    * Load an image into the application.
    */
-  void loadImage();
+  void loadImage(String filePath, String imageName);
 
   /**
    * Save an image onto local device.
@@ -79,6 +79,11 @@ public interface Features {
    * Toggle split view.
    */
   void toggleSplitView();
+
+  /**
+   * Resets the operations performed on an image.
+   */
+  void clear();
 
   /**
    * Exits program.

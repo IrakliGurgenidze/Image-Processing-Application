@@ -2,9 +2,12 @@ package view.gui;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.gui.Features;
 import model.Image;
+import model.Pixel;
 import model.StorageModel;
 
 /**
@@ -26,6 +29,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JButton levelsAdj;
   private JButton clear;
+
+  private JLabel operationPath;
+
+  private JPanel histogramPanel;
+  private JPanel imagePreview;
+  private JScrollPane imageScrollPane;
 
 
   /**
@@ -124,7 +133,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     vFlip.setMaximumSize(maxButtonSize);
 
     //set image panel layout
-    JPanel imagePreview = new JPanel();
+    imagePreview = new JPanel();
     imagePreview.setBackground(Color.BLUE);
 
 
@@ -155,6 +164,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
   @Override
   public void addFeatures(Features features) {
     //load
+    load.addActionListener(e -> {
+      JFileChooser fc = new JFileChooser();
+      FileFilter filter = new FileNameExtensionFilter("jpg","jpeg",
+              "ppm", "png");
+      fc.setFileFilter(filter);
+      int res = fc.showOpenDialog(GUIViewImpl.this);
+      if(res == JFileChooser.APPROVE_OPTION){
+       String filePath = fc.getSelectedFile().getAbsolutePath();
+       features.loadImage(filePath, fc.getSelectedFile().getName());
+      }
+    });
 
     //save
 
@@ -194,6 +214,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //toggle split view
 
+    //clear
+    clear.addActionListener(evt -> features.clear());
+
     //exit program
 
     //keyboard events, if we want them
@@ -201,7 +224,47 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void displayImage(Image image) {
+    /**
+    Graphics g = imageScrollPane.getGraphics();
+    for(int x = 0; x < image.getWidth(); x++){
+      for(int y =0; y < image.getHeight(); y++){
+        Pixel pixel = image.getPixel(x, y);
+        Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+        g.setColor(color);
+        g.drawRect(x,y,1,1);
+      }
+    }
+    //imagePreview.paint(g);
+    operationPath.setText(image.getName());
+     */
 
+    int width = image.getWidth();
+    int height = image.getHeight();
+
+    // Create a BufferedImage with the same dimensions as the image
+    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+    // Get the graphics object from the buffered image
+    Graphics g = bufferedImage.getGraphics();
+
+    if (g != null) {
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          Pixel pixel = image.getPixel(x, y);
+          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+          bufferedImage.setRGB(x, y, color.getRGB());
+        }
+      }
+
+      // Draw the entire image at once
+      imagePreview.getGraphics().drawImage(bufferedImage, 0, 0,
+              imagePreview.getWidth(), imagePreview.getHeight(), null);
+
+      // Dispose of the graphics object to release resources
+      g.dispose();
+    }
+
+    operationPath.setText(image.getName());
   }
 
   private void initButtons(){
@@ -247,4 +310,5 @@ public class GUIViewImpl extends JFrame implements GUIView {
     colorCorrect = new JButton("Color Correct");
     colorCorrect.setActionCommand("Color Correct Button");
   }
+
 }
