@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import view.ScriptViewImpl;
+import view.script.ScriptViewImpl;
 
 import static org.junit.Assert.assertEquals;
 

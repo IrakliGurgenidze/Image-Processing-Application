@@ -1,10 +1,10 @@
 package controller_tests.command_tests;
 
+import org.junit.Test;
+
 import model.Image;
 import model.Pixel;
 import model_tests.ModelTestUtilities;
-
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

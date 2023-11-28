@@ -2,14 +2,14 @@ package controller_tests.command_tests;
 
 import java.io.File;
 
-import controller.Controller;
-import controller.ImageController;
+import controller.script.ScriptController;
+import controller.script.ScriptControllerImpl;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
 import model.StorageModel;
-import view.ScriptViewImpl;
-import view.ScriptView;
+import view.script.ScriptView;
+import view.script.ScriptViewImpl;
 
 /**
  * Abstract class with helper methods for tests of commands.
@@ -18,7 +18,7 @@ public abstract class AbstractCommandTest {
 
   protected final StorageModel imageModel = new ImageStorageModel();
   protected final ScriptView imageView = new ScriptViewImpl(System.in, System.out);
-  protected final Controller imageController = new ImageController(imageModel, imageView);
+  protected final ScriptController imageController = new ScriptControllerImpl(imageModel, imageView);
   protected final String workingDirectory = setWd();
 
 

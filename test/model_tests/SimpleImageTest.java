@@ -37,9 +37,9 @@ public class SimpleImageTest {
 
     //non-positive width and height
     assertThrows(IllegalArgumentException.class,
-        () -> new SimpleImage(0, 10, "img"));
+            () -> new SimpleImage(0, 10, "img"));
     assertThrows(IllegalArgumentException.class,
-        () -> new SimpleImage(10, 0, "img"));
+            () -> new SimpleImage(10, 0, "img"));
   }
 
   /**
@@ -51,13 +51,13 @@ public class SimpleImageTest {
 
     //calls should throw IndexOutOfBoundsException
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.getPixel(-1, 0));
+            () -> img.getPixel(-1, 0));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.getPixel(0, -1));
+            () -> img.getPixel(0, -1));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.getPixel(3, 0));
+            () -> img.getPixel(3, 0));
     assertThrows(IndexOutOfBoundsException.class,
-        () -> img.getPixel(0, 3));
+            () -> img.getPixel(0, 3));
 
     //verify that pixel is returned correctly
     assertEquals(10, img.getPixel(0, 0).getRed());
