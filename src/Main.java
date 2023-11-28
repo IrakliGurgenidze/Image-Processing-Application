@@ -1,3 +1,5 @@
+import controller.gui.Features;
+import controller.gui.GUIControllerImpl;
 import controller.script.ScriptController;
 import controller.script.ScriptControllerImpl;
 import model.ImageStorageModel;
@@ -26,6 +28,8 @@ public class Main {
     //run with gui
     if (args.length == 0) {
       GUIView view = new GUIViewImpl(imageStorageModel);
+      Features controller = new GUIControllerImpl(imageStorageModel, view);
+      view.addFeatures(controller);
     }
 
     //script-based

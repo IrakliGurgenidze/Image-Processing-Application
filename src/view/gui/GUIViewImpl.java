@@ -1,5 +1,6 @@
 package view.gui;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -44,7 +45,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public GUIViewImpl(StorageModel imageStorageModel){
     super("Image Processing Application");
     setLocation(0, 0);
-    int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     //set frame properties
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,39 +57,40 @@ public class GUIViewImpl extends JFrame implements GUIView {
     utilityBar.add(load);
     utilityBar.add(save);
     utilityBar.add(clear);
-    JLabel operationPath = new JLabel("Placeholder");
+    operationPath = new JLabel("Placeholder"); //image operation path
     utilityBar.add(operationPath);
     this.add(utilityBar, BorderLayout.NORTH);
 
-
-
+    //define dimensions of east toolbar
     JPanel additionalFeatures = new JPanel();
     additionalFeatures.setLayout(new BoxLayout(additionalFeatures, BoxLayout.Y_AXIS));
     additionalFeatures.setBackground(Color.GREEN);
     additionalFeatures.setPreferredSize(new Dimension(256, getHeight()));
 
-    JPanel histogramPanel = new JPanel();
+    //define dimensions of histogram box
+    histogramPanel = new JPanel();
     histogramPanel.setBackground(Color.BLACK);
     histogramPanel.setPreferredSize(new Dimension(256,256));
     histogramPanel.setMaximumSize(new Dimension(256,256));
     additionalFeatures.add(histogramPanel);
 
+    //add buttons to east toolbar layout
     JPanel featureButtons = new JPanel();
     featureButtons.setLayout(new GridLayout(5,2));
     featureButtons.setBorder(BorderFactory.createEmptyBorder(25,5,5,5));
     featureButtons.add(rComp);
     featureButtons.add(gComp);
     featureButtons.add(bComp);
-    featureButtons.add(sepia);
-    featureButtons.add(sharpen);
-    featureButtons.add(blur);
-    featureButtons.add(greyscale);
-    featureButtons.add(colorCorrect);
     featureButtons.add(hFlip);
     featureButtons.add(vFlip);
+    featureButtons.add(blur);
+    featureButtons.add(sharpen);
+    featureButtons.add(greyscale);
+    featureButtons.add(sepia);
+    featureButtons.add(colorCorrect);
     additionalFeatures.add(featureButtons);
 
-
+    //add sliders to east toolbar
     JPanel sliders = new JPanel();
     sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
     JLabel brightenLabel = new JLabel("Brighten");
@@ -103,6 +104,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.setBorder(BorderFactory.createEmptyBorder(55, 7,0, 7));
     additionalFeatures.add(sliders);
 
+    //add levels adjust panel to east toolbar
     JPanel levelsAdjPanel = new JPanel(new GridLayout(8,1));
     levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(55,20,5,20));
     JTextField bVal = new JTextField();
@@ -111,7 +113,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     bVal.setMaximumSize(new Dimension(128,5));
     mVal.setMaximumSize(new Dimension(128,5));
     wVal.setMaximumSize(new Dimension(128,5));
-    JLabel params = new JLabel("Parameters: b > m > w");
+    JLabel params = new JLabel("Parameters: b < m < w");
     params.setHorizontalAlignment(JLabel.CENTER);
     levelsAdjPanel.add(params);
     levelsAdjPanel.add(bVal);
@@ -121,24 +123,25 @@ public class GUIViewImpl extends JFrame implements GUIView {
     levelsAdjPanel.add(levelsAdj);
     additionalFeatures.add(levelsAdjPanel);
 
+    //set button dimensions
     Dimension maxButtonSize = new Dimension(Integer.MAX_VALUE, rComp.getPreferredSize().height);
     rComp.setMaximumSize(maxButtonSize);
     gComp.setMaximumSize(maxButtonSize);
     bComp.setMaximumSize(maxButtonSize);
-    sepia.setMaximumSize(maxButtonSize);
-    sharpen.setMaximumSize(maxButtonSize);
-    blur.setMaximumSize(maxButtonSize);
-    greyscale.setMaximumSize(maxButtonSize);
     hFlip.setMaximumSize(maxButtonSize);
     vFlip.setMaximumSize(maxButtonSize);
+    blur.setMaximumSize(maxButtonSize);
+    sharpen.setMaximumSize(maxButtonSize);
+    greyscale.setMaximumSize(maxButtonSize);
+    sepia.setMaximumSize(maxButtonSize);
 
     //set image panel layout
     imagePreview = new JPanel();
     imagePreview.setBackground(Color.BLUE);
-
+    imageScrollPane = new JScrollPane(imagePreview);
 
     //add panels to frame
-    this.add(imagePreview, BorderLayout.CENTER);
+    this.add(imageScrollPane, BorderLayout.CENTER);
     this.add(additionalFeatures, BorderLayout.EAST);
 
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -267,16 +270,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     operationPath.setText(image.getName());
   }
 
+
   private void initButtons(){
-    blur = new JButton("Blur");
-    blur.setActionCommand("Blur Button");
-
-    sharpen = new JButton("Sharpen");
-    sharpen.setActionCommand("Sharpen Button");
-
-    sepia = new JButton("Sepia");
-    sepia.setActionCommand("Sepia Button");
-
     load = new JButton("Load");
     load.setActionCommand("Load Button");
 
@@ -301,8 +296,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
     bComp = new JButton("Blue Component");
     bComp.setActionCommand("Blue Component Button");
 
+    blur = new JButton("Blur");
+    blur.setActionCommand("Blur Button");
+
+    sharpen = new JButton("Sharpen");
+    sharpen.setActionCommand("Sharpen Button");
+
     greyscale = new JButton("Greyscale");
     greyscale.setActionCommand("Greyscale Button");
+
+    sepia = new JButton("Sepia");
+    sepia.setActionCommand("Sepia Button");
 
     levelsAdj = new JButton("Levels Adjust");
     levelsAdj.setActionCommand("Levels Adjust Button");
