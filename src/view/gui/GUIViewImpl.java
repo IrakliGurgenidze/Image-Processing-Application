@@ -20,7 +20,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton rComp;
   private JButton gComp;
   private JButton bComp;
-  private JButton luma;
+  private JButton greyscale;
   private JButton colorCorrect;
 
   private JButton levelsAdj;
@@ -66,14 +66,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     JPanel featureButtons = new JPanel();
     featureButtons.setLayout(new GridLayout(5,2));
-    featureButtons.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+    featureButtons.setBorder(BorderFactory.createEmptyBorder(25,5,5,5));
     featureButtons.add(rComp);
     featureButtons.add(gComp);
     featureButtons.add(bComp);
     featureButtons.add(sepia);
     featureButtons.add(sharpen);
     featureButtons.add(blur);
-    featureButtons.add(luma);
+    featureButtons.add(greyscale);
     featureButtons.add(colorCorrect);
     featureButtons.add(hFlip);
     featureButtons.add(vFlip);
@@ -90,20 +90,24 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.add(brighten);
     sliders.add(compressLabel);
     sliders.add(compression);
-    sliders.setBorder(BorderFactory.createEmptyBorder(5, 0,0, 0));
+    sliders.setBorder(BorderFactory.createEmptyBorder(55, 7,0, 7));
     additionalFeatures.add(sliders);
 
-    JPanel levelsAdjPanel = new JPanel(new GridLayout(4,1));
-    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(0,15,0,15));
+    JPanel levelsAdjPanel = new JPanel(new GridLayout(8,1));
+    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(55,20,5,20));
     JTextField bVal = new JTextField();
     JTextField mVal = new JTextField();
     JTextField wVal = new JTextField();
-    bVal.setPreferredSize(new Dimension(128,25));
-    mVal.setPreferredSize(new Dimension(128,25));
-    wVal.setPreferredSize(new Dimension(128,25));
+    bVal.setMaximumSize(new Dimension(128,5));
+    mVal.setMaximumSize(new Dimension(128,5));
+    wVal.setMaximumSize(new Dimension(128,5));
+    JLabel params = new JLabel("Parameters: b > m > w");
+    params.setHorizontalAlignment(JLabel.CENTER);
+    levelsAdjPanel.add(params);
     levelsAdjPanel.add(bVal);
     levelsAdjPanel.add(mVal);
     levelsAdjPanel.add(wVal);
+    levelsAdjPanel.add(new JPanel());
     levelsAdjPanel.add(levelsAdj);
     additionalFeatures.add(levelsAdjPanel);
 
@@ -114,7 +118,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sepia.setMaximumSize(maxButtonSize);
     sharpen.setMaximumSize(maxButtonSize);
     blur.setMaximumSize(maxButtonSize);
-    luma.setMaximumSize(maxButtonSize);
+    greyscale.setMaximumSize(maxButtonSize);
     hFlip.setMaximumSize(maxButtonSize);
     vFlip.setMaximumSize(maxButtonSize);
 
@@ -186,8 +190,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     bComp = new JButton("Blue Component");
     bComp.setActionCommand("Blue Component Button");
 
-    luma = new JButton("Luma");
-    luma.setActionCommand("Luma Button");
+    greyscale = new JButton("Greyscale");
+    greyscale.setActionCommand("Greyscale Button");
 
     levelsAdj = new JButton("Levels Adjust");
     levelsAdj.setActionCommand("Levels Adjust Button");
