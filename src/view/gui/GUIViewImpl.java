@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import controller.gui.Features;
+import model.Image;
 import model.StorageModel;
 
 /**
@@ -153,6 +154,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void addFeatures(Features features) {
+
+  }
+
+  @Override
+  public void displayImage(Image image) {
 
   }
 

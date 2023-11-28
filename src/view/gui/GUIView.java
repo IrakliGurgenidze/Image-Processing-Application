@@ -1,6 +1,7 @@
 package view.gui;
 
 import controller.gui.Features;
+import model.Image;
 
 /**
  * Represents the graphical view of this application.
@@ -30,6 +31,15 @@ public interface GUIView {
    * @param features features to be added
    */
   void addFeatures(Features features);
+
+  /**
+   * Displays the provided image to the screen.
+   * Should also update top bar description.
+   *
+   * @param image image to be displayed. Can be null.
+   */
+  void displayImage(Image image);
+
 
 
 }
