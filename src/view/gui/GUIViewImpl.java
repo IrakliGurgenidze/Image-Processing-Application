@@ -154,7 +154,49 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void addFeatures(Features features) {
+    //load
 
+    //save
+
+    //visualize red component
+    rComp.addActionListener(evt -> features.visualizeRed());
+
+    //visualize green component
+    gComp.addActionListener(evt -> features.visualizeGreen());
+
+    //visualize blue component
+    bComp.addActionListener(evt -> features.visualizeBlue());
+
+    //flip horizontally
+    hFlip.addActionListener(evt -> features.flipHorizontal());
+
+    //flip vertically
+    vFlip.addActionListener(evt -> features.flipVertical());
+
+    //blur image
+    blur.addActionListener(evt -> features.blurImage());
+
+    //sharpen image
+    sharpen.addActionListener(evt -> features.sharpenImage());
+
+    //convert to greyscale
+    //FIXME button needs to be renamed
+
+    //convert to sepia
+    sepia.addActionListener(evt -> features.convertSepia());
+
+    //run levels adjustment
+
+    //run compression
+
+    //run color correction
+    colorCorrect.addActionListener(evt -> features.runColorCorrection());
+
+    //toggle split view
+
+    //exit program
+
+    //keyboard events, if we want them
   }
 
   @Override
