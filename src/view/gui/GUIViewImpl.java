@@ -288,13 +288,37 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
 
     //sharpen image
-    sharpen.addActionListener(evt -> features.sharpenImage());
+    sharpen.addActionListener(evt -> {
+      if(!isSplitEnabled){
+        features.sharpenImage();
+      }else if(splitOps == 0){
+        splitOps++;
+        updateButtonStates();
+        features.toggleSplitView("sharpen", Integer.parseInt(splitPct.getText()));
+      }
+    });
 
     //convert to greyscale
-    greyscale.addActionListener(evt -> features.convertGreyscale());
+    greyscale.addActionListener(evt -> {
+      if(!isSplitEnabled){
+        features.convertGreyscale();
+      }else if(splitOps == 0){
+        splitOps++;
+        updateButtonStates();
+        features.toggleSplitView("greyscale", Integer.parseInt(splitPct.getText()));
+      }
+    });
 
     //convert to sepia
-    sepia.addActionListener(evt -> features.convertSepia());
+    sepia.addActionListener(evt -> {
+      if(!isSplitEnabled){
+        features.convertSepia();
+      }else if(splitOps == 0){
+        splitOps++;
+        updateButtonStates();
+        features.toggleSplitView("sepia", Integer.parseInt(splitPct.getText()));
+      }
+    });
 
     //run levels adjustment
     levelsAdj.addActionListener(evt -> {
