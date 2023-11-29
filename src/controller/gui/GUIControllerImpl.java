@@ -255,16 +255,17 @@ public class GUIControllerImpl implements GUIController, Features {
   public void toggleSplitView(String op, int pct) {
     Image currentImage = model.getImage("current");
     Filter filter = new Filter();
+    LinearColorTransformation lct = new LinearColorTransformation();
     switch(op){
       case "reset":
-        model.insertImage(model.getImage("current"), "split");
+        model.removeImage("split");
         view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
                 currentImage.getName());
-
       case "blur":
-        Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName());
+        Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName() + " -> blur");
         Image blurImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
         model.insertImage(blurImage, "split");
+        model.insertImage(blurredImage, "buffer");
         view.displayImage(convertToBufferedImage(blurImage), blurImage.getName());
         break;
       default:
@@ -282,9 +283,11 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void applySplitOp() {
-    model.insertImage(model.getImage("split"), "current");
+    model.insertImage(model.getImage("buffer"), "current");
     view.displayImage(convertToBufferedImage(model.getImage("current")),
             model.getImage("current").getName());
+    model.removeImage("split");
+    model.removeImage("buffer");
   }
 
   @Override

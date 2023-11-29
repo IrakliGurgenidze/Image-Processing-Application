@@ -282,7 +282,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
         features.blurImage();
       }else if(splitOps == 0){
         splitOps++;
-        blur.setBackground(Color.PINK);
         updateButtonStates();
         features.toggleSplitView("blur", Integer.parseInt(splitPct.getText()));
       }
