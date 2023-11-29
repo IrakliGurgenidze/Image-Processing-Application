@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -130,5 +131,65 @@ public class ImageUtil {
 
     return new SimpleImage(imageName, simpleImage);
   }
+
+  /**
+   * helper method to save a given image to a specific file location.
+   *
+   * @param image image to be saved
+   * @param savePath path to save image to
+   * @throws IOException on error writing to provided location
+   */
+  public static void saveImage(Image image, String savePath) throws IOException {
+    int height = image.getHeight();
+    int width = image.getWidth();
+    String[] split;
+    if(savePath.contains(".")){
+      split = savePath.split("\\.");
+      System.out.println("True A");
+    }else{
+      savePath += ".png";
+      split = savePath.split("\\.");
+    }
+    String ext = split[1];
+    File outFile = new File(savePath);
+
+    if (ext.equals("ppm")) {
+      System.out.println("True B");
+      try (PrintWriter ppmWriter = new PrintWriter(savePath)) {
+        ppmWriter.println("P3");
+        ppmWriter.println(width + " " + height);
+        ppmWriter.println("255");
+
+        for (int y = 0; y < height; y++) {
+          for (int x = 0; x < width; x++) {
+            Pixel pixel = image.getPixel(x, y);
+            int red = pixel.getRed();
+            int green = pixel.getGreen();
+            int blue = pixel.getBlue();
+            ppmWriter.println(red + " " + green + " " + blue);
+          }
+        }
+      } catch (IOException e) {
+        throw new IOException("Failed to save PPM.");
+      }
+    } else {
+      BufferedImage bufferedImage = new BufferedImage(width, height, 1);
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          Pixel pixel = image.getPixel(x, y);
+          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+          bufferedImage.setRGB(x, y, color.getRGB());
+        }
+      }
+      try {
+        ImageIO.write(bufferedImage, ext, outFile);
+        bufferedImage.flush();
+      } catch (IOException e) {
+        throw new IOException("Path not valid.");
+      }
+    }
+  }
+
+
 }
 

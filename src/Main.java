@@ -35,15 +35,15 @@ public class Main {
     //script-based
     else {
       //initialize MVC
-      StorageModel imageStorageModel = new ImageStorageModel();
-      ScriptView imageView = new ScriptViewImpl(System.in, System.out);
-      ScriptController imageController = new ScriptControllerImpl(imageStorageModel, imageView);
+      StorageModel scriptStorageModel = new ImageStorageModel();
+      ScriptView scriptView = new ScriptViewImpl(System.in, System.out);
+      ScriptController scriptController = new ScriptControllerImpl(scriptStorageModel, scriptView);
 
       //if command line arg -file exists
       if (args.length > 1 && args[0].equals("-file")) {
-        imageController.controllerGo(args[1]);
+        scriptController.controllerGo(args[1]);
       } else if (args.length == 1 && args[0].equals("-text")) {
-        imageController.controllerGo();
+        scriptController.controllerGo();
       }
     }
   }

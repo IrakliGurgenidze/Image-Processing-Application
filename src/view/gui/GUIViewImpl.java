@@ -133,9 +133,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JPanel sliders = new JPanel();
     sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
     JLabel brightenLabel = new JLabel("Brighten");
+    brighten = new JSlider(JSlider.CENTER, -256, 256, 0);
+    brighten.setMajorTickSpacing(256);
+    brighten.setMinorTickSpacing(32);
+    brighten.setPaintTicks(true);
+    brighten.setPaintLabels(true);
+
     JLabel compressLabel = new JLabel("Compression");
-    brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
     compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+    compression.setMajorTickSpacing(50);
+    compression.setMinorTickSpacing(10);
+    compression.setPaintTicks(true);
+    compression.setPaintLabels(true);
+
     sliders.add(brightenLabel);
     sliders.add(brighten);
     sliders.add(compressLabel);
@@ -226,7 +236,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
       updateButtonStates();
       JFileChooser fc = new JFileChooser();
       FileFilter filter = new FileNameExtensionFilter("jpg","jpeg",
-              "ppm", "png");
+              "ppm", "png", "jpg");
       fc.setFileFilter(filter);
       int res = fc.showOpenDialog(GUIViewImpl.this);
       if(res == JFileChooser.APPROVE_OPTION){
@@ -273,7 +283,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sharpen.addActionListener(evt -> features.sharpenImage());
 
     //convert to greyscale
-    //FIXME button needs to be renamed
+    greyscale.addActionListener(evt -> features.convertGreyscale());
 
     //convert to sepia
     sepia.addActionListener(evt -> features.convertSepia());
@@ -313,7 +323,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //toggle split view
 
     //clear
-    clear.addActionListener(evt -> features.clear());
+    clear.addActionListener(evt -> {
+      features.clear();
+      brighten.setValue(0);
+      compression.setValue(0);
+    });
 
     //exit program
 

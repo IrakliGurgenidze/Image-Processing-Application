@@ -1,5 +1,6 @@
 package controller.script.command;
 
+import controller.ImageUtil;
 import model.StorageModel;
 
 
@@ -35,7 +36,7 @@ public class SaveImageCommand implements CommandController {
     String imagePath = args[1];
     String imageName = args[2];
     try {
-      imageStorageModel.saveImage(imagePath, imageName);
+      ImageUtil.saveImage(imageStorageModel.getImage(imageName), imagePath);
       return "Image saved to specified path.";
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());

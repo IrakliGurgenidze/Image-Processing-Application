@@ -1,5 +1,7 @@
 package controller.script.command;
 
+import controller.ImageUtil;
+import model.Image;
 import model.StorageModel;
 
 
@@ -34,7 +36,7 @@ public class LoadImageCommand implements CommandController {
     String imagePath = args[1];
     String imageName = args[2];
     try {
-      imageStorageModel.loadImage(imagePath, imageName);
+      imageStorageModel.insertImage(ImageUtil.loadImage(imagePath, imageName));
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());
     }

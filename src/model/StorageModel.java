@@ -9,25 +9,6 @@ import java.io.IOException;
 public interface StorageModel {
 
   /**
-   * Method to load an image into the model from a filepath.
-   *
-   * @param loadPath  String, the filepath of the image
-   * @param imageName String, name by which to store the image in the database
-   * @throws IllegalArgumentException if an image cannot be loaded
-   */
-  void loadImage(String loadPath, String imageName) throws IllegalArgumentException;
-
-  /**
-   * Method to save an image from the model to a given filepath.
-   *
-   * @param savePath  String, the filepath to be saved
-   * @param imageName String, name of image in database
-   * @throws IllegalArgumentException if an image name is invalid
-   * @throws IOException              if a directory cannot be found/created
-   */
-  void saveImage(String savePath, String imageName) throws IllegalArgumentException, IOException;
-
-  /**
    * Method to fetch an image by name.
    *
    * @param name String, the name of the image to be retrieved

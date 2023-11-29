@@ -90,60 +90,15 @@ public class GUIControllerImpl implements GUIController, Features {
   public void loadImage(String filePath, String imageName) {
     Image baseImage = ImageUtil.loadImage(filePath, imageName);
     model.setBaseImage(baseImage);
-    view.displayImage(convertToBufferedImage(model.getDisplayImage()),
-            model.getDisplayImage().getName());
+    view.displayImage(convertToBufferedImage(model.getCurrentImage()),
+            model.getCurrentImage().getName());
   }
 
   @Override
   public void saveImage(String savePath) throws IOException {
     Image image = model.getCurrentImage();
-    int height = image.getHeight();
-    int width = image.getWidth();
-    String[] split;
-    if(savePath.contains("\\.")){
-      split = savePath.split("\\.");
-    }else{
-      savePath += ".png";
-      split = savePath.split("\\.");
-    }
-    String ext = split[1];
-    File outFile = new File(savePath);
-
-    if (ext.equals("ppm")) {
-      try (PrintWriter ppmWriter = new PrintWriter(savePath)) {
-        ppmWriter.println("P3");
-        ppmWriter.println(width + " " + height);
-        ppmWriter.println("255");
-
-        for (int i = 0; i < height; i++) {
-          for (int j = 0; j < width; j++) {
-            Pixel pixel = image.getPixel(j, i);
-            int red = pixel.getRed();
-            int green = pixel.getGreen();
-            int blue = pixel.getBlue();
-            ppmWriter.println(red + " " + green + " " + blue);
-          }
-        }
-      } catch (IOException e) {
-        throw new IOException("Failed to save PPM.");
-      }
-    } else {
-      BufferedImage bufferedImage = new BufferedImage(width, height, 1);
-      for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-          Pixel pixel = image.getPixel(x, y);
-          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
-          bufferedImage.setRGB(x, y, color.getRGB());
-        }
-      }
-      try {
-        ImageIO.write(bufferedImage, ext, outFile);
-        bufferedImage.flush();
-      } catch (IOException e) {
-        throw new IOException("Path not valid.");
-      }
-    }
-      
+    image = renderNonPersistentChanges(image);
+    ImageUtil.saveImage(image, savePath);
   }
 
   @Override

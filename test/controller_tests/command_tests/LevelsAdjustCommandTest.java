@@ -6,11 +6,33 @@ import model.Image;
 import model_tests.ModelTestUtilities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 /**
  * A JUnit Test class for LevelsAdjustCommand.
  */
 public class LevelsAdjustCommandTest extends AbstractCommandTest {
+
+  /**
+   * Test the command with invalid parameters.
+   */
+  @Test
+  public void testLevelsAdjustInvalidParams() {
+    Image testImage = ModelTestUtilities.constructBasicImage();
+    imageModel.insertImage(testImage);
+
+    assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(
+            imageController.parseCommand("levels-adjust -1 100 255 default adj")));
+
+    assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(
+            imageController.parseCommand("levels-adjust 1 100 299 default adj")));
+
+    assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(
+            imageController.parseCommand("levels-adjust 51 40 255 default adj")));
+
+    assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(
+            imageController.parseCommand("levels-adjust 1 155 22 default adj")));
+  }
 
   /**
    * Test the command with the provided sample images.
