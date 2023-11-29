@@ -1,8 +1,11 @@
 package view.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -10,11 +13,17 @@ import controller.gui.Features;
 import model.Image;
 import model.Pixel;
 import model.StorageModel;
+import model.gui.GUIModel;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Implements GUIView to act as view for Image Processor.
  */
 public class GUIViewImpl extends JFrame implements GUIView {
+
+  //buttons
   private JButton load;
   private JButton save;
   private JButton blur;
@@ -31,6 +40,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton levelsAdj;
   private JButton clear;
 
+  //sliders
+  private JSlider brighten;
+  private JSlider compression;
+
+
+  //panels and text displays
   private JLabel operationPath;
 
   private JPanel histogramPanel;
@@ -42,7 +57,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * Public constructor for the GUI view.
    * @param imageStorageModel the application model
    */
-  public GUIViewImpl(StorageModel imageStorageModel){
+  public GUIViewImpl(GUIModel imageStorageModel){
     super("Image Processing Application");
     setLocation(0, 0);
 
@@ -95,8 +110,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
     JLabel brightenLabel = new JLabel("Brighten");
     JLabel compressLabel = new JLabel("Compression");
-    JSlider brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
-    JSlider compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+    brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
+    compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
     sliders.add(brightenLabel);
     sliders.add(brighten);
     sliders.add(compressLabel);
@@ -165,6 +180,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   @Override
+  public Map<String, Double> getSliderValues() {
+    Map<String, Double> sliderValues = new HashMap<String, Double>();
+
+    //insert relevant UI elements
+    sliderValues.put("compression-ratio", (double) compression.getValue());
+    sliderValues.put("brighten-increment", (double) brighten.getValue());
+    return sliderValues;
+  }
+
+  @Override
   public void addFeatures(Features features) {
     //load
     load.addActionListener(e -> {
@@ -203,14 +228,22 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sharpen.addActionListener(evt -> features.sharpenImage());
 
     //convert to greyscale
-    //FIXME button needs to be renamed
 
     //convert to sepia
     sepia.addActionListener(evt -> features.convertSepia());
 
     //run levels adjustment
 
+    //run brighten
+    brighten.addChangeListener(e -> {
+      features.brighten();
+    });
+
     //run compression
+    compression.addChangeListener(e -> {
+      features.runCompression();
+    });
+
 
     //run color correction
     colorCorrect.addActionListener(evt -> features.runColorCorrection());
@@ -242,6 +275,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
 
+
+  //helper function to initialize the GUI's buttons
   private void initButtons(){
     load = new JButton("Load");
     load.setActionCommand("Load Button");
@@ -285,5 +320,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     colorCorrect = new JButton("Color Correct");
     colorCorrect.setActionCommand("Color Correct Button");
   }
+
 
 }

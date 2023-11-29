@@ -66,6 +66,11 @@ public interface Features {
   void runLevelsAdjustment();
 
   /**
+   * Run brighten on an image.
+   */
+  void brighten();
+
+  /**
    * Run compression preview on an image.
    */
   void runCompression();

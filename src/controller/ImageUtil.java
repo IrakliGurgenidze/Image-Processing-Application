@@ -21,6 +21,29 @@ import model.SimpleImage;
 public class ImageUtil {
 
   /**
+   * Helper method to read an image from a file, into an object of type Image.
+   *
+   * @param loadPath String, filepath to load from
+   * @param imageName String, the name by which to store the image
+   * @return the loaded Image
+   * @throws IllegalArgumentException on invalid filepath
+   */
+  public static Image loadImage(String loadPath, String imageName) throws IllegalArgumentException {
+    Image loadedImg;
+    try {
+      if (loadPath.split("\\.")[1].equals("ppm")) {
+        loadedImg = ImageUtil.readColorPPM(loadPath, imageName);
+      } else {
+        loadedImg = ImageUtil.readColor(loadPath, imageName);
+      }
+    } catch (Exception e) {
+      throw new IllegalArgumentException(e.getMessage());
+    }
+
+    return loadedImg;
+  }
+
+  /**
    * This method reads a color image of non-PPM format and creates its generic model. SimpleImage
    * representation.
    *
@@ -28,7 +51,7 @@ public class ImageUtil {
    * @return the model.SimpleImage equivalent of the given image
    * @throws IOException if the image file does not exist
    */
-  public static Image readColor(String fileName, String imageName) throws IOException {
+  private static Image readColor(String fileName, String imageName) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(fileName));
     int width = bufferedImage.getWidth();
     int height = bufferedImage.getHeight();
@@ -59,7 +82,7 @@ public class ImageUtil {
    * @return the model. SimpleImage equivalent of the given image
    * @throws FileNotFoundException if the image file does not exist
    */
-  public static Image readColorPPM(String fileName, String imageName)
+  private static Image readColorPPM(String fileName, String imageName)
           throws FileNotFoundException {
 
     Scanner sc;

@@ -4,6 +4,8 @@ import controller.script.ScriptController;
 import controller.script.ScriptControllerImpl;
 import model.ImageStorageModel;
 import model.StorageModel;
+import model.gui.GUIModel;
+import model.gui.GUIModelImpl;
 import view.gui.GUIView;
 import view.gui.GUIViewImpl;
 import view.script.ScriptView;
@@ -22,20 +24,18 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
-    //initialize model
-    StorageModel imageStorageModel = new ImageStorageModel();
-
     //run with gui
     if (args.length == 0) {
-      GUIView view = new GUIViewImpl(imageStorageModel);
-      Features controller = new GUIControllerImpl(imageStorageModel, view);
+      GUIModel model = new GUIModelImpl();
+      GUIView view = new GUIViewImpl(model);
+      Features controller = new GUIControllerImpl(model, view);
       view.addFeatures(controller);
     }
 
     //script-based
     else {
-
-      //initialize script view and controller
+      //initialize MVC
+      StorageModel imageStorageModel = new ImageStorageModel();
       ScriptView imageView = new ScriptViewImpl(System.in, System.out);
       ScriptController imageController = new ScriptControllerImpl(imageStorageModel, imageView);
 
