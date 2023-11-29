@@ -62,6 +62,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel splitView;
   private JScrollPane imagePreview;
 
+  private JPanel additionalFeatures;
+
 
   /**
    * Public constructor for the GUI view.
@@ -87,7 +89,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.add(utilityBar, BorderLayout.NORTH);
 
     //define dimensions of east toolbar
-    JPanel additionalFeatures = new JPanel();
+    additionalFeatures = new JPanel();
     additionalFeatures.setLayout(new BoxLayout(additionalFeatures, BoxLayout.Y_AXIS));
     additionalFeatures.setBackground(Color.GREEN);
     additionalFeatures.setPreferredSize(new Dimension(256, getHeight()));
@@ -414,8 +416,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
     label.setLocation(x,y);
     operationPath.setText(displayName);
 
-    //histogram
+    ImageIcon histogramIcon = new ImageIcon(histogram);
+    JLabel histogramLabel = new JLabel(histogramIcon);
 
+    JPanel histogramPanel = new JPanel(new BorderLayout());
+    histogramPanel.setPreferredSize(new Dimension(256, 256));
+    histogramPanel.setMaximumSize(new Dimension(256, 256));
+    histogramPanel.add(histogramLabel, BorderLayout.CENTER);
+
+    additionalFeatures.remove(this.histogramPanel);
+    additionalFeatures.add(histogramPanel);
+    this.histogramPanel = histogramPanel;
+    additionalFeatures.revalidate();
+    additionalFeatures.repaint();
 
   }
 
