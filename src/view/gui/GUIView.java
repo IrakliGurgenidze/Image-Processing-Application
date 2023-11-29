@@ -1,5 +1,7 @@
 package view.gui;
 
+import java.awt.image.BufferedImage;
+
 import controller.gui.Features;
 import model.Image;
 
@@ -37,8 +39,9 @@ public interface GUIView {
    * Should also update top bar description.
    *
    * @param image image to be displayed. Can be null.
+   * @param displayName String, name of image including its changelog
    */
-  void displayImage(Image image);
+  void displayImage(BufferedImage image, String displayName);
 
 
 

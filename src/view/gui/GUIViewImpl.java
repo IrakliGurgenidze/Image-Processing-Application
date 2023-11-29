@@ -226,48 +226,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   @Override
-  public void displayImage(Image image) {
-    /**
-    Graphics g = imageScrollPane.getGraphics();
-    for(int x = 0; x < image.getWidth(); x++){
-      for(int y =0; y < image.getHeight(); y++){
-        Pixel pixel = image.getPixel(x, y);
-        Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
-        g.setColor(color);
-        g.drawRect(x,y,1,1);
-      }
-    }
-    //imagePreview.paint(g);
-    operationPath.setText(image.getName());
-     */
+  public void displayImage(BufferedImage image, String displayName) {
 
-    int width = image.getWidth();
-    int height = image.getHeight();
+    //get the graphics object from the buffered image
+    Graphics g = image.getGraphics();
 
-    // Create a BufferedImage with the same dimensions as the image
-    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    //draw the entire image at once
+    imagePreview.getGraphics().drawImage(image, 0, 0,
+            imagePreview.getWidth(), imagePreview.getHeight(), null);
 
-    // Get the graphics object from the buffered image
-    Graphics g = bufferedImage.getGraphics();
+    //dispose of the graphics object to release resources
+    g.dispose();
 
-    if (g != null) {
-      for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-          Pixel pixel = image.getPixel(x, y);
-          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
-          bufferedImage.setRGB(x, y, color.getRGB());
-        }
-      }
-
-      // Draw the entire image at once
-      imagePreview.getGraphics().drawImage(bufferedImage, 0, 0,
-              imagePreview.getWidth(), imagePreview.getHeight(), null);
-
-      // Dispose of the graphics object to release resources
-      g.dispose();
-    }
-
-    operationPath.setText(image.getName());
+    operationPath.setText(displayName);
   }
 
 

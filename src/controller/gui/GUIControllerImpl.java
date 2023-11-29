@@ -1,10 +1,13 @@
 package controller.gui;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import controller.ImageUtil;
 import model.Image;
 import model.ImageStorageModel;
+import model.Pixel;
 import model.StorageModel;
 import model.utilities.Filter;
 import model.utilities.LinearColorTransformation;
@@ -33,13 +36,41 @@ public class GUIControllerImpl implements GUIController, Features {
     this.view = view;
   }
 
+  /**
+   * Helper method for converting an Image to a BufferedImage, as used by the GUI view.
+   *
+   * @param image image to be converted
+   */
+  private BufferedImage convertToBufferedImage(Image image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+
+    //create a BufferedImage with the same dimensions as the image
+    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+    //get the graphics object from the buffered image
+    Graphics g = bufferedImage.getGraphics();
+
+    if (g != null) {
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          Pixel pixel = image.getPixel(x, y);
+          Color color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+          bufferedImage.setRGB(x, y, color.getRGB());
+        }
+      }
+    }
+
+    return bufferedImage;
+  }
+
   @Override
   public void loadImage(String filePath, String imageName) {
     //FIXME will not work on windows?
     model.loadImage(filePath, imageName);
     baseImage = model.getImage(imageName);
     currentImage = baseImage;
-    view.displayImage(currentImage);
+    view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
   }
 
   @Override
@@ -53,7 +84,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.getRedComponent(currentImage.getName()
               + " -> red-component");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -63,7 +94,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.getGreenComponent(currentImage.getName()
               + " -> green-component");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -73,7 +104,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.getBlueComponent(currentImage.getName()
               + " -> blue-component");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -83,7 +114,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -93,7 +124,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.getVerticalFlip(currentImage.getName()
               + " -> vertical-flip");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -104,7 +135,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.applyFilter(filters.getFilter("blur"),
               currentImage.getName() + " -> blur");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -115,7 +146,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.applyFilter(filters.getFilter("sharpen"),
               currentImage.getName() + " -> sharpen");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -124,7 +155,7 @@ public class GUIControllerImpl implements GUIController, Features {
     if(currentImage != null) {
       currentImage = currentImage.getLumaComponent(currentImage.getName() + " -> greyscale");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -132,10 +163,10 @@ public class GUIControllerImpl implements GUIController, Features {
   public void convertSepia() {
     if(currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
-      currentImage = currentImage.applyFilter(lct.getLinearTransformation("sepia"),
+      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -155,7 +186,7 @@ public class GUIControllerImpl implements GUIController, Features {
       currentImage = currentImage.colorCorrectImage(currentImage.getName()
               + " -> color-correct");
 
-      view.displayImage(currentImage);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
     }
   }
 
@@ -167,7 +198,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void clear(){
     currentImage = baseImage;
-    view.displayImage(baseImage);
+    view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
   }
 
   @Override
