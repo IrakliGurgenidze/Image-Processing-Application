@@ -217,9 +217,9 @@ public class GUIControllerImpl implements GUIController, Features {
   public void runLevelsAdjustment(int b, int m, int w) {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
-      currentImage = currentImage.adjustLevels(currentImage.getName(), b, m, w);
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName()
-              + " -> levels-adjust");
+      currentImage = currentImage.adjustLevels(currentImage.getName() + " -> levels-adjust " + b + "/" + m + "/" + w, b, m, w);
+      model.insertImage(currentImage, "current");
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)), currentImage.getName());
     }
   }
 
@@ -266,7 +266,8 @@ public class GUIControllerImpl implements GUIController, Features {
         Image blurImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
         model.insertImage(blurImage, "split");
         model.insertImage(blurredImage, "buffer");
-        view.displayImage(convertToBufferedImage(blurImage), blurImage.getName());
+        view.displayImage(convertToBufferedImage(renderNonPersistentChanges(blurImage)),
+                blurImage.getName());
         break;
       default:
         //no default case
@@ -284,8 +285,11 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void applySplitOp() {
     model.insertImage(model.getImage("buffer"), "current");
-    view.displayImage(convertToBufferedImage(model.getImage("current")),
-            model.getImage("current").getName());
+    view.displayImage(convertToBufferedImage(
+            renderNonPersistentChanges(model.getImage("current"))),
+            model.getImage("current").getName()
+    );
+
     model.removeImage("split");
     model.removeImage("buffer");
   }

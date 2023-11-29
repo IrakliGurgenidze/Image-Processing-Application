@@ -36,13 +36,14 @@ public interface GUIView {
   void addFeatures(Features features);
 
   /**
-   * Displays the provided image to the screen.
+   * Displays the provided image to the screen, as well as the histogram of that image.
    * Should also update top bar description.
    *
-   * @param image image to be displayed. Can be null.
+   * @param displayImage image to be displayed. Can be null.
+   * @param histogram the histogram to be displayed on screen
    * @param displayName String, name of image including its changelog
    */
-  void displayImage(BufferedImage image, String displayName);
+  void displayImage(BufferedImage displayImage, BufferedImage histogram, String displayName);
 
   /**
    * This method returns the current values of specific UI elements that reflect non-persistent

@@ -379,7 +379,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   @Override
-  public void displayImage(BufferedImage image, String displayName) {
+  public void displayImage(BufferedImage image, BufferedImage histogram, String displayName) {
+
+    //draw image
     ImageIcon imgIcon = new ImageIcon(image);
     JLabel label = new JLabel(imgIcon);
     imagePreview.setViewportView(label);
@@ -387,6 +389,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     int y = (imagePreview.getHeight() - image.getHeight()) / 2;
     label.setLocation(x,y);
     operationPath.setText(displayName);
+
+    //histogram
+
+
   }
 
 
