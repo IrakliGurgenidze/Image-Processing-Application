@@ -45,14 +45,14 @@ public interface GUIModel {
    * @return displayImage, the image to be displayed to the user not including the split-view
    *          slider.
    */
-  Image getDisplayImage();
+  Image getSplitImage();
 
   /**
    * Set the display image of the GUI model.
    *
    * @param displayImage the current image, with non-persistent edits
    */
-  void setDisplayImage(Image displayImage);
+  void setSplitImage(Image displayImage);
 
 
 }

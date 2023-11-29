@@ -13,7 +13,7 @@ public class GUIModelImpl implements GUIModel {
   //the three images used by the application
   private Image baseImage = null; //the base image. this is what is loaded by the user, before any edits.
   private Image currentImage = null; //the base image including persistent edits, such as "blur"
-  private Image displayImage = null; //the current image, reflecting current value of editing sliders
+  private Image splitImage = null;
 
 
   @Override
@@ -25,7 +25,7 @@ public class GUIModelImpl implements GUIModel {
   public void setBaseImage(Image baseImage) {
     this.baseImage = baseImage;
     this.currentImage = baseImage;
-    this.displayImage = currentImage;
+    this.splitImage = currentImage;
   }
 
   @Override
@@ -39,12 +39,12 @@ public class GUIModelImpl implements GUIModel {
   }
 
   @Override
-  public Image getDisplayImage() {
-    return displayImage;
+  public Image getSplitImage() {
+    return splitImage;
   }
 
   @Override
-  public void setDisplayImage(Image displayImage) {
-    this.displayImage = displayImage;
+  public void setSplitImage(Image displayImage) {
+    this.splitImage = displayImage;
   }
 }

@@ -3,20 +3,17 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.gui.Features;
-import model.StorageModel;
 import model.gui.GUIModel;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * Implements GUIView to act as view for Image Processor.
@@ -27,9 +24,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton load;
 
   private JToggleButton split;
+  //applies changes from split view
   private JButton apply;
+  //checks to see if in split view
   private boolean isSplitEnabled = false;
-
+  //makes sure only 1 operation can be applied when in split view
+  private int splitOps = 0;
   private JLabel splitParams;
 
   private boolean imageLoaded = false;
@@ -134,8 +134,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
     JLabel brightenLabel = new JLabel("Brighten");
     JLabel compressLabel = new JLabel("Compression");
-    brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
-    compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+    brighten = new JSlider(JSlider.CENTER, -255, 255, 0);
+    compression = new JSlider(JSlider.HORIZONTAL, 0, 99, 0);
     sliders.add(brightenLabel);
     sliders.add(brighten);
     sliders.add(compressLabel);
@@ -267,7 +267,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     vFlip.addActionListener(evt -> features.flipVertical());
 
     //blur image
-    blur.addActionListener(evt -> features.blurImage());
+    blur.addActionListener(evt -> {
+      if(!isSplitEnabled){
+        features.blurImage();
+      }else if(splitOps == 0){
+        splitOps++;
+        blur.setBackground(Color.PINK);
+        updateButtonStates();
+        features.toggleSplitView("blur", Integer.parseInt(splitPct.getText()));
+      }
+    });
 
     //sharpen image
     sharpen.addActionListener(evt -> features.sharpenImage());
@@ -304,6 +313,41 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //run compression
     compression.addChangeListener(e -> {
       features.runCompression();
+    });
+
+    //apply split op
+    apply.addActionListener(e -> {
+      split.setSelected(false);
+      splitPct.setText("");
+      isSplitEnabled = false;
+      splitOps = 0;
+      updateButtonStates();
+      features.applySplitOp();
+    });
+
+    split.addItemListener(e -> {
+      int s;
+      try{
+        s = Integer.parseInt(splitPct.getText());
+        if(s > 99 || s < 1) {
+          throw new NumberFormatException();
+        }
+        isSplitEnabled = e.getStateChange() == ItemEvent.SELECTED;
+        if(isSplitEnabled) {
+          splitView.remove(splitParams);
+          splitView.add(apply);
+        }else{
+          splitView.remove(apply);
+          splitView.add(splitParams);
+          splitPct.setText("");
+          features.toggleSplitView("reset",0);
+        }
+        splitView.revalidate();
+        splitView.repaint();
+        updateButtonStates();
+      }catch(NumberFormatException nfe){
+        errorPopup("Split percentage must be an integer between 0-100.");
+      }
     });
 
 
@@ -348,37 +392,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     split.setActionCommand("Split Button");
     apply = new JButton("Apply Previewed Changes");
 
-    //FIXME does it belong ??
-    split.addItemListener(e -> {
-      int s;
-      try{
-        s = Integer.parseInt(splitPct.getText());
-        if(s > 99 || s < 1) {
-          throw new NumberFormatException();
-        }
-        isSplitEnabled = e.getStateChange() == ItemEvent.SELECTED;
-        if(isSplitEnabled) {
-          splitView.remove(splitParams);
-          splitView.add(apply);
-        }else{
-          splitView.remove(apply);
-          splitView.add(splitParams);
-          splitPct.setText("");
-        }
-        splitView.revalidate();
-        splitView.repaint();
-        updateButtonStates();
-      }catch(NumberFormatException nfe){
-        errorPopup("Split percentage must be an integer between 0-100.");
-      }
-    });
-
-    apply.addActionListener(e -> {
-      split.setSelected(false);
-      splitPct.setText("");
-      isSplitEnabled = false;
-      updateButtonStates();
-    });
 
     hFlip = new JButton("Horizontal Flip");
     hFlip.setActionCommand("Horizontal Flip Button");
@@ -414,27 +427,24 @@ public class GUIViewImpl extends JFrame implements GUIView {
     colorCorrect.setActionCommand("Color Correct Button");
   }
 
-  //disables buttons not compatible with split view
+
   private void updateButtonStates(){
-    hFlip.setEnabled(!isSplitEnabled && imageLoaded);
-    vFlip.setEnabled(!isSplitEnabled && imageLoaded);
-    rComp.setEnabled(!isSplitEnabled && imageLoaded);
-    gComp.setEnabled(!isSplitEnabled && imageLoaded);
-    bComp.setEnabled(!isSplitEnabled && imageLoaded);
-    greyscale.setEnabled(!isSplitEnabled && imageLoaded);
-    splitPct.setEnabled(!isSplitEnabled && imageLoaded);
-    brighten.setEnabled(!isSplitEnabled && imageLoaded);
-    compression.setEnabled(!isSplitEnabled && imageLoaded);
+    for (JButton jButton : Arrays.asList(hFlip, vFlip, rComp, gComp, bComp, greyscale)) {
+      jButton.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
+    }
+    splitPct.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
+    brighten.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
+    compression.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
     split.setEnabled(imageLoaded);
-    colorCorrect.setEnabled(imageLoaded);
-    blur.setEnabled(imageLoaded);
-    sepia.setEnabled(imageLoaded);
-    sharpen.setEnabled(imageLoaded);
-    levelsAdj.setEnabled(imageLoaded);
-    splitPct.setEnabled(imageLoaded && !isSplitEnabled);
-    bVal.setEnabled(imageLoaded);
-    mVal.setEnabled(imageLoaded);
-    wVal.setEnabled(imageLoaded);
+    colorCorrect.setEnabled(imageLoaded && splitOps == 0);
+    blur.setEnabled(imageLoaded && splitOps == 0);
+    sepia.setEnabled(imageLoaded && splitOps == 0);
+    sharpen.setEnabled(imageLoaded && splitOps == 0);
+    levelsAdj.setEnabled(imageLoaded && splitOps == 0);
+    splitPct.setEnabled(imageLoaded && !isSplitEnabled && splitOps == 0);
+    bVal.setEnabled(imageLoaded && splitOps == 0);
+    mVal.setEnabled(imageLoaded && splitOps == 0);
+    wVal.setEnabled(imageLoaded && splitOps == 0);
   }
 
   private void errorPopup(String message){

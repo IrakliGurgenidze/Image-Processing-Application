@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import controller.ImageUtil;
+import controller.SplitUtil;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
@@ -90,8 +91,8 @@ public class GUIControllerImpl implements GUIController, Features {
   public void loadImage(String filePath, String imageName) {
     Image baseImage = ImageUtil.loadImage(filePath, imageName);
     model.setBaseImage(baseImage);
-    view.displayImage(convertToBufferedImage(model.getDisplayImage()),
-            model.getDisplayImage().getName());
+    view.displayImage(convertToBufferedImage(model.getCurrentImage()),
+            model.getCurrentImage().getName());
   }
 
   @Override
@@ -100,7 +101,7 @@ public class GUIControllerImpl implements GUIController, Features {
     int height = image.getHeight();
     int width = image.getWidth();
     String[] split;
-    if(savePath.contains("\\.")){
+    if(savePath.contains(".")){
       split = savePath.split("\\.");
     }else{
       savePath += ".png";
@@ -143,7 +144,7 @@ public class GUIControllerImpl implements GUIController, Features {
         throw new IOException("Path not valid.");
       }
     }
-      
+
   }
 
   @Override
@@ -262,7 +263,8 @@ public class GUIControllerImpl implements GUIController, Features {
     Image currentImage = model.getCurrentImage();
     if (currentImage != null) {
       currentImage = currentImage.adjustLevels(currentImage.getName(), b, m, w);
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName()
+              + " -> levels-adjust");
     }
   }
 
@@ -295,8 +297,23 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
-  public void toggleSplitView() {
-
+  public void toggleSplitView(String op, int pct) {
+    Image currentImage = model.getCurrentImage();
+    Filter filter = new Filter();
+    switch(op){
+      case "reset":
+        model.setSplitImage(model.getCurrentImage());
+        view.displayImage(convertToBufferedImage(model.getCurrentImage()), model.getCurrentImage().getName());
+      case "blur":
+        Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName());
+        Image blurImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
+        model.setSplitImage(blurImage);
+        view.displayImage(convertToBufferedImage(blurImage), blurImage.getName());
+        break;
+      default:
+        //no default case
+        break;
+    }
   }
 
   @Override
@@ -304,6 +321,12 @@ public class GUIControllerImpl implements GUIController, Features {
     model.setCurrentImage(model.getBaseImage());
     Image currentImage = model.getCurrentImage();
     view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
+  }
+
+  @Override
+  public void applySplitOp() {
+    model.setCurrentImage(model.getSplitImage());
+    view.displayImage(convertToBufferedImage(model.getCurrentImage()), model.getCurrentImage().getName());
   }
 
   @Override
