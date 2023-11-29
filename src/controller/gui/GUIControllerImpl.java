@@ -256,18 +256,40 @@ public class GUIControllerImpl implements GUIController, Features {
     Image currentImage = model.getImage("current");
     Filter filter = new Filter();
     LinearColorTransformation lct = new LinearColorTransformation();
+    Image splitImage;
     switch(op){
       case "reset":
         model.removeImage("split");
         view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
                 currentImage.getName());
+        break;
       case "blur":
         Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName() + " -> blur");
-        Image blurImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
-        model.insertImage(blurImage, "split");
+        splitImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
+        model.insertImage(splitImage, "split");
         model.insertImage(blurredImage, "buffer");
-        view.displayImage(convertToBufferedImage(blurImage), blurImage.getName());
+        view.displayImage(convertToBufferedImage(splitImage), splitImage.getName());
         break;
+      case "sharpen":
+        Image sharpenedImage = currentImage.applyFilter(filter.getFilter("sharpen"), currentImage.getName() + " -> sharpen");
+        splitImage = SplitUtil.splitImage(currentImage, sharpenedImage, pct, sharpenedImage.getName());
+        model.insertImage(splitImage, "split");
+        model.insertImage(sharpenedImage, "buffer");
+        view.displayImage(convertToBufferedImage(splitImage), splitImage.getName());
+        break;
+      case "sepia":
+        Image sepiaImage = currentImage.applyFilter(lct.getLinearTransformation("sepia"), currentImage.getName() + " -> sepia");
+        splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
+        model.insertImage(splitImage, "split");
+        model.insertImage(sepiaImage, "buffer");
+        view.displayImage(convertToBufferedImage(splitImage), splitImage.getName());
+        break;
+      case "greyscale":
+        Image greyImage = currentImage.applyFilter(lct.getLinearTransformation("greyscale"), currentImage.getName() + " -> sepia");
+        splitImage = SplitUtil.splitImage(currentImage, greyImage, pct, greyImage.getName());
+        model.insertImage(splitImage, "split");
+        model.insertImage(greyImage, "buffer");
+        view.displayImage(convertToBufferedImage(splitImage), splitImage.getName());
       default:
         //no default case
         break;
