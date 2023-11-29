@@ -2,18 +2,27 @@ package view.gui;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.gui.Features;
 import model.StorageModel;
+import model.gui.GUIModel;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Implements GUIView to act as view for Image Processor.
  */
 public class GUIViewImpl extends JFrame implements GUIView {
+
+  //buttons
   private JButton load;
 
   private JToggleButton split;
@@ -40,6 +49,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField wVal;
   private JButton clear;
 
+  //sliders
   private JSlider brighten;
   private JSlider compression;
 
@@ -49,12 +59,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JScrollPane imagePreview;
 
 
-
   /**
    * Public constructor for the GUI view.
    * @param imageStorageModel the application model
    */
-  public GUIViewImpl(StorageModel imageStorageModel){
+  public GUIViewImpl(GUIModel imageStorageModel){
     super("Image Processing Application");
     setLocation(0, 0);
 
@@ -197,6 +206,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   @Override
+  public Map<String, Double> getSliderValues() {
+    Map<String, Double> sliderValues = new HashMap<String, Double>();
+
+    //insert relevant UI elements
+    sliderValues.put("compression-ratio", (double) compression.getValue());
+    sliderValues.put("brighten-increment", (double) brighten.getValue());
+    return sliderValues;
+  }
+
+  @Override
   public void addFeatures(Features features) {
     //load
     load.addActionListener(e -> {
@@ -264,7 +283,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
       }
     });
 
+    //run brighten
+    brighten.addChangeListener(e -> {
+      features.brighten();
+    });
+
     //run compression
+    compression.addChangeListener(e -> {
+      features.runCompression();
+    });
+
 
     //run color correction
     colorCorrect.addActionListener(evt -> features.runColorCorrection());
@@ -291,6 +319,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
 
+
+  //helper function to initialize the GUI's buttons
   private void initButtons(){
     load = new JButton("Load");
     load.setActionCommand("Load Button");

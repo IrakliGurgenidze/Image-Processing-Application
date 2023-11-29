@@ -3,12 +3,15 @@ package controller.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Map;
 
 import controller.ImageUtil;
 import model.Image;
 import model.ImageStorageModel;
 import model.Pixel;
+import model.SimpleImage;
 import model.StorageModel;
+import model.gui.GUIModel;
 import model.utilities.Filter;
 import model.utilities.LinearColorTransformation;
 import view.gui.GUIView;
@@ -16,14 +19,8 @@ import view.gui.GUIView;
 public class GUIControllerImpl implements GUIController, Features {
 
   //application model and view
-  StorageModel model;
+  GUIModel model;
   GUIView view;
-
-  //the base image that has been loaded into the application. Can be null if no image loaded.
-  private Image baseImage = null;
-
-  //the base image, with modifications applied. This is the "preview" image.
-  private Image currentImage = baseImage;
 
   /**
    * Public constructor for the application's GUI controller.
@@ -31,7 +28,7 @@ public class GUIControllerImpl implements GUIController, Features {
    * @param model application's model.
    * @param view application's GUI view.
    */
-  public GUIControllerImpl(StorageModel model, GUIView view) {
+  public GUIControllerImpl(GUIModel model, GUIView view) {
     this.model = model;
     this.view = view;
   }
@@ -64,13 +61,33 @@ public class GUIControllerImpl implements GUIController, Features {
     return bufferedImage;
   }
 
+  /**
+   * Helper method to apply non-persistent edits to the current image for display purposes.
+   * Basically slider support.
+   *
+   * @param currentImage current image, with persistent edits
+   * @return the image to be displayed to the user
+   */
+  private Image renderNonPersistentChanges(Image currentImage) {
+
+    //fetch slider values
+    Map<String, Double> sliderValues = view.getSliderValues();
+    int compressionRatio = sliderValues.get("compression-ratio").intValue();
+    int brightenIncrement = sliderValues.get("brighten-increment").intValue();
+
+    //render final image
+    Image displayImage = currentImage.compressImage(compressionRatio, currentImage.getName());
+    displayImage = displayImage.brighten(brightenIncrement, currentImage.getName());
+
+    return displayImage;
+  }
+
   @Override
   public void loadImage(String filePath, String imageName) {
-    //FIXME will not work on windows?
-    model.loadImage(filePath, imageName);
-    baseImage = model.getImage(imageName);
-    currentImage = baseImage;
-    view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
+    Image baseImage = ImageUtil.loadImage(filePath, imageName);
+    model.setBaseImage(baseImage);
+    view.displayImage(convertToBufferedImage(model.getDisplayImage()),
+            model.getDisplayImage().getName());
   }
 
   @Override
@@ -80,94 +97,113 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void visualizeRed() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getRedComponent(currentImage.getName()
               + " -> red-component");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());
     }
   }
 
   @Override
   public void visualizeGreen() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getGreenComponent(currentImage.getName()
               + " -> green-component");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void visualizeBlue() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getBlueComponent(currentImage.getName()
               + " -> blue-component");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void flipHorizontal() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void flipVertical() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getVerticalFlip(currentImage.getName()
               + " -> vertical-flip");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void blurImage() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("blur"),
               currentImage.getName() + " -> blur");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void sharpenImage() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("sharpen"),
               currentImage.getName() + " -> sharpen");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void convertGreyscale() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.getLumaComponent(currentImage.getName() + " -> greyscale");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void convertSepia() {
-    if (currentImage != null) {
+    Image currentImage = model.getCurrentImage();
+    if(currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
       currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
@@ -179,18 +215,31 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
-  public void runCompression() {
+  public void brighten() {
+    Image currentImage = model.getCurrentImage();
+    if(currentImage != null) {
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
+  }
 
+  @Override
+  public void runCompression() {
+    Image currentImage = model.getCurrentImage();
+    if(currentImage != null) {
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
   public void runColorCorrection() {
+    Image currentImage = model.getCurrentImage();
     if(currentImage != null) {
       currentImage = currentImage.colorCorrectImage(currentImage.getName()
               + " -> color-correct");
 
-      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
-    }
+      model.setCurrentImage(currentImage);
+      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+              currentImage.getName());    }
   }
 
   @Override
@@ -200,7 +249,8 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void clear(){
-    currentImage = baseImage;
+    model.setCurrentImage(model.getBaseImage());
+    Image currentImage = model.getCurrentImage();
     view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
   }
 

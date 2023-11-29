@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import controller.gui.Features;
 import model.Image;
+import java.util.Map;
 
 /**
  * Represents the graphical view of this application.
@@ -43,6 +44,13 @@ public interface GUIView {
    */
   void displayImage(BufferedImage image, String displayName);
 
-
+  /**
+   * This method returns the current values of specific UI elements that reflect non-persistent
+   * user input. Examples are the compression slider and brighten element. They can be retrieved by
+   * name, e.g. "compression-ratio".
+   *
+   * @return returns a map of current UI element values, referenced by their UI names.
+   */
+  Map<String, Double> getSliderValues();
 
 }

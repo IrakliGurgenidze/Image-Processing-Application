@@ -49,17 +49,7 @@ public class ImageStorageModel implements StorageModel {
 
   @Override
   public void loadImage(String loadPath, String imageName) throws IllegalArgumentException {
-    Image loadedImg;
-    try {
-      if (loadPath.split("\\.")[1].equals("ppm")) {
-        loadedImg = ImageUtil.readColorPPM(loadPath, imageName);
-      } else {
-        loadedImg = ImageUtil.readColor(loadPath, imageName);
-      }
-    } catch (Exception e) {
-      throw new IllegalArgumentException(e.getMessage());
-    }
-    insertImage(loadedImg);
+    insertImage(ImageUtil.loadImage(loadPath, imageName));
   }
 
   @Override
