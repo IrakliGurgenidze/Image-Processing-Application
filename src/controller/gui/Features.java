@@ -88,13 +88,20 @@ public interface Features {
 
   /**
    * Toggle split view.
+   * @param op String, name of operation to be performed in split
+   * @param pct int, split percentage
    */
-  void toggleSplitView();
+  void toggleSplitView(String op, int pct);
 
   /**
    * Resets the operations performed on an image.
    */
   void clear();
+
+  /**
+   * Applies the operation previewed when in split view.
+   */
+  void applySplitOp();
 
   /**
    * Exits program.
