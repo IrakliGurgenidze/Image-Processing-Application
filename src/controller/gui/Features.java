@@ -1,5 +1,7 @@
 package controller.gui;
 
+import java.io.IOException;
+
 /**
  * The features provided by the application's GUI.
  */
@@ -12,8 +14,9 @@ public interface Features {
 
   /**
    * Save an image onto local device.
+   * @param savePath String, path for image to be saved.
    */
-  void saveImage();
+  void saveImage(String savePath) throws IOException;
 
   /**
    * Visualize the red component of an image.

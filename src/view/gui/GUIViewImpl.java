@@ -2,6 +2,7 @@ package view.gui;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JToggleButton split;
   private JButton apply;
   private boolean isSplitEnabled = false;
+
+  private JLabel splitParams;
 
   private boolean imageLoaded = false;
   private JTextField splitPct;
@@ -56,6 +59,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel operationPath;
 
   private JPanel histogramPanel;
+  private JPanel splitView;
   private JScrollPane imagePreview;
 
 
@@ -111,12 +115,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
     featureButtons.add(colorCorrect);
     additionalFeatures.add(featureButtons);
 
-    JPanel splitView = new JPanel();
+    splitView = new JPanel();
     splitView.setLayout(new GridLayout(3,1));
     splitView.add(split);
     splitPct = new JTextField();
     splitView.add(splitPct);
-    JLabel splitParams = new JLabel("Split Percentage must be between 0-100.");
+    splitParams = new JLabel("Split Percentage must be between 0-100.");
     splitParams.setHorizontalAlignment(JLabel.CENTER);
     Font font = splitParams.getFont();
     float fontSize = 11;
@@ -183,7 +187,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //add panels to frame
     this.add(imagePreview, BorderLayout.CENTER);
     this.add(additionalFeatures, BorderLayout.EAST);
-
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     updateButtonStates();
     setVisible(true);
@@ -234,8 +237,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //save
     save.addActionListener(e -> {
-      imageLoaded = false;
       updateButtonStates();
+      JFileChooser fc = new JFileChooser();
+      int res = fc.showSaveDialog(GUIViewImpl.this);
+      if(res == JFileChooser.APPROVE_OPTION){
+        String filePath = fc.getSelectedFile().getAbsolutePath();
+        try {
+          features.saveImage(filePath);
+          imageLoaded = false;
+        }catch(IOException ioe){
+          errorPopup(ioe.getMessage());
+        }
+      }
     });
 
     //visualize red component
@@ -344,6 +357,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
           throw new NumberFormatException();
         }
         isSplitEnabled = e.getStateChange() == ItemEvent.SELECTED;
+        if(isSplitEnabled) {
+          splitView.remove(splitParams);
+          splitView.add(apply);
+        }else{
+          splitView.remove(apply);
+          splitView.add(splitParams);
+          splitPct.setText("");
+        }
+        splitView.revalidate();
+        splitView.repaint();
         updateButtonStates();
       }catch(NumberFormatException nfe){
         errorPopup("Split percentage must be an integer between 0-100.");
@@ -408,7 +431,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sepia.setEnabled(imageLoaded);
     sharpen.setEnabled(imageLoaded);
     levelsAdj.setEnabled(imageLoaded);
-    splitPct.setEnabled(imageLoaded);
+    splitPct.setEnabled(imageLoaded && !isSplitEnabled);
     bVal.setEnabled(imageLoaded);
     mVal.setEnabled(imageLoaded);
     wVal.setEnabled(imageLoaded);
