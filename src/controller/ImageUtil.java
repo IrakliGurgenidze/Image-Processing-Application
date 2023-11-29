@@ -145,7 +145,6 @@ public class ImageUtil {
     String[] split;
     if(savePath.contains(".")){
       split = savePath.split("\\.");
-      System.out.println("True A");
     }else{
       savePath += ".png";
       split = savePath.split("\\.");
@@ -154,7 +153,6 @@ public class ImageUtil {
     File outFile = new File(savePath);
 
     if (ext.equals("ppm")) {
-      System.out.println("True B");
       try (PrintWriter ppmWriter = new PrintWriter(savePath)) {
         ppmWriter.println("P3");
         ppmWriter.println(width + " " + height);

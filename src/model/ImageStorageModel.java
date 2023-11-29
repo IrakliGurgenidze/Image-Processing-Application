@@ -33,6 +33,11 @@ public class ImageStorageModel implements StorageModel {
   }
 
   @Override
+  public void insertImage(Image image, String saveName) {
+    images.put(saveName, image);
+  }
+
+  @Override
   public void removeImage(String imageName) throws IllegalArgumentException {
     if (!images.containsKey(imageName)) {
       throw new IllegalArgumentException("Invalid request. Could not find image with name "

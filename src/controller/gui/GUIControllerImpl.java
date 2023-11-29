@@ -16,7 +16,6 @@ import model.ImageStorageModel;
 import model.Pixel;
 import model.SimpleImage;
 import model.StorageModel;
-import model.gui.GUIModel;
 import model.utilities.Filter;
 import model.utilities.LinearColorTransformation;
 import view.gui.GUIView;
@@ -24,7 +23,7 @@ import view.gui.GUIView;
 public class GUIControllerImpl implements GUIController, Features {
 
   //application model and view
-  GUIModel model;
+  StorageModel model;
   GUIView view;
 
   /**
@@ -33,7 +32,7 @@ public class GUIControllerImpl implements GUIController, Features {
    * @param model application's model.
    * @param view application's GUI view.
    */
-  public GUIControllerImpl(GUIModel model, GUIView view) {
+  public GUIControllerImpl(StorageModel model, GUIView view) {
     this.model = model;
     this.view = view;
   }
@@ -90,26 +89,27 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void loadImage(String filePath, String imageName) {
     Image baseImage = ImageUtil.loadImage(filePath, imageName);
-    model.setBaseImage(baseImage);
-    view.displayImage(convertToBufferedImage(model.getCurrentImage()),
-            model.getCurrentImage().getName());
+    model.insertImage(baseImage, "base");
+    model.insertImage(baseImage, "current");
+    view.displayImage(convertToBufferedImage(model.getImage("current")),
+            model.getImage("current").getName());
   }
 
   @Override
   public void saveImage(String savePath) throws IOException {
-    Image image = model.getCurrentImage();
+    Image image = model.getImage("current");
     image = renderNonPersistentChanges(image);
     ImageUtil.saveImage(image, savePath);
   }
 
   @Override
   public void visualizeRed() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getRedComponent(currentImage.getName()
               + " -> red-component");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());
     }
@@ -117,105 +117,105 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void visualizeGreen() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getGreenComponent(currentImage.getName()
               + " -> green-component");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void visualizeBlue() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getBlueComponent(currentImage.getName()
               + " -> blue-component");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void flipHorizontal() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void flipVertical() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getVerticalFlip(currentImage.getName()
               + " -> vertical-flip");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void blurImage() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("blur"),
               currentImage.getName() + " -> blur");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void sharpenImage() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("sharpen"),
               currentImage.getName() + " -> sharpen");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void convertGreyscale() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.getLumaComponent(currentImage.getName() + " -> greyscale");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void convertSepia() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
       currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void runLevelsAdjustment(int b, int m, int w) {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if (currentImage != null) {
       currentImage = currentImage.adjustLevels(currentImage.getName(), b, m, w);
       view.displayImage(convertToBufferedImage(currentImage), currentImage.getName()
@@ -225,7 +225,7 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void brighten() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
@@ -233,7 +233,7 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void runCompression() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
@@ -241,28 +241,30 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void runColorCorrection() {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     if(currentImage != null) {
       currentImage = currentImage.colorCorrectImage(currentImage.getName()
               + " -> color-correct");
 
-      model.setCurrentImage(currentImage);
+      model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               currentImage.getName());    }
   }
 
   @Override
   public void toggleSplitView(String op, int pct) {
-    Image currentImage = model.getCurrentImage();
+    Image currentImage = model.getImage("current");
     Filter filter = new Filter();
     switch(op){
       case "reset":
-        model.setSplitImage(model.getCurrentImage());
-        view.displayImage(convertToBufferedImage(model.getCurrentImage()), model.getCurrentImage().getName());
+        model.insertImage(model.getImage("current"), "split");
+        view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+                currentImage.getName());
+
       case "blur":
         Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName());
         Image blurImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
-        model.setSplitImage(blurImage);
+        model.insertImage(blurImage, "split");
         view.displayImage(convertToBufferedImage(blurImage), blurImage.getName());
         break;
       default:
@@ -273,15 +275,16 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void clear(){
-    model.setCurrentImage(model.getBaseImage());
-    Image currentImage = model.getCurrentImage();
+    model.insertImage(model.getImage("base"), "current");
+    Image currentImage = model.getImage("current");
     view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
   }
 
   @Override
   public void applySplitOp() {
-    model.setCurrentImage(model.getSplitImage());
-    view.displayImage(convertToBufferedImage(model.getCurrentImage()), model.getCurrentImage().getName());
+    model.insertImage(model.getImage("split"), "current");
+    view.displayImage(convertToBufferedImage(model.getImage("current")),
+            model.getImage("current").getName());
   }
 
   @Override

@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.gui.Features;
-import model.gui.GUIModel;
+import model.StorageModel;
 
 
 /**
@@ -67,7 +67,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * Public constructor for the GUI view.
    * @param imageStorageModel the application model
    */
-  public GUIViewImpl(GUIModel imageStorageModel){
+  public GUIViewImpl(StorageModel imageStorageModel){
     super("Image Processing Application");
     setLocation(0, 0);
 

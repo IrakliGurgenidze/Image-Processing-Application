@@ -20,9 +20,18 @@ public interface StorageModel {
    * Method to insert an image into the database. If duplicate name is entered, existing
    * image is overwritten.
    *
-   * @param image model.Image, image to be inserted
+   * @param image Image, image to be inserted
    */
   void insertImage(Image image);
+
+  /**
+   * Method to insert an image into the database by a separate name. If duplicate name is entered,
+   * existing image is overwritten.
+   *
+   * @param image Image, image to be inserted
+   * @param saveName String, name to save image under
+   */
+  void insertImage(Image image, String saveName);
 
   /**
    * Method to remove an image from the database.
