@@ -208,6 +208,7 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void runLevelsAdjustment(int b, int m, int w) {
+    Image currentImage = model.getCurrentImage();
     if (currentImage != null) {
       currentImage = currentImage.adjustLevels(currentImage.getName(), b, m, w);
       view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
