@@ -279,6 +279,12 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
+  public void applySplitOp() {
+    model.setCurrentImage(model.getSplitImage());
+    view.displayImage(convertToBufferedImage(model.getCurrentImage()), model.getCurrentImage().getName());
+  }
+
+  @Override
   public void exitProgram() {
 
   }
