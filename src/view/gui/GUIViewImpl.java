@@ -1,5 +1,6 @@
 package view.gui;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -7,8 +8,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.gui.Features;
-import model.Image;
-import model.Pixel;
 import model.StorageModel;
 
 /**
@@ -16,6 +15,13 @@ import model.StorageModel;
  */
 public class GUIViewImpl extends JFrame implements GUIView {
   private JButton load;
+
+  private JToggleButton split;
+  private JButton apply;
+  private boolean isSplitEnabled = false;
+
+  private boolean imageLoaded = false;
+  private JTextField splitPct;
   private JButton save;
   private JButton blur;
   private JButton sharpen;
@@ -29,13 +35,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton colorCorrect;
 
   private JButton levelsAdj;
+  private JTextField bVal;
+  private JTextField mVal;
+  private JTextField wVal;
   private JButton clear;
+
+  private JSlider brighten;
+  private JSlider compression;
 
   private JLabel operationPath;
 
   private JPanel histogramPanel;
-  private JPanel imagePreview;
-  private JScrollPane imageScrollPane;
+  private JScrollPane imagePreview;
+
 
 
   /**
@@ -57,7 +69,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     utilityBar.add(load);
     utilityBar.add(save);
     utilityBar.add(clear);
-    operationPath = new JLabel("Placeholder"); //image operation path
+    operationPath = new JLabel("Image not loaded."); //image operation path
     utilityBar.add(operationPath);
     this.add(utilityBar, BorderLayout.NORTH);
 
@@ -76,7 +88,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //add buttons to east toolbar layout
     JPanel featureButtons = new JPanel();
-    featureButtons.setLayout(new GridLayout(5,2));
+    featureButtons.setLayout(new GridLayout(5,1));
     featureButtons.setBorder(BorderFactory.createEmptyBorder(25,5,5,5));
     featureButtons.add(rComp);
     featureButtons.add(gComp);
@@ -90,36 +102,54 @@ public class GUIViewImpl extends JFrame implements GUIView {
     featureButtons.add(colorCorrect);
     additionalFeatures.add(featureButtons);
 
+    JPanel splitView = new JPanel();
+    splitView.setLayout(new GridLayout(3,1));
+    splitView.add(split);
+    splitPct = new JTextField();
+    splitView.add(splitPct);
+    JLabel splitParams = new JLabel("Split Percentage must be between 0-100.");
+    splitParams.setHorizontalAlignment(JLabel.CENTER);
+    Font font = splitParams.getFont();
+    float fontSize = 11;
+    splitParams.setFont(font.deriveFont(fontSize));
+    splitView.add(splitParams);
+    splitView.setBorder(BorderFactory.createEmptyBorder(5,5,0,5));
+    additionalFeatures.add(splitView);
+
     //add sliders to east toolbar
     JPanel sliders = new JPanel();
     sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
     JLabel brightenLabel = new JLabel("Brighten");
     JLabel compressLabel = new JLabel("Compression");
-    JSlider brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
-    JSlider compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+    brighten = new JSlider(JSlider.CENTER, -100, 100, 0);
+    compression = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
     sliders.add(brightenLabel);
     sliders.add(brighten);
     sliders.add(compressLabel);
     sliders.add(compression);
-    sliders.setBorder(BorderFactory.createEmptyBorder(55, 7,0, 7));
+    sliders.setBorder(BorderFactory.createEmptyBorder(15, 7,0, 7));
     additionalFeatures.add(sliders);
 
     //add levels adjust panel to east toolbar
-    JPanel levelsAdjPanel = new JPanel(new GridLayout(8,1));
-    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(55,20,5,20));
-    JTextField bVal = new JTextField();
-    JTextField mVal = new JTextField();
-    JTextField wVal = new JTextField();
+    JPanel levelsAdjPanel = new JPanel(new GridLayout(4,2));
+    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(15,20,5,20));
+    bVal = new JTextField();
+    mVal = new JTextField();
+    wVal = new JTextField();
     bVal.setMaximumSize(new Dimension(128,5));
     mVal.setMaximumSize(new Dimension(128,5));
     wVal.setMaximumSize(new Dimension(128,5));
-    JLabel params = new JLabel("Parameters: b < m < w");
-    params.setHorizontalAlignment(JLabel.CENTER);
-    levelsAdjPanel.add(params);
+    levelsAdjPanel.add(new JLabel("b: "));
     levelsAdjPanel.add(bVal);
+    bVal.setHorizontalAlignment(JTextField.CENTER);
+    levelsAdjPanel.add(new JLabel("m: "));
     levelsAdjPanel.add(mVal);
+    mVal.setHorizontalAlignment(JTextField.CENTER);
+    levelsAdjPanel.add(new JLabel("w: "));
     levelsAdjPanel.add(wVal);
-    levelsAdjPanel.add(new JPanel());
+    wVal.setHorizontalAlignment(JTextField.CENTER);
+
+    levelsAdjPanel.add(new JLabel("b < m < w"));
     levelsAdjPanel.add(levelsAdj);
     additionalFeatures.add(levelsAdjPanel);
 
@@ -134,17 +164,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sharpen.setMaximumSize(maxButtonSize);
     greyscale.setMaximumSize(maxButtonSize);
     sepia.setMaximumSize(maxButtonSize);
+    split.setMaximumSize(maxButtonSize);
 
     //set image panel layout
-    imagePreview = new JPanel();
-    imagePreview.setBackground(Color.BLUE);
-    imageScrollPane = new JScrollPane(imagePreview);
+    imagePreview = new JScrollPane();
+    imagePreview.getViewport().setBackground(Color.DARK_GRAY);
+    imagePreview.setBackground(Color.DARK_GRAY);
 
     //add panels to frame
-    this.add(imageScrollPane, BorderLayout.CENTER);
+    this.add(imagePreview, BorderLayout.CENTER);
     this.add(additionalFeatures, BorderLayout.EAST);
 
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    updateButtonStates();
     setVisible(true);
   }
 
@@ -168,6 +200,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void addFeatures(Features features) {
     //load
     load.addActionListener(e -> {
+      imageLoaded = true;
+      updateButtonStates();
       JFileChooser fc = new JFileChooser();
       FileFilter filter = new FileNameExtensionFilter("jpg","jpeg",
               "ppm", "png");
@@ -180,6 +214,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
 
     //save
+    save.addActionListener(e -> {
+      imageLoaded = false;
+      updateButtonStates();
+    });
 
     //visualize red component
     rComp.addActionListener(evt -> features.visualizeRed());
@@ -209,6 +247,22 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sepia.addActionListener(evt -> features.convertSepia());
 
     //run levels adjustment
+    levelsAdj.addActionListener(evt -> {
+      int b;
+      int m;
+      int w;
+      try{
+        b = Integer.parseInt(bVal.getText());
+        m = Integer.parseInt(mVal.getText());
+        w = Integer.parseInt(wVal.getText());
+        if (b > m || m > w || w > 255 || b < 1) {
+          throw new NumberFormatException();
+        }
+        features.runLevelsAdjustment(b,m,w);
+      }catch(NumberFormatException nfe){
+        errorPopup("b,m,w must be integers between 0-255 in ascending order.");
+      }
+    });
 
     //run compression
 
@@ -227,17 +281,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void displayImage(BufferedImage image, String displayName) {
-
-    //get the graphics object from the buffered image
-    Graphics g = image.getGraphics();
-
-    //draw the entire image at once
-    imagePreview.getGraphics().drawImage(image, 0, 0,
-            imagePreview.getWidth(), imagePreview.getHeight(), null);
-
-    //dispose of the graphics object to release resources
-    g.dispose();
-
+    ImageIcon imgIcon = new ImageIcon(image);
+    JLabel label = new JLabel(imgIcon);
+    imagePreview.setViewportView(label);
+    int x = (imagePreview.getWidth() - image.getWidth()) / 2;
+    int y = (imagePreview.getHeight() - image.getHeight()) / 2;
+    label.setLocation(x,y);
     operationPath.setText(displayName);
   }
 
@@ -251,6 +300,32 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     clear = new JButton("Clear");
     clear.setActionCommand("Clear Button");
+
+    split = new JToggleButton("Split View");
+    split.setActionCommand("Split Button");
+    apply = new JButton("Apply Previewed Changes");
+
+    //FIXME does it belong ??
+    split.addItemListener(e -> {
+      int s;
+      try{
+        s = Integer.parseInt(splitPct.getText());
+        if(s > 99 || s < 1) {
+          throw new NumberFormatException();
+        }
+        isSplitEnabled = e.getStateChange() == ItemEvent.SELECTED;
+        updateButtonStates();
+      }catch(NumberFormatException nfe){
+        errorPopup("Split percentage must be an integer between 0-100.");
+      }
+    });
+
+    apply.addActionListener(e -> {
+      split.setSelected(false);
+      splitPct.setText("");
+      isSplitEnabled = false;
+      updateButtonStates();
+    });
 
     hFlip = new JButton("Horizontal Flip");
     hFlip.setActionCommand("Horizontal Flip Button");
@@ -284,6 +359,34 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     colorCorrect = new JButton("Color Correct");
     colorCorrect.setActionCommand("Color Correct Button");
+  }
+
+  //disables buttons not compatible with split view
+  private void updateButtonStates(){
+    hFlip.setEnabled(!isSplitEnabled && imageLoaded);
+    vFlip.setEnabled(!isSplitEnabled && imageLoaded);
+    rComp.setEnabled(!isSplitEnabled && imageLoaded);
+    gComp.setEnabled(!isSplitEnabled && imageLoaded);
+    bComp.setEnabled(!isSplitEnabled && imageLoaded);
+    greyscale.setEnabled(!isSplitEnabled && imageLoaded);
+    splitPct.setEnabled(!isSplitEnabled && imageLoaded);
+    brighten.setEnabled(!isSplitEnabled && imageLoaded);
+    compression.setEnabled(!isSplitEnabled && imageLoaded);
+    split.setEnabled(imageLoaded);
+    colorCorrect.setEnabled(imageLoaded);
+    blur.setEnabled(imageLoaded);
+    sepia.setEnabled(imageLoaded);
+    sharpen.setEnabled(imageLoaded);
+    levelsAdj.setEnabled(imageLoaded);
+    splitPct.setEnabled(imageLoaded);
+    bVal.setEnabled(imageLoaded);
+    mVal.setEnabled(imageLoaded);
+    wVal.setEnabled(imageLoaded);
+  }
+
+  private void errorPopup(String message){
+    JOptionPane.showMessageDialog(null, message, "Invalid input!",
+            JOptionPane.ERROR_MESSAGE);
   }
 
 }

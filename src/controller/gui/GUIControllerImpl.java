@@ -161,7 +161,7 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void convertSepia() {
-    if(currentImage != null) {
+    if (currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
       currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
@@ -171,8 +171,11 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
-  public void runLevelsAdjustment() {
-
+  public void runLevelsAdjustment(int b, int m, int w) {
+    if (currentImage != null) {
+      currentImage = currentImage.adjustLevels(currentImage.getName(), b, m, w);
+      view.displayImage(convertToBufferedImage(currentImage), currentImage.getName());
+    }
   }
 
   @Override

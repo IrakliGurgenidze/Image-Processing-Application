@@ -61,9 +61,12 @@ public interface Features {
   void convertSepia();
 
   /**
-   * Run levels-adjustment preview on an image.
+   * Run levels adjustment on an image.
+   * @param b int, black value for adjustment
+   * @param m int, mid value for adjustment
+   * @param w int, white value for adjustment
    */
-  void runLevelsAdjustment();
+  void runLevelsAdjustment(int b, int m, int w);
 
   /**
    * Run compression preview on an image.
