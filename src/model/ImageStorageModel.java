@@ -1,17 +1,8 @@
 package model;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.util.Hashtable;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import controller.ImageUtil;
 
 /**
  * This class represents the "model" of an image processing application.

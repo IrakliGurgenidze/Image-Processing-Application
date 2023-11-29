@@ -351,6 +351,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
           splitView.add(splitParams);
           splitPct.setText("");
           features.toggleSplitView("reset",0);
+          splitOps = 0;
         }
         splitView.revalidate();
         splitView.repaint();
