@@ -328,7 +328,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
         if (b > m || m > w || w > 255 || b < 1) {
           throw new NumberFormatException();
         }
-        features.runLevelsAdjustment(b, m, w);
+        if(!isSplitEnabled) {
+          features.runLevelsAdjustment(b, m, w);
+        }else if(splitOps == 0){
+          splitOps++;
+          updateButtonStates();
+          features.toggleSplitView("levels-adjust", Integer.parseInt(splitPct.getText()), b, m, w);
+        }
       } catch (NumberFormatException nfe) {
         errorPopup("b,m,w must be integers between 0-255 in ascending order.");
       }
@@ -347,7 +353,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //apply split op
     apply.addActionListener(e -> {
       split.setSelected(false);
-      splitPct.setText("");
       isSplitEnabled = false;
       splitOps = 0;
       updateButtonStates();

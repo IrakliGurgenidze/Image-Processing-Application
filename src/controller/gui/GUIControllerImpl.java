@@ -276,7 +276,7 @@ public class GUIControllerImpl implements GUIController, Features {
   }
 
   @Override
-  public void toggleSplitView(String op, int pct) {
+  public void toggleSplitView(String op, int pct, int...levelAdjArgs) {
     Image currentImage = model.getImage("current");
     Filter filter = new Filter();
     LinearColorTransformation lct = new LinearColorTransformation();
@@ -323,12 +323,23 @@ public class GUIControllerImpl implements GUIController, Features {
         break;
 
       case "color-correct":
-        Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName() + " -> color-correct");
+        Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName()
+                + " -> color-correct");
         splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct, colorCorrectImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(colorCorrectImage, "buffer");
         break;
 
+      case "levels-adjust":
+        Image levelsAdjImg = currentImage.adjustLevels(currentImage.getName() + " -> levels-adjust",
+          levelAdjArgs[0], levelAdjArgs[1], levelAdjArgs[2]);
+        splitImage = SplitUtil.splitImage(currentImage, levelsAdjImg, pct, levelsAdjImg.getName());
+        model.insertImage(splitImage, "split");
+        model.insertImage(levelsAdjImg, "buffer");
+        view.displayImage(convertToBufferedImage(splitImage),
+                convertToBufferedImage(HistogramUtil.getHistogram(splitImage, "")),
+                splitImage.getName());
+        break;
       default:
         splitImage = model.getImage("current");
         break;

@@ -93,8 +93,9 @@ public interface Features {
    *
    * @param op  String, name of operation to be performed in split
    * @param pct int, split percentage
+   * @param levelAdjArgs int, variable argument that is passed when levels-adjust is run in split view
    */
-  void toggleSplitView(String op, int pct);
+  void toggleSplitView(String op, int pct, int...levelAdjArgs);
 
   /**
    * Resets the operations performed on an image.
