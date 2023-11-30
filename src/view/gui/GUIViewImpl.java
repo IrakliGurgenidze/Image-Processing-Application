@@ -229,7 +229,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //load
     load.addActionListener(e -> {
       JFileChooser fc = new JFileChooser();
-      FileFilter filter = new FileNameExtensionFilter("jpg", "jpeg",
+      FileFilter filter = new FileNameExtensionFilter("jpg, jpeg, png, or ppm", "jpeg",
               "ppm", "png", "jpg");
       fc.setFileFilter(filter);
       int res = fc.showOpenDialog(GUIViewImpl.this);
