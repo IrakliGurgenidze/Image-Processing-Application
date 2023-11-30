@@ -2,19 +2,13 @@ package controller.gui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import controller.ImageUtil;
 import controller.SplitUtil;
 import model.Image;
-import model.ImageStorageModel;
 import model.Pixel;
-import model.SimpleImage;
 import model.StorageModel;
 import model.utilities.Filter;
 import model.utilities.HistogramUtil;
@@ -31,7 +25,7 @@ public class GUIControllerImpl implements GUIController, Features {
    * Public constructor for the application's GUI controller.
    *
    * @param model application's model.
-   * @param view application's GUI view.
+   * @param view  application's GUI view.
    */
   public GUIControllerImpl(StorageModel model, GUIView view) {
     this.model = model;
@@ -108,7 +102,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void visualizeRed() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.getRedComponent(currentImage.getName()
               + " -> red-component");
 
@@ -122,7 +116,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void visualizeGreen() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.getGreenComponent(currentImage.getName()
               + " -> green-component");
 
@@ -136,7 +130,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void visualizeBlue() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.getBlueComponent(currentImage.getName()
               + " -> blue-component");
 
@@ -150,7 +144,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void flipHorizontal() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
@@ -163,7 +157,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void flipVertical() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.getVerticalFlip(currentImage.getName()
               + " -> vertical-flip");
 
@@ -177,7 +171,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void blurImage() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("blur"),
               currentImage.getName() + " -> blur");
@@ -192,7 +186,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void sharpenImage() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       Filter filters = new Filter();
       currentImage = currentImage.applyFilter(filters.getFilter("sharpen"),
               currentImage.getName() + " -> sharpen");
@@ -207,8 +201,9 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void convertGreyscale() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
-      currentImage = currentImage.getLumaComponent(currentImage.getName() + " -> greyscale");
+    if (currentImage != null) {
+      currentImage = currentImage.getLumaComponent(currentImage.getName()
+              + " -> greyscale");
 
       model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
@@ -220,9 +215,10 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void convertSepia() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
-      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
+      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation
+                      ("sepia"),
               currentImage.getName() + " -> sepia");
 
       model.insertImage(currentImage, "current");
@@ -236,7 +232,8 @@ public class GUIControllerImpl implements GUIController, Features {
   public void runLevelsAdjustment(int b, int m, int w) {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
-      currentImage = currentImage.adjustLevels(currentImage.getName() + " -> levels-adjust " + b + "/" + m + "/" + w, b, m, w);
+      currentImage = currentImage.adjustLevels(currentImage.getName()
+              + " -> levels-adjust " + b + "/" + m + "/" + w, b, m, w);
       model.insertImage(currentImage, "current");
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
@@ -247,7 +244,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void brighten() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
               currentImage.getName());
@@ -257,7 +254,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void runCompression() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
               currentImage.getName());
@@ -267,7 +264,7 @@ public class GUIControllerImpl implements GUIController, Features {
   @Override
   public void runColorCorrection() {
     Image currentImage = model.getImage("current");
-    if(currentImage != null) {
+    if (currentImage != null) {
       currentImage = currentImage.colorCorrectImage(currentImage.getName()
               + " -> color-correct");
 
@@ -284,15 +281,21 @@ public class GUIControllerImpl implements GUIController, Features {
     Filter filter = new Filter();
     LinearColorTransformation lct = new LinearColorTransformation();
     Image splitImage;
-    switch(op){
+    switch (op) {
       case "reset":
-        model.removeImage("split");
-        view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-                convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
-                currentImage.getName());
+        try {
+          model.removeImage("split");
+        } catch (IllegalArgumentException ignored) {
+
+        } finally {
+          view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
+                  convertToBufferedImage(HistogramUtil.getHistogram(currentImage,
+                          "")), currentImage.getName());
+        }
         break;
       case "blur":
-        Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"), currentImage.getName() + " -> blur");
+        Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"),
+                currentImage.getName() + " -> blur");
         splitImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(blurredImage, "buffer");
@@ -301,8 +304,10 @@ public class GUIControllerImpl implements GUIController, Features {
                 splitImage.getName());
         break;
       case "sharpen":
-        Image sharpenedImage = currentImage.applyFilter(filter.getFilter("sharpen"), currentImage.getName() + " -> sharpen");
-        splitImage = SplitUtil.splitImage(currentImage, sharpenedImage, pct, sharpenedImage.getName());
+        Image sharpenedImage = currentImage.applyFilter(filter.getFilter("sharpen"),
+                currentImage.getName() + " -> sharpen");
+        splitImage = SplitUtil.splitImage(currentImage, sharpenedImage, pct,
+                sharpenedImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(sharpenedImage, "buffer");
         view.displayImage(convertToBufferedImage(splitImage),
@@ -310,7 +315,8 @@ public class GUIControllerImpl implements GUIController, Features {
                 splitImage.getName());
         break;
       case "sepia":
-        Image sepiaImage = currentImage.applyFilter(lct.getLinearTransformation("sepia"), currentImage.getName() + " -> sepia");
+        Image sepiaImage = currentImage.applyFilter(lct.getLinearTransformation("sepia"),
+                currentImage.getName() + " -> sepia");
         splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(sepiaImage, "buffer");
@@ -319,21 +325,22 @@ public class GUIControllerImpl implements GUIController, Features {
                 splitImage.getName());
         break;
       case "greyscale":
-        Image greyImage = currentImage.applyFilter(lct.getLinearTransformation("greyscale"), currentImage.getName() + " -> sepia");
+        Image greyImage = currentImage.applyFilter(lct.getLinearTransformation("greyscale"),
+                currentImage.getName() + " -> sepia");
         splitImage = SplitUtil.splitImage(currentImage, greyImage, pct, greyImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(greyImage, "buffer");
         view.displayImage(convertToBufferedImage(splitImage),
                 convertToBufferedImage(HistogramUtil.getHistogram(splitImage, "")),
                 splitImage.getName());
-        default:
+      default:
         //no default case
         break;
     }
   }
 
   @Override
-  public void clear(){
+  public void clear() {
     model.insertImage(model.getImage("base"), "current");
     Image currentImage = model.getImage("current");
     view.displayImage(convertToBufferedImage(currentImage),
@@ -343,16 +350,19 @@ public class GUIControllerImpl implements GUIController, Features {
 
   @Override
   public void applySplitOp() {
-    model.insertImage(model.getImage("buffer"), "current");
-    Image currentImage = model.getImage("current");
-    view.displayImage(convertToBufferedImage(
-            renderNonPersistentChanges(currentImage)),
-            convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
-            currentImage.getName()
-    );
+    try {
+      model.insertImage(model.getImage("buffer"), "current");
+      Image currentImage = model.getImage("current");
+      view.displayImage(convertToBufferedImage(
+                      renderNonPersistentChanges(currentImage)),
+              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+              currentImage.getName()
+      );
+      model.removeImage("split");
+      model.removeImage("buffer");
+    } catch (Exception ignored) {
 
-    model.removeImage("split");
-    model.removeImage("buffer");
+    }
   }
 
   @Override

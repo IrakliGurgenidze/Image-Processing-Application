@@ -57,6 +57,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JSlider compression;
 
   private JLabel operationPath;
+  private JScrollPane opPathPane;
 
   private JPanel histogramPanel;
   private JPanel splitView;
@@ -85,7 +86,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
     utilityBar.add(save);
     utilityBar.add(clear);
     operationPath = new JLabel("Image not loaded."); //image operation path
-    utilityBar.add(operationPath);
+    opPathPane = new JScrollPane();
+    opPathPane.setViewportView(operationPath);
+    opPathPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    opPathPane.setPreferredSize(new Dimension(1000, 50));
+    opPathPane.getViewport().setOpaque(false);
+    opPathPane.setOpaque(false);
+    opPathPane.setBorder(null);
+    utilityBar.add(opPathPane);
     this.add(utilityBar, BorderLayout.NORTH);
 
     //define dimensions of east toolbar
@@ -234,14 +242,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void addFeatures(Features features) {
     //load
     load.addActionListener(e -> {
-      imageLoaded = true;
-      updateButtonStates();
       JFileChooser fc = new JFileChooser();
       FileFilter filter = new FileNameExtensionFilter("jpg","jpeg",
               "ppm", "png", "jpg");
       fc.setFileFilter(filter);
       int res = fc.showOpenDialog(GUIViewImpl.this);
       if(res == JFileChooser.APPROVE_OPTION){
+        imageLoaded = true;
+        updateButtonStates();
        String filePath = fc.getSelectedFile().getAbsolutePath();
        features.loadImage(filePath, fc.getSelectedFile().getName());
       }
@@ -371,10 +379,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
         if(isSplitEnabled) {
           splitView.remove(splitParams);
           splitView.add(apply);
+          split.setText("Exit Split Preview");
         }else{
           splitView.remove(apply);
           splitView.add(splitParams);
           splitPct.setText("");
+          split.setText("Split Preview");
           features.toggleSplitView("reset",0);
           splitOps = 0;
         }
@@ -382,7 +392,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
         splitView.repaint();
         updateButtonStates();
       }catch(NumberFormatException nfe){
-        errorPopup("Split percentage must be an integer between 0-100.");
+          errorPopup("Split percentage must be an integer between 0-100.");
       }
     });
 
@@ -416,20 +426,33 @@ public class GUIViewImpl extends JFrame implements GUIView {
     label.setLocation(x,y);
     operationPath.setText(displayName);
 
-    ImageIcon histogramIcon = new ImageIcon(histogram);
-    JLabel histogramLabel = new JLabel(histogramIcon);
+    if(!isSplitEnabled) {
+      ImageIcon histogramIcon = new ImageIcon(histogram);
+      JLabel histogramLabel = new JLabel(histogramIcon);
 
-    JPanel histogramPanel = new JPanel(new BorderLayout());
-    histogramPanel.setPreferredSize(new Dimension(256, 256));
-    histogramPanel.setMaximumSize(new Dimension(256, 256));
-    histogramPanel.add(histogramLabel, BorderLayout.CENTER);
+      JPanel histogramPanel = new JPanel(new BorderLayout());
+      histogramPanel.setPreferredSize(new Dimension(256, 256));
+      histogramPanel.setMaximumSize(new Dimension(256, 256));
+      histogramPanel.add(histogramLabel, BorderLayout.CENTER);
 
-    additionalFeatures.remove(this.histogramPanel);
-    additionalFeatures.add(histogramPanel, 0);
-    this.histogramPanel = histogramPanel;
+      additionalFeatures.remove(this.histogramPanel);
+      additionalFeatures.add(histogramPanel, 0);
+      this.histogramPanel = histogramPanel;
+    }else{
+      JLabel messageLabel = new JLabel("Histogram not supported in Split View");
+      messageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+      JPanel messagePanel = new JPanel(new BorderLayout());
+      messagePanel.setPreferredSize(new Dimension(256, 256));
+      messagePanel.setMaximumSize(new Dimension(256, 256));
+      messagePanel.add(messageLabel, BorderLayout.CENTER);
+
+      additionalFeatures.remove(this.histogramPanel);
+      additionalFeatures.add(messagePanel, 0);
+      this.histogramPanel = messagePanel;
+    }
     additionalFeatures.revalidate();
     additionalFeatures.repaint();
-
   }
 
 
@@ -493,6 +516,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     brighten.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
     compression.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
     split.setEnabled(imageLoaded);
+    save.setEnabled(imageLoaded);
+    clear.setEnabled(imageLoaded);
     colorCorrect.setEnabled(imageLoaded && splitOps == 0);
     blur.setEnabled(imageLoaded && splitOps == 0);
     sepia.setEnabled(imageLoaded && splitOps == 0);
