@@ -35,6 +35,7 @@ public class ImageStorageModelTest {
     assertEquals("default", retVal.getName());
     assertEquals(3, retVal.getHeight());
     assertEquals(3, retVal.getWidth());
+    assertEquals(1, model.getSize());
 
     //overwrite an image
     model.insertImage(new SimpleImage(5, 5, "default"));
@@ -43,6 +44,17 @@ public class ImageStorageModelTest {
     assertEquals("default", retVal.getName());
     assertEquals(5, retVal.getHeight());
     assertEquals(5, retVal.getWidth());
+    assertEquals(1, model.getSize());
+
+    //test other insert method
+    model.insertImage(new SimpleImage(5, 5, "default"), "overloaded");
+    retVal = model.getImage("overloaded");
+    assertNotNull(retVal);
+    assertEquals("default", retVal.getName());
+    assertEquals(5, retVal.getHeight());
+    assertEquals(5, retVal.getWidth());
+    assertEquals(2, model.getSize());
+
   }
 
   /**

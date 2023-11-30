@@ -80,11 +80,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     initButtons();
 
     //creates utility bar in top portion of frame
+    JButton[] utilityButtons = {load, save, clear};
     JPanel utilityBar = new JPanel();
-    utilityBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-    utilityBar.add(load);
-    utilityBar.add(save);
-    utilityBar.add(clear);
+    utilityBar.setLayout(new BoxLayout(utilityBar, BoxLayout.X_AXIS));
+    for (JButton button : utilityButtons) {
+      utilityBar.add(Box.createRigidArea(new Dimension(10, 0)));
+      utilityBar.add(button);
+    }
+    utilityBar.add(Box.createRigidArea(new Dimension(10, 0)));
+
+
     operationPath = new JLabel("Image not loaded."); //image operation path
     opPathPane = new JScrollPane();
     opPathPane.setViewportView(operationPath);
@@ -524,6 +529,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     levelsAdj.setEnabled(imageLoaded && splitOps == 0);
     splitPct.setEnabled(imageLoaded && !isSplitEnabled && splitOps == 0);
     bVal.setEnabled(imageLoaded && splitOps == 0);
+    mVal.setEnabled(imageLoaded && splitOps == 0);
     mVal.setEnabled(imageLoaded && splitOps == 0);
     wVal.setEnabled(imageLoaded && splitOps == 0);
   }
