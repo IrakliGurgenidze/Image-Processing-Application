@@ -88,7 +88,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     operationPath = new JLabel("Image not loaded."); //image operation path
     opPathPane = new JScrollPane();
     opPathPane.setViewportView(operationPath);
-    opPathPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    opPathPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     opPathPane.setPreferredSize(new Dimension(1000, 50));
     opPathPane.getViewport().setOpaque(false);
     opPathPane.setOpaque(false);
