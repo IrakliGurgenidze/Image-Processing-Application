@@ -99,7 +99,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //define dimensions of east toolbar
     additionalFeatures = new JPanel();
     additionalFeatures.setLayout(new BoxLayout(additionalFeatures, BoxLayout.Y_AXIS));
-    additionalFeatures.setBackground(Color.GREEN);
     additionalFeatures.setPreferredSize(new Dimension(256, getHeight()));
 
     //define dimensions of histogram box
@@ -112,7 +111,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //add buttons to east toolbar layout
     JPanel featureButtons = new JPanel();
     featureButtons.setLayout(new GridLayout(5,1));
-    featureButtons.setBorder(BorderFactory.createEmptyBorder(25,5,5,5));
+    featureButtons.setBorder(BorderFactory.createEmptyBorder(10,5,5,5));
     featureButtons.add(rComp);
     featureButtons.add(gComp);
     featureButtons.add(bComp);
@@ -160,12 +159,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.add(brighten);
     sliders.add(compressLabel);
     sliders.add(compression);
-    sliders.setBorder(BorderFactory.createEmptyBorder(15, 7,0, 7));
+    sliders.setBorder(BorderFactory.createEmptyBorder(0, 7,0, 7));
     additionalFeatures.add(sliders);
 
     //add levels adjust panel to east toolbar
     JPanel levelsAdjPanel = new JPanel(new GridLayout(4,2));
-    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(15,20,5,20));
+    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(10,20,5,20));
     bVal = new JTextField();
     mVal = new JTextField();
     wVal = new JTextField();
