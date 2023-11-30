@@ -41,7 +41,7 @@ import view.script.ScriptView;
  */
 public class ScriptControllerImpl implements ScriptController {
   private final Map<String, CommandController> commands = new HashMap<>();
-  private ScriptView view;
+  private final ScriptView view;
 
   /**
    * Public constructor for an Image ScriptController. Populates list of commands.

@@ -315,7 +315,7 @@ public class GUIControllerImpl implements GUIController, Features {
                 splitImage.getName());
         break;
       case "sepia":
-        Image sepiaImage = currentImage.applyFilter(lct.getLinearTransformation("sepia"),
+        Image sepiaImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
                 currentImage.getName() + " -> sepia");
         splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
         model.insertImage(splitImage, "split");
@@ -325,14 +325,25 @@ public class GUIControllerImpl implements GUIController, Features {
                 splitImage.getName());
         break;
       case "greyscale":
-        Image greyImage = currentImage.applyFilter(lct.getLinearTransformation("greyscale"),
-                currentImage.getName() + " -> sepia");
+        Image greyImage = currentImage.getLumaComponent(currentImage.getName() + " -> greyscale");
         splitImage = SplitUtil.splitImage(currentImage, greyImage, pct, greyImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(greyImage, "buffer");
         view.displayImage(convertToBufferedImage(splitImage),
                 convertToBufferedImage(HistogramUtil.getHistogram(splitImage, "")),
                 splitImage.getName());
+        break;
+
+      case "color-correct":
+        Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName() + " -> color-correct");
+        splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct, colorCorrectImage.getName());
+        model.insertImage(splitImage, "split");
+        model.insertImage(colorCorrectImage, "buffer");
+        view.displayImage(convertToBufferedImage(splitImage),
+                convertToBufferedImage(HistogramUtil.getHistogram(splitImage, "")),
+                splitImage.getName());
+        break;
+
       default:
         //no default case
         break;

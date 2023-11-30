@@ -1,4 +1,5 @@
 package view.gui;
+
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
@@ -30,10 +31,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private boolean isSplitEnabled = false;
   //makes sure only 1 operation can be applied when in split view
   private int splitOps = 0;
-  private JLabel splitParams;
+  private final JLabel splitParams;
 
   private boolean imageLoaded = false;
-  private JTextField splitPct;
+  private final JTextField splitPct;
   private JButton save;
   private JButton blur;
   private JButton sharpen;
@@ -47,30 +48,32 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton colorCorrect;
 
   private JButton levelsAdj;
-  private JTextField bVal;
-  private JTextField mVal;
-  private JTextField wVal;
+  private final JTextField bVal;
+  private final JTextField mVal;
+  private final JTextField wVal;
   private JButton clear;
 
   //sliders
-  private JSlider brighten;
-  private JSlider compression;
+  private final JSlider brighten;
+  private final JSlider compression;
 
-  private JLabel operationPath;
-  private JScrollPane opPathPane;
+  private final JLabel operationPath;
+  private final JScrollPane opPathPane;
 
   private JPanel histogramPanel;
-  private JPanel splitView;
-  private JScrollPane imagePreview;
+  private final JPanel splitView;
+  private final JScrollPane imagePreview;
 
-  private JPanel additionalFeatures;
+  private final JPanel additionalFeatures;
+  private final JScrollPane additionalFeatureScrollPlane;
 
 
   /**
    * Public constructor for the GUI view.
+   *
    * @param imageStorageModel the application model
    */
-  public GUIViewImpl(StorageModel imageStorageModel){
+  public GUIViewImpl(StorageModel imageStorageModel) {
     super("Image Processing Application");
     setLocation(0, 0);
 
@@ -104,19 +107,20 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //define dimensions of east toolbar
     additionalFeatures = new JPanel();
     additionalFeatures.setLayout(new BoxLayout(additionalFeatures, BoxLayout.Y_AXIS));
-    additionalFeatures.setPreferredSize(new Dimension(256, getHeight()));
+    additionalFeatures.setPreferredSize(null);
+    additionalFeatures.add(Box.createRigidArea(new Dimension(0, 10)), 0);
 
     //define dimensions of histogram box
     histogramPanel = new JPanel();
-    histogramPanel.setBackground(Color.BLACK);
-    histogramPanel.setPreferredSize(new Dimension(256,256));
-    histogramPanel.setMaximumSize(new Dimension(256,256));
-    additionalFeatures.add(histogramPanel);
+    histogramPanel.setBackground(Color.DARK_GRAY);
+    histogramPanel.setPreferredSize(new Dimension(256, 256));
+    histogramPanel.setMaximumSize(new Dimension(256, 256));
+    additionalFeatures.add(histogramPanel, 1);
 
     //add buttons to east toolbar layout
     JPanel featureButtons = new JPanel();
-    featureButtons.setLayout(new GridLayout(5,1));
-    featureButtons.setBorder(BorderFactory.createEmptyBorder(10,5,5,5));
+    featureButtons.setLayout(new GridLayout(5, 2));
+    featureButtons.setBorder(BorderFactory.createEmptyBorder(10, 5, 5, 5));
     featureButtons.add(rComp);
     featureButtons.add(gComp);
     featureButtons.add(bComp);
@@ -130,17 +134,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
     additionalFeatures.add(featureButtons);
 
     splitView = new JPanel();
-    splitView.setLayout(new GridLayout(3,1));
+    splitView.setLayout(new GridLayout(3, 1));
     splitView.add(split);
-    splitPct = new JTextField();
+    splitPct = new JTextField("50");
     splitView.add(splitPct);
-    splitParams = new JLabel("Split Percentage must be between 0-100.");
+    splitParams = new JLabel("Split Percentage must be between 1-99.");
     splitParams.setHorizontalAlignment(JLabel.CENTER);
     Font font = splitParams.getFont();
     float fontSize = 11;
     splitParams.setFont(font.deriveFont(fontSize));
     splitView.add(splitParams);
-    splitView.setBorder(BorderFactory.createEmptyBorder(5,5,0,5));
+    splitView.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
     additionalFeatures.add(splitView);
 
     //add sliders to east toolbar
@@ -164,18 +168,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliders.add(brighten);
     sliders.add(compressLabel);
     sliders.add(compression);
-    sliders.setBorder(BorderFactory.createEmptyBorder(0, 7,0, 7));
+    sliders.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 7));
     additionalFeatures.add(sliders);
 
     //add levels adjust panel to east toolbar
-    JPanel levelsAdjPanel = new JPanel(new GridLayout(4,2));
-    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(10,20,5,20));
+    JPanel levelsAdjPanel = new JPanel(new GridLayout(4, 2));
+    levelsAdjPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 5, 20));
     bVal = new JTextField();
     mVal = new JTextField();
     wVal = new JTextField();
-    bVal.setMaximumSize(new Dimension(128,5));
-    mVal.setMaximumSize(new Dimension(128,5));
-    wVal.setMaximumSize(new Dimension(128,5));
+    bVal.setMaximumSize(new Dimension(128, 5));
+    mVal.setMaximumSize(new Dimension(128, 5));
+    wVal.setMaximumSize(new Dimension(128, 5));
     levelsAdjPanel.add(new JLabel("b: "));
     levelsAdjPanel.add(bVal);
     bVal.setHorizontalAlignment(JTextField.CENTER);
@@ -186,50 +190,28 @@ public class GUIViewImpl extends JFrame implements GUIView {
     levelsAdjPanel.add(wVal);
     wVal.setHorizontalAlignment(JTextField.CENTER);
 
-    levelsAdjPanel.add(new JLabel("b < m < w"));
+    levelsAdjPanel.add(new JLabel("b < m < w")  );
     levelsAdjPanel.add(levelsAdj);
     additionalFeatures.add(levelsAdjPanel);
-
-    //set button dimensions
-    Dimension maxButtonSize = new Dimension(Integer.MAX_VALUE, rComp.getPreferredSize().height);
-    rComp.setMaximumSize(maxButtonSize);
-    gComp.setMaximumSize(maxButtonSize);
-    bComp.setMaximumSize(maxButtonSize);
-    hFlip.setMaximumSize(maxButtonSize);
-    vFlip.setMaximumSize(maxButtonSize);
-    blur.setMaximumSize(maxButtonSize);
-    sharpen.setMaximumSize(maxButtonSize);
-    greyscale.setMaximumSize(maxButtonSize);
-    sepia.setMaximumSize(maxButtonSize);
-    split.setMaximumSize(maxButtonSize);
 
     //set image panel layout
     imagePreview = new JScrollPane();
     imagePreview.getViewport().setBackground(Color.DARK_GRAY);
     imagePreview.setBackground(Color.DARK_GRAY);
 
+    //additional features scrollpane
+    additionalFeatureScrollPlane = new JScrollPane(additionalFeatures);
+    additionalFeatureScrollPlane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    additionalFeatureScrollPlane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
     //add panels to frame
     this.add(imagePreview, BorderLayout.CENTER);
-    this.add(additionalFeatures, BorderLayout.EAST);
+//    this.add(additionalFeatures, BorderLayout.EAST);
+    this.add(additionalFeatureScrollPlane, BorderLayout.EAST);
+
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     updateButtonStates();
     setVisible(true);
-  }
-
-
-  @Override
-  public void setImageLabel(String imageLabel) {
-
-  }
-
-  @Override
-  public void getInputString() {
-
-  }
-
-  @Override
-  public void clearInputString() {
-
   }
 
   @Override
@@ -247,15 +229,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     //load
     load.addActionListener(e -> {
       JFileChooser fc = new JFileChooser();
-      FileFilter filter = new FileNameExtensionFilter("jpg","jpeg",
+      FileFilter filter = new FileNameExtensionFilter("jpg", "jpeg",
               "ppm", "png", "jpg");
       fc.setFileFilter(filter);
       int res = fc.showOpenDialog(GUIViewImpl.this);
-      if(res == JFileChooser.APPROVE_OPTION){
+      if (res == JFileChooser.APPROVE_OPTION) {
         imageLoaded = true;
         updateButtonStates();
-       String filePath = fc.getSelectedFile().getAbsolutePath();
-       features.loadImage(filePath, fc.getSelectedFile().getName());
+        String filePath = fc.getSelectedFile().getAbsolutePath();
+        features.loadImage(filePath, fc.getSelectedFile().getName());
       }
     });
 
@@ -264,12 +246,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
       updateButtonStates();
       JFileChooser fc = new JFileChooser();
       int res = fc.showSaveDialog(GUIViewImpl.this);
-      if(res == JFileChooser.APPROVE_OPTION){
+      if (res == JFileChooser.APPROVE_OPTION) {
         String filePath = fc.getSelectedFile().getAbsolutePath();
         try {
           features.saveImage(filePath);
           imageLoaded = false;
-        }catch(IOException ioe){
+        } catch (IOException ioe) {
           errorPopup(ioe.getMessage());
         }
       }
@@ -292,9 +274,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //blur image
     blur.addActionListener(evt -> {
-      if(!isSplitEnabled){
+      if (!isSplitEnabled) {
         features.blurImage();
-      }else if(splitOps == 0){
+      } else if (splitOps == 0) {
         splitOps++;
         updateButtonStates();
         features.toggleSplitView("blur", Integer.parseInt(splitPct.getText()));
@@ -303,9 +285,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //sharpen image
     sharpen.addActionListener(evt -> {
-      if(!isSplitEnabled){
+      if (!isSplitEnabled) {
         features.sharpenImage();
-      }else if(splitOps == 0){
+      } else if (splitOps == 0) {
         splitOps++;
         updateButtonStates();
         features.toggleSplitView("sharpen", Integer.parseInt(splitPct.getText()));
@@ -314,9 +296,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //convert to greyscale
     greyscale.addActionListener(evt -> {
-      if(!isSplitEnabled){
+      if (!isSplitEnabled) {
         features.convertGreyscale();
-      }else if(splitOps == 0){
+      } else if (splitOps == 0) {
         splitOps++;
         updateButtonStates();
         features.toggleSplitView("greyscale", Integer.parseInt(splitPct.getText()));
@@ -325,9 +307,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     //convert to sepia
     sepia.addActionListener(evt -> {
-      if(!isSplitEnabled){
+      if (!isSplitEnabled) {
         features.convertSepia();
-      }else if(splitOps == 0){
+      } else if (splitOps == 0) {
         splitOps++;
         updateButtonStates();
         features.toggleSplitView("sepia", Integer.parseInt(splitPct.getText()));
@@ -339,15 +321,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
       int b;
       int m;
       int w;
-      try{
+      try {
         b = Integer.parseInt(bVal.getText());
         m = Integer.parseInt(mVal.getText());
         w = Integer.parseInt(wVal.getText());
         if (b > m || m > w || w > 255 || b < 1) {
           throw new NumberFormatException();
         }
-        features.runLevelsAdjustment(b,m,w);
-      }catch(NumberFormatException nfe){
+        features.runLevelsAdjustment(b, m, w);
+      } catch (NumberFormatException nfe) {
         errorPopup("b,m,w must be integers between 0-255 in ascending order.");
       }
     });
@@ -374,35 +356,43 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     split.addItemListener(e -> {
       int s;
-      try{
+      try {
         s = Integer.parseInt(splitPct.getText());
-        if(s > 99 || s < 1) {
+        if (s > 99 || s < 1) {
           throw new NumberFormatException();
         }
         isSplitEnabled = e.getStateChange() == ItemEvent.SELECTED;
-        if(isSplitEnabled) {
+        if (isSplitEnabled) {
           splitView.remove(splitParams);
           splitView.add(apply);
           split.setText("Exit Split Preview");
-        }else{
+        } else {
           splitView.remove(apply);
           splitView.add(splitParams);
           splitPct.setText("");
           split.setText("Split Preview");
-          features.toggleSplitView("reset",0);
+          features.toggleSplitView("reset", 0);
           splitOps = 0;
         }
         splitView.revalidate();
         splitView.repaint();
         updateButtonStates();
-      }catch(NumberFormatException nfe){
-          errorPopup("Split percentage must be an integer between 0-100.");
+      } catch (NumberFormatException nfe) {
+        errorPopup("Split percentage must be an integer between 0-100.");
       }
     });
 
 
     //run color correction
-    colorCorrect.addActionListener(evt -> features.runColorCorrection());
+    colorCorrect.addActionListener(evt -> {
+      if (!isSplitEnabled) {
+        features.runColorCorrection();
+      } else if (splitOps == 0) {
+        splitOps++;
+        updateButtonStates();
+        features.toggleSplitView("color-correct", Integer.parseInt(splitPct.getText()));
+      }
+    });
 
     //toggle split view
 
@@ -427,10 +417,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     imagePreview.setViewportView(label);
     int x = (imagePreview.getWidth() - image.getWidth()) / 2;
     int y = (imagePreview.getHeight() - image.getHeight()) / 2;
-    label.setLocation(x,y);
+    label.setLocation(x, y);
     operationPath.setText(displayName);
 
-    if(!isSplitEnabled) {
+    if (!isSplitEnabled) {
       ImageIcon histogramIcon = new ImageIcon(histogram);
       JLabel histogramLabel = new JLabel(histogramIcon);
 
@@ -439,10 +429,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
       histogramPanel.setMaximumSize(new Dimension(256, 256));
       histogramPanel.add(histogramLabel, BorderLayout.CENTER);
 
-      additionalFeatures.remove(this.histogramPanel);
-      additionalFeatures.add(histogramPanel, 0);
-      this.histogramPanel = histogramPanel;
-    }else{
+      renderHistogramPanel(this.histogramPanel, histogramPanel);
+    } else {
       JLabel messageLabel = new JLabel("Histogram not supported in Split View");
       messageLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -451,18 +439,23 @@ public class GUIViewImpl extends JFrame implements GUIView {
       messagePanel.setMaximumSize(new Dimension(256, 256));
       messagePanel.add(messageLabel, BorderLayout.CENTER);
 
-      additionalFeatures.remove(this.histogramPanel);
-      additionalFeatures.add(messagePanel, 0);
-      this.histogramPanel = messagePanel;
+      renderHistogramPanel(this.histogramPanel, messagePanel);
+
     }
     additionalFeatures.revalidate();
     additionalFeatures.repaint();
   }
 
+  //helper method to replace the histogram panel image
+  private void renderHistogramPanel(JPanel oldPanel, JPanel newPanel) {
+    additionalFeatures.remove(oldPanel);
+    additionalFeatures.add(newPanel, 1);
+    this.histogramPanel = newPanel;
+  }
 
 
   //helper function to initialize the GUI's buttons
-  private void initButtons(){
+  private void initButtons() {
     load = new JButton("Load");
     load.setActionCommand("Load Button");
 
@@ -512,8 +505,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
 
-  private void updateButtonStates(){
-    for (JButton jButton : Arrays.asList(hFlip, vFlip, rComp, gComp, bComp, greyscale)) {
+  private void updateButtonStates() {
+    for (JButton jButton : Arrays.asList(hFlip, vFlip, rComp, gComp, bComp)) {
       jButton.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
     }
     splitPct.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
@@ -524,6 +517,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     clear.setEnabled(imageLoaded);
     colorCorrect.setEnabled(imageLoaded && splitOps == 0);
     blur.setEnabled(imageLoaded && splitOps == 0);
+    greyscale.setEnabled(imageLoaded && splitOps == 0);
     sepia.setEnabled(imageLoaded && splitOps == 0);
     sharpen.setEnabled(imageLoaded && splitOps == 0);
     levelsAdj.setEnabled(imageLoaded && splitOps == 0);
@@ -534,7 +528,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     wVal.setEnabled(imageLoaded && splitOps == 0);
   }
 
-  private void errorPopup(String message){
+  private void errorPopup(String message) {
     JOptionPane.showMessageDialog(null, message, "Invalid input!",
             JOptionPane.ERROR_MESSAGE);
   }

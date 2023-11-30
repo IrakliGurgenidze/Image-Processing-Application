@@ -1,7 +1,5 @@
 package model;
 
-import java.io.IOException;
-
 /**
  * This interface represents generic methods the "model" of an image processing application.
  * It contains a list of active images, and also provides methods to access and modify those images.
@@ -28,7 +26,7 @@ public interface StorageModel {
    * Method to insert an image into the database by a separate name. If duplicate name is entered,
    * existing image is overwritten.
    *
-   * @param image Image, image to be inserted
+   * @param image    Image, image to be inserted
    * @param saveName String, name to save image under
    */
   void insertImage(Image image, String saveName);

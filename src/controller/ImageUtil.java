@@ -1,6 +1,6 @@
 package controller;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +24,7 @@ public class ImageUtil {
   /**
    * Helper method to read an image from a file, into an object of type Image.
    *
-   * @param loadPath String, filepath to load from
+   * @param loadPath  String, filepath to load from
    * @param imageName String, the name by which to store the image
    * @return the loaded Image
    * @throws IllegalArgumentException on invalid filepath
@@ -135,7 +135,7 @@ public class ImageUtil {
   /**
    * helper method to save a given image to a specific file location.
    *
-   * @param image image to be saved
+   * @param image    image to be saved
    * @param savePath path to save image to
    * @throws IOException on error writing to provided location
    */
@@ -143,9 +143,9 @@ public class ImageUtil {
     int height = image.getHeight();
     int width = image.getWidth();
     String[] split;
-    if(savePath.contains(".")){
+    if (savePath.contains(".")) {
       split = savePath.split("\\.");
-    }else{
+    } else {
       savePath += ".png";
       split = savePath.split("\\.");
     }

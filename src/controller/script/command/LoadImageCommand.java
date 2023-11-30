@@ -1,7 +1,6 @@
 package controller.script.command;
 
 import controller.ImageUtil;
-import model.Image;
 import model.StorageModel;
 
 

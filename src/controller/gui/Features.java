@@ -14,6 +14,7 @@ public interface Features {
 
   /**
    * Save an image onto local device.
+   *
    * @param savePath String, path for image to be saved.
    */
   void saveImage(String savePath) throws IOException;
@@ -65,6 +66,7 @@ public interface Features {
 
   /**
    * Run levels adjustment on an image.
+   *
    * @param b int, black value for adjustment
    * @param m int, mid value for adjustment
    * @param w int, white value for adjustment
@@ -88,7 +90,8 @@ public interface Features {
 
   /**
    * Toggle split view.
-   * @param op String, name of operation to be performed in split
+   *
+   * @param op  String, name of operation to be performed in split
    * @param pct int, split percentage
    */
   void toggleSplitView(String op, int pct);
