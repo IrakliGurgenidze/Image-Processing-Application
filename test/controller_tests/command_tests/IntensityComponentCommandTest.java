@@ -12,32 +12,32 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntensityComponentCommandTest extends AbstractCommandTest {
 
-  /**
-   * A simple test for the luma-component command.
-   */
-  @Test
-  public void testIntensityComponentCommand() {
-    String[] loadBase = loadImage("manhattan-small.png", "man");
-    imageController.runCommand(loadBase);
-    assertEquals(1, imageModel.getSize());
+    /**
+     * A simple test for the luma-component command.
+     */
+    @Test
+    public void testIntensityComponentCommand() {
+        String[] loadBase = loadImage("manhattan-small.png", "man");
+        imageController.runCommand(loadBase);
+        assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("intensity-component man man-intensity");
-    imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 2);
+        String[] funcCmd = imageController.parseCommand("intensity-component man man-intensity");
+        imageController.runCommand(funcCmd);
+        assertEquals(imageModel.getSize(), 2);
 
-    //test results
-    Image expected = imageModel.getImage("man");
-    Image result = imageModel.getImage("man-intensity");
-    for (int x = 0; x < expected.getWidth(); x++) {
-      for (int y = 0; y < expected.getHeight(); y++) {
-        Pixel thisPixel = expected.getPixel(x, y);
-        Pixel otherPixel = result.getPixel(x, y);
+        //test results
+        Image expected = imageModel.getImage("man");
+        Image result = imageModel.getImage("man-intensity");
+        for (int x = 0; x < expected.getWidth(); x++) {
+            for (int y = 0; y < expected.getHeight(); y++) {
+                Pixel thisPixel = expected.getPixel(x, y);
+                Pixel otherPixel = result.getPixel(x, y);
 
-        //ensure individual channels equal value of base image
-        assertEquals((int) thisPixel.getIntensity(), otherPixel.getRed());
-        assertEquals((int) thisPixel.getIntensity(), otherPixel.getGreen());
-        assertEquals((int) thisPixel.getIntensity(), otherPixel.getBlue());
-      }
+                //ensure individual channels equal value of base image
+                assertEquals((int) thisPixel.getIntensity(), otherPixel.getRed());
+                assertEquals((int) thisPixel.getIntensity(), otherPixel.getGreen());
+                assertEquals((int) thisPixel.getIntensity(), otherPixel.getBlue());
+            }
+        }
     }
-  }
 }

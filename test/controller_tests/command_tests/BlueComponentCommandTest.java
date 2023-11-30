@@ -12,25 +12,25 @@ import static org.junit.Assert.assertTrue;
  */
 public class BlueComponentCommandTest extends AbstractCommandTest {
 
-  /**
-   * Test blue-component command.
-   */
-  @Test
-  public void testBlueComponentCommand() {
-    String[] loadBase = loadImage("manhattan-small.png", "man");
-    imageController.runCommand(loadBase);
-    assertEquals(1, imageModel.getSize());
+    /**
+     * Test blue-component command.
+     */
+    @Test
+    public void testBlueComponentCommand() {
+        String[] loadBase = loadImage("manhattan-small.png", "man");
+        imageController.runCommand(loadBase);
+        assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("blue-component man manb");
-    imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 2);
+        String[] funcCmd = imageController.parseCommand("blue-component man manb");
+        imageController.runCommand(funcCmd);
+        assertEquals(imageModel.getSize(), 2);
 
-    String[] loadExpected = loadImage("manhattan-small-blue.png", "msb");
-    imageController.runCommand(loadExpected);
-    assertEquals(imageModel.getSize(), 3);
+        String[] loadExpected = loadImage("manhattan-small-blue.png", "msb");
+        imageController.runCommand(loadExpected);
+        assertEquals(imageModel.getSize(), 3);
 
-    Image expected = imageModel.getImage("msb");
-    Image result = imageModel.getImage("manb");
-    assertTrue(isEqual(expected, result));
-  }
+        Image expected = imageModel.getImage("msb");
+        Image result = imageModel.getImage("manb");
+        assertTrue(isEqual(expected, result));
+    }
 }

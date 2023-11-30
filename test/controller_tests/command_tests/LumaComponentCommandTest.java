@@ -12,25 +12,25 @@ import static org.junit.Assert.assertTrue;
  */
 public class LumaComponentCommandTest extends AbstractCommandTest {
 
-  /**
-   * A simple test for the luma-component command.
-   */
-  @Test
-  public void testLumaComponentCommand() {
-    String[] loadBase = loadImage("manhattan-small.png", "man");
-    imageController.runCommand(loadBase);
-    assertEquals(1, imageModel.getSize());
+    /**
+     * A simple test for the luma-component command.
+     */
+    @Test
+    public void testLumaComponentCommand() {
+        String[] loadBase = loadImage("manhattan-small.png", "man");
+        imageController.runCommand(loadBase);
+        assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("luma-component man manl");
-    imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 2);
+        String[] funcCmd = imageController.parseCommand("luma-component man manl");
+        imageController.runCommand(funcCmd);
+        assertEquals(imageModel.getSize(), 2);
 
-    String[] loadExpected = loadImage("manhattan-small-luma-greyscale.png", "msl");
-    imageController.runCommand(loadExpected);
-    assertEquals(imageModel.getSize(), 3);
+        String[] loadExpected = loadImage("manhattan-small-luma-greyscale.png", "msl");
+        imageController.runCommand(loadExpected);
+        assertEquals(imageModel.getSize(), 3);
 
-    Image expected = imageModel.getImage("msl");
-    Image result = imageModel.getImage("manl");
-    assertTrue(isEqual(expected, result));
-  }
+        Image expected = imageModel.getImage("msl");
+        Image result = imageModel.getImage("manl");
+        assertTrue(isEqual(expected, result));
+    }
 }

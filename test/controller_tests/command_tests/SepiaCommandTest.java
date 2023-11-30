@@ -12,25 +12,25 @@ import static org.junit.Assert.assertTrue;
  */
 public class SepiaCommandTest extends AbstractCommandTest {
 
-  /**
-   * A simple test for the sepia command.
-   */
-  @Test
-  public void testSepiaCommand() {
-    String[] loadBase = loadImage("manhattan-small.png", "man");
-    imageController.runCommand(loadBase);
-    assertEquals(1, imageModel.getSize());
+    /**
+     * A simple test for the sepia command.
+     */
+    @Test
+    public void testSepiaCommand() {
+        String[] loadBase = loadImage("manhattan-small.png", "man");
+        imageController.runCommand(loadBase);
+        assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("sepia man mansepia");
-    imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 2);
+        String[] funcCmd = imageController.parseCommand("sepia man mansepia");
+        imageController.runCommand(funcCmd);
+        assertEquals(imageModel.getSize(), 2);
 
-    String[] loadExpected = loadImage("manhattan-small-sepia.png", "mans");
-    imageController.runCommand(loadExpected);
-    assertEquals(imageModel.getSize(), 3);
+        String[] loadExpected = loadImage("manhattan-small-sepia.png", "mans");
+        imageController.runCommand(loadExpected);
+        assertEquals(imageModel.getSize(), 3);
 
-    Image expected = imageModel.getImage("mans");
-    Image result = imageModel.getImage("mansepia");
-    assertTrue(isEqual(expected, result));
-  }
+        Image expected = imageModel.getImage("mans");
+        Image result = imageModel.getImage("mansepia");
+        assertTrue(isEqual(expected, result));
+    }
 }
