@@ -109,9 +109,9 @@ public class HistogramUtil {
     int intensity = -1;
 
     //for every pixel in the image
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Pixel pixel = image.getPixel(j, i);
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Pixel pixel = image.getPixel(x, y);
         //channel equates to color in order of RGB
         switch (channel) {
           //set intensity to proper color's intensity
