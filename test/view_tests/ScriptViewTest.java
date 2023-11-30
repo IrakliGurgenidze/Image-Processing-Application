@@ -14,27 +14,27 @@ import view.script.ScriptViewImpl;
 import static org.junit.Assert.assertEquals;
 
 public class ScriptViewTest {
-  private ScriptViewImpl scriptView;
-  private OutputStream out;
-  private InputStream in;
+    private ScriptViewImpl scriptView;
+    private OutputStream out;
+    private InputStream in;
 
-  @Before
-  public void setup() {
-    out = new ByteArrayOutputStream();
-    String inputString = "Testing this line";
-    in = new ByteArrayInputStream(inputString.getBytes());
-    scriptView = new ScriptViewImpl(in, out);
-  }
+    @Before
+    public void setup() {
+        out = new ByteArrayOutputStream();
+        String inputString = "Testing this line";
+        in = new ByteArrayInputStream(inputString.getBytes());
+        scriptView = new ScriptViewImpl(in, out);
+    }
 
-  @Test
-  public void testDisplayStatus() throws IOException {
-    scriptView.displayStatus("TEST");
-    assertEquals("TEST\n", out.toString());
-  }
+    @Test
+    public void testDisplayStatus() throws IOException {
+        scriptView.displayStatus("TEST");
+        assertEquals("TEST\n", out.toString());
+    }
 
-  @Test
-  public void testGetInput() {
-    assertEquals("Testing this line", scriptView.getInput());
-  }
+    @Test
+    public void testGetInput() {
+        assertEquals("Testing this line", scriptView.getInput());
+    }
 
 }

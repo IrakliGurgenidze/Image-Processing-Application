@@ -12,25 +12,25 @@ import static org.junit.Assert.assertTrue;
  */
 public class SharpenCommandTest extends AbstractCommandTest {
 
-  /**
-   * A simple test for the sharpen-command.
-   */
-  @Test
-  public void testSharpenCommand() {
-    String[] loadBase = loadImage("manhattan-small.png", "man");
-    imageController.runCommand(loadBase);
-    assertEquals(1, imageModel.getSize());
+    /**
+     * A simple test for the sharpen-command.
+     */
+    @Test
+    public void testSharpenCommand() {
+        String[] loadBase = loadImage("manhattan-small.png", "man");
+        imageController.runCommand(loadBase);
+        assertEquals(1, imageModel.getSize());
 
-    String[] funcCmd = imageController.parseCommand("sharpen man mansh");
-    imageController.runCommand(funcCmd);
-    assertEquals(imageModel.getSize(), 2);
+        String[] funcCmd = imageController.parseCommand("sharpen man mansh");
+        imageController.runCommand(funcCmd);
+        assertEquals(imageModel.getSize(), 2);
 
-    String[] loadExpected = loadImage("manhattan-small-sharpen.png", "msb");
-    imageController.runCommand(loadExpected);
-    assertEquals(imageModel.getSize(), 3);
+        String[] loadExpected = loadImage("manhattan-small-sharpen.png", "msb");
+        imageController.runCommand(loadExpected);
+        assertEquals(imageModel.getSize(), 3);
 
-    Image expected = imageModel.getImage("msb");
-    Image result = imageModel.getImage("mansh");
-    assertTrue(isEqual(expected, result));
-  }
+        Image expected = imageModel.getImage("msb");
+        Image result = imageModel.getImage("mansh");
+        assertTrue(isEqual(expected, result));
+    }
 }

@@ -16,72 +16,72 @@ import view.script.ScriptViewImpl;
  */
 public abstract class AbstractCommandTest {
 
-  protected final StorageModel imageModel = new ImageStorageModel();
-  protected final ScriptView imageView = new ScriptViewImpl(System.in, System.out);
-  protected final ScriptController imageController = new ScriptControllerImpl(imageModel, imageView);
-  protected final String workingDirectory = setWd();
+    protected final StorageModel imageModel = new ImageStorageModel();
+    protected final ScriptView imageView = new ScriptViewImpl(System.in, System.out);
+    protected final ScriptController imageController = new ScriptControllerImpl(imageModel, imageView);
+    protected final String workingDirectory = setWd();
 
 
-  //helper method to determine the equivalency of two images
-  protected boolean isEqual(Image thisImg, Image otherImg) {
-    if (thisImg.getHeight() != otherImg.getHeight()) {
-      return false;
-    }
-
-    if (thisImg.getWidth() != otherImg.getWidth()) {
-      return false;
-    }
-
-    //check contents of each pixel
-    for (int i = 0; i < thisImg.getHeight(); i++) {
-      for (int j = 0; j < thisImg.getWidth(); j++) {
-        Pixel thisPixel = thisImg.getPixel(j, i);
-        Pixel otherPixel = otherImg.getPixel(j, i);
-        if (thisPixel.getRed() != otherPixel.getRed()
-                || thisPixel.getGreen() != otherPixel.getGreen()
-                || thisPixel.getBlue() != otherPixel.getBlue()) {
-
-          return false;
+    //helper method to determine the equivalency of two images
+    protected boolean isEqual(Image thisImg, Image otherImg) {
+        if (thisImg.getHeight() != otherImg.getHeight()) {
+            return false;
         }
-      }
+
+        if (thisImg.getWidth() != otherImg.getWidth()) {
+            return false;
+        }
+
+        //check contents of each pixel
+        for (int i = 0; i < thisImg.getHeight(); i++) {
+            for (int j = 0; j < thisImg.getWidth(); j++) {
+                Pixel thisPixel = thisImg.getPixel(j, i);
+                Pixel otherPixel = otherImg.getPixel(j, i);
+                if (thisPixel.getRed() != otherPixel.getRed()
+                        || thisPixel.getGreen() != otherPixel.getGreen()
+                        || thisPixel.getBlue() != otherPixel.getBlue()) {
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
-    return true;
-  }
+    //helper method to set working directory to the "resources" folder
+    protected String setWd() {
+        return System.getProperty("user.dir")
+                + File.separator
+                + "test"
+                + File.separator;
+    }
 
-  //helper method to set working directory to the "resources" folder
-  protected String setWd() {
-    return System.getProperty("user.dir")
-            + File.separator
-            + "test"
-            + File.separator;
-  }
+    //helper method to load base image
+    protected String[] loadImage(String fileName, String destImageName) {
+        return imageController.parseCommand("load "
+                + workingDirectory
+                + "sample_images"
+                + File.separator
+                + fileName
+                + " "
+                + destImageName);
+    }
 
-  //helper method to load base image
-  protected String[] loadImage(String fileName, String destImageName) {
-    return imageController.parseCommand("load "
-            + workingDirectory
-            + "sample_images"
-            + File.separator
-            + fileName
-            + " "
-            + destImageName);
-  }
-
-  //helper method to determine whether a pixel is purely R, G, or B
-  protected boolean isPureRGB(Pixel pixel) {
-    if (pixel.getRed() != 0
-            && pixel.getGreen() == 0
-            && pixel.getBlue() == 0) {
-      return true;
-    } else if (pixel.getRed() == 0
-            && pixel.getGreen() != 0
-            && pixel.getBlue() == 0) {
-      return true;
-    } else return pixel.getRed() == 0
-            && pixel.getGreen() == 0
-            && pixel.getBlue() != 0;
-  }
+    //helper method to determine whether a pixel is purely R, G, or B
+    protected boolean isPureRGB(Pixel pixel) {
+        if (pixel.getRed() != 0
+                && pixel.getGreen() == 0
+                && pixel.getBlue() == 0) {
+            return true;
+        } else if (pixel.getRed() == 0
+                && pixel.getGreen() != 0
+                && pixel.getBlue() == 0) {
+            return true;
+        } else return pixel.getRed() == 0
+                && pixel.getGreen() == 0
+                && pixel.getBlue() != 0;
+    }
 
 
 }
