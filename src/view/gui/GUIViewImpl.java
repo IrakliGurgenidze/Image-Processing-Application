@@ -425,7 +425,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     histogramPanel.add(histogramLabel, BorderLayout.CENTER);
 
     additionalFeatures.remove(this.histogramPanel);
-    additionalFeatures.add(histogramPanel);
+    additionalFeatures.add(histogramPanel, 0);
     this.histogramPanel = histogramPanel;
     additionalFeatures.revalidate();
     additionalFeatures.repaint();
