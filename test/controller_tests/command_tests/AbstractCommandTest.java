@@ -22,8 +22,14 @@ public abstract class AbstractCommandTest {
     protected final String workingDirectory = setWd();
 
 
-    //helper method to determine the equivalency of two images
-    protected boolean isEqual(Image thisImg, Image otherImg) {
+    /**
+     * Used to test the equivalency of two images. All pixels in all locations should have the
+     * same values in their RGB channels.
+     * @param thisImg Image 1
+     * @param otherImg Image 2
+     * @return true if they are equal, false otherwise
+     */
+    public static boolean isEqual(Image thisImg, Image otherImg) {
         if (thisImg.getHeight() != otherImg.getHeight()) {
             return false;
         }
@@ -49,8 +55,11 @@ public abstract class AbstractCommandTest {
         return true;
     }
 
-    //helper method to set working directory to the "resources" folder
-    protected String setWd() {
+    /**
+     * Used to set the working directory for consistency when dealing with unit test file paths.
+     * @return String, the resulting working directory
+     */
+    public static String setWd() {
         return System.getProperty("user.dir")
                 + File.separator
                 + "test"

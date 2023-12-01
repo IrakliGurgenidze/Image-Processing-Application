@@ -107,8 +107,5 @@ public interface Features {
    */
   void applySplitOp();
 
-  /**
-   * Exits program.
-   */
-  void exitProgram();
+
 }

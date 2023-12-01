@@ -20,21 +20,28 @@ import controller.gui.Features;
  */
 public class GUIViewImpl extends JFrame implements GUIView {
 
-  // TextFields
+  //textFields
   private final JTextField splitPct;
   private final JTextField bVal;
   private final JTextField mVal;
   private final JTextField wVal;
-  // Labels
+
+  //labels
   private final JLabel splitParams;
   private final JLabel operationPath;
-  // Sliders
+
+  //sliders
   private final JSlider brighten;
   private final JSlider compression;
   private final JPanel splitView;
   private final JScrollPane imagePreview;
   private final JPanel additionalFeatures;
-  // Buttons
+
+  public JButton getLoad() {
+    return load;
+  }
+
+  //buttons
   private JButton load;
   private JButton save;
   private JButton apply;
@@ -50,11 +57,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton colorCorrect;
   private JButton levelsAdj;
   private JButton clear;
-  // Toggle Buttons
+
+  //toggle Buttons
   private JToggleButton split;
-  // Panels
+
+  //panels
   private JPanel histogramPanel;
-  // State Variables
+
+  //state Variables
   private boolean isSplitEnabled = false;
   private boolean imageLoaded = false;
   private int splitOps = 0;
@@ -210,6 +220,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     sliderValues.put("compression-ratio", (double) compression.getValue());
     sliderValues.put("brighten-increment", (double) brighten.getValue());
     return sliderValues;
+  }
+
+  @Override
+  public void callFeature(String featureName) {
+    return;
   }
 
   @Override
