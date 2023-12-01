@@ -2,8 +2,28 @@
 
 ## GUI Navigation Instructions: ##
 
+The GUI for this program was built by Java Swing and is relatively straightforward and easy to navigate.  
+First, on the top left there is a "load" button to load an image supported by the application. Upon loaidng
+an image, the other buttons and fields will enable and allow for image processing to
+occur.  
+The right panel contains all the operations. In the top right there is a histogram
+that displays the RGB components of the image. This will update as the image is modified.
+There are brighten and compression sliders that can be moved left and right to induce their respective operations.
+Additionally, there is a levels adjust feature that allows a user to type in the black, mid, and white values
+to adjust the color levels of an image. Note: values entered must be in ascending order from b, m, w and
+all be between 0-255.  
+There is also the option to split preview. When a user enters an integer 1-99 and clicks split vew, 
+they can then click on a supported operation to preview the operation on the image. The left side of the
+image contains the operated image, while the right contains the base image. It is split based on the provided
+integer which acts a percentage of the image. Should the user elect
+to follow through with the operation, they can click to apply. Otherwise, clicking the same split preview
+button will revert back to the image that existed prior to the split preview.  
+Lastly, a user may undo all edits to an image by clicking the clear button or save the image to a desired file
+using the "save" button. Images not provided an appropriate file extension upon saving
+will default to png.   Note: All performed operations will appear to the right of the clear button
+as an operation path, allowing users to view what changes they have made. 
 
-
+Happy processing!
 
 
 ## Supported Commands in Text Mode: ##
