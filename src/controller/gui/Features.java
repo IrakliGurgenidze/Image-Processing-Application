@@ -3,7 +3,7 @@ package controller.gui;
 import java.io.IOException;
 
 /**
- * The features provided by the application's GUI.
+ * The features provided by the application's GUI and the GUI's controller.
  */
 public interface Features {
 

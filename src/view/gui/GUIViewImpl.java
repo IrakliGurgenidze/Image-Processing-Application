@@ -1,7 +1,10 @@
 package view.gui;
 
-import java.awt.*;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,7 +12,23 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JButton;
+
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 

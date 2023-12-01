@@ -30,8 +30,7 @@ public interface GUIView {
 
   /**
    * This method returns the current values of specific UI elements that reflect non-persistent
-   * user input. Examples are the compression slider and brighten element. They can be retrieved by
-   * name, e.g. "compression-ratio".
+   * user input.
    *
    * @return returns a map of current UI element values, referenced by their UI names.
    */

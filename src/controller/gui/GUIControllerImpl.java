@@ -1,5 +1,6 @@
 package controller.gui;
 
+import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class GUIControllerImpl implements Features {
     int width = image.getWidth();
     int height = image.getHeight();
 
-    //create a BufferedImage with the same dimensions as the image
+    //create a BufferedImage with the same dimensions as the image{
     BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
     //get the graphics object from the buffered image
@@ -313,7 +314,7 @@ public class GUIControllerImpl implements Features {
         break;
       case "sepia":
         Image sepiaImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation(
-                "sepia"),
+                        "sepia"),
                 currentImage.getName() + " -> sepia  (split)");
         splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
         model.insertImage(splitImage, "split");
