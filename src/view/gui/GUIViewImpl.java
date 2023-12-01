@@ -60,6 +60,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private boolean isSplitEnabled = false;
   private boolean imageLoaded = false;
   private int splitOps = 0;
+
   /**
    * Public constructor for the GUI view.
    */

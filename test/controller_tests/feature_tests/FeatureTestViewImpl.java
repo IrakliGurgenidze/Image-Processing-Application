@@ -32,8 +32,8 @@ public class FeatureTestViewImpl implements GUIView {
   private final int M_VALUE = 50;
   private final int W_VALUE = 200;
   private final int SPLIT_PERCENTAGE = 50;
-  private Features features;
   private final Map<String, Image> resultImages = new HashMap<String, Image>();
+  private Features features;
 
   /**
    * Public constructor for this mock View.
