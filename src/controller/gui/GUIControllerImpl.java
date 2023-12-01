@@ -15,7 +15,7 @@ import model.utilities.HistogramUtil;
 import model.utilities.LinearColorTransformation;
 import view.gui.GUIView;
 
-public class GUIControllerImpl implements GUIController, Features {
+public class GUIControllerImpl implements Features {
 
   //application model and view
   StorageModel model;
