@@ -1,6 +1,8 @@
 package model.utilities;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 
 import model.Image;
@@ -123,6 +125,9 @@ public class HistogramUtil {
             break;
           case 2:
             intensity = pixel.getBlue();
+            break;
+          default:
+            //no default
             break;
         }
         //increment bin at value of intensity of color

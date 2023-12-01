@@ -1,6 +1,6 @@
 package controller.gui;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
@@ -15,6 +15,9 @@ import model.utilities.HistogramUtil;
 import model.utilities.LinearColorTransformation;
 import view.gui.GUIView;
 
+/**
+ * Implements Features.
+ */
 public class GUIControllerImpl implements Features {
 
   //application model and view
@@ -218,8 +221,7 @@ public class GUIControllerImpl implements Features {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
-      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation
-                      ("sepia"),
+      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
 
       model.insertImage(currentImage, "current");
@@ -310,7 +312,8 @@ public class GUIControllerImpl implements Features {
         model.insertImage(sharpenedImage, "buffer");
         break;
       case "sepia":
-        Image sepiaImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
+        Image sepiaImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation(
+                "sepia"),
                 currentImage.getName() + " -> sepia  (split)");
         splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
         model.insertImage(splitImage, "split");
@@ -319,7 +322,8 @@ public class GUIControllerImpl implements Features {
       case "greyscale":
         Image greyImage = currentImage.getLumaComponent(currentImage.getName()
                 + " -> greyscale  (split)");
-        splitImage = SplitUtil.splitImage(currentImage, greyImage, pct, greyImage.getName());
+        splitImage = SplitUtil.splitImage(currentImage, greyImage, pct,
+                greyImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(greyImage, "buffer");
         break;
@@ -327,7 +331,8 @@ public class GUIControllerImpl implements Features {
       case "color-correct":
         Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName()
                 + " -> color-correct  (split)");
-        splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct, colorCorrectImage.getName());
+        splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct,
+                colorCorrectImage.getName());
         model.insertImage(splitImage, "split");
         model.insertImage(colorCorrectImage, "buffer");
         break;

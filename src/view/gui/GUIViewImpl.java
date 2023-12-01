@@ -1,6 +1,7 @@
 package view.gui;
 
 import java.awt.*;
+
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -190,9 +191,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
     imagePreview.setBackground(Color.DARK_GRAY);
 
     //additional features scroll-pane
-    JScrollPane additionalFeatureScrollPlane = new JScrollPane(additionalFeatures);
-    additionalFeatureScrollPlane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    additionalFeatureScrollPlane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    JScrollPane additionalFeatureScrollPlane = new
+            JScrollPane(additionalFeatures);
+    additionalFeatureScrollPlane.setVerticalScrollBarPolicy(
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    additionalFeatureScrollPlane.setHorizontalScrollBarPolicy
+            (JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     //add panels to frame
     this.add(utilityBar, BorderLayout.NORTH);
@@ -510,7 +514,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
       jButton.setEnabled(!isSplitEnabled && imageLoaded && splitOps == 0);
     }
 
-    for (JButton jButton : Arrays.asList(colorCorrect, blur, greyscale, sepia, sharpen, levelsAdj)) {
+    for (JButton jButton : Arrays.asList(colorCorrect, blur,
+            greyscale, sepia, sharpen, levelsAdj)) {
       jButton.setEnabled(imageLoaded && splitOps == 0);
     }
 
