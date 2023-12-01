@@ -323,7 +323,7 @@ public class GUIControllerImpl implements Features {
         Image sharpenedImage = currentImage.applyFilter(filter.getFilter("sharpen"),
                 currentImage.getName() + " -> sharpen");
         splitImage = SplitUtil.splitImage(currentImage, sharpenedImage, pct,
-                sharpenedImage.getName()+ " (split)");
+                sharpenedImage.getName() + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(sharpenedImage, "buffer");
         break;
@@ -347,7 +347,7 @@ public class GUIControllerImpl implements Features {
 
       case "color-correct":
         Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName()
-        + " -> color-correct");
+                + " -> color-correct");
         splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct,
                 colorCorrectImage.getName() + " (split)");
         model.insertImage(splitImage, "split");
@@ -356,8 +356,8 @@ public class GUIControllerImpl implements Features {
 
       case "levels-adjust":
         Image levelsAdjImg = currentImage.adjustLevels(currentImage.getName()
-                + " -> levels-adjust " + levelAdjArgs[0] + "/"
-                        +  levelAdjArgs[1] + "/" + levelAdjArgs[2],
+                        + " -> levels-adjust " + levelAdjArgs[0] + "/"
+                        + levelAdjArgs[1] + "/" + levelAdjArgs[2],
                 levelAdjArgs[0], levelAdjArgs[1], levelAdjArgs[2]);
         splitImage = SplitUtil.splitImage(currentImage, levelsAdjImg, pct,
                 levelsAdjImg.getName() + " (split)");
