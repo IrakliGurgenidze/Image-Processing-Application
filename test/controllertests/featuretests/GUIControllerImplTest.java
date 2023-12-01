@@ -44,6 +44,7 @@ public class GUIControllerImplTest {
     callAllFeatures(view);
   }
 
+  //helper to test the features
   private void callAllFeatures(FeatureTestViewImpl featureOp) throws IOException {
     featureOp.callFeature("load");
     featureOp.callFeature("save");
@@ -59,11 +60,11 @@ public class GUIControllerImplTest {
     featureOp.callFeature("convert-greyscale");
     featureOp.callFeature("convert-sepia");
     featureOp.callFeature("brighten");
-    //featureOp.callFeature("run-levels-adjustment");
-    //featureOp.callFeature("run-compression");
+    featureOp.callFeature("run-levels-adjustment");
+    featureOp.callFeature("run-compression");
     featureOp.callFeature("run-color-correction");
-    //featureOp.callFeature("toggle-split-view");
-    //featureOp.callFeature("apply-split-op");
+    featureOp.callFeature("toggle-split-view");
+    featureOp.callFeature("apply-split-op");
   }
 
   private void loadImage(StorageModel imageStorageModel) {

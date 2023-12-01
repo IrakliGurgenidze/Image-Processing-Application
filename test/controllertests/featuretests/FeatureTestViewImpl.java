@@ -112,10 +112,10 @@ public class FeatureTestViewImpl implements GUIView {
 
     //adjustLevels()
     Image adjustLevels = baseImage.adjustLevels(baseImage.getName()
-                    + " -> levels-adjust"
+                    + " -> levels-adjust "
                     + B_VALUE + "/" + M_VALUE + "/" + W_VALUE,
             B_VALUE, M_VALUE, W_VALUE);
-    resultImages.put("run-levels-adjustment", renderNonPersistentChanges(adjustLevels));
+    resultImages.put(adjustLevels.getName(), renderNonPersistentChanges(adjustLevels));
 
     //brighten()
     Image brighten = baseImage.brighten(BRIGHTEN_INCREMENT, baseImage.getName());
@@ -137,14 +137,14 @@ public class FeatureTestViewImpl implements GUIView {
             splitBlurImage.getName());
     resultImages.put(splitBlur.getName(), renderNonPersistentChanges(splitBlur));
 
-    //sharpen blur
+    //split sharpen
     Image splitSharpenImage = baseImage.applyFilter(filters.getFilter("sharpen"),
             baseImage.getName() + " -> sharpen (split)");
     Image splitSharpen = SplitUtil.splitImage(baseImage, splitSharpenImage, SPLIT_PERCENTAGE,
             splitSharpenImage.getName());
     resultImages.put(splitSharpen.getName(), renderNonPersistentChanges(splitSharpen));
 
-    //sepia blur
+    //split sepia
     Image splitSepiaImage = baseImage.applyLinearColorTransformation(
             lct.getLinearTransformation("sepia"),
             baseImage.getName() + " -> sepia (split)");
@@ -152,14 +152,14 @@ public class FeatureTestViewImpl implements GUIView {
             splitSepiaImage.getName());
     resultImages.put(splitSepia.getName(), renderNonPersistentChanges(splitSepia));
 
-    //greyscale blur
+    //split greyscale
     Image splitGreyscaleImage = baseImage.getLumaComponent(baseImage.getName()
             + " -> greyscale (split)");
     Image splitGreyscale = SplitUtil.splitImage(baseImage, splitGreyscaleImage, SPLIT_PERCENTAGE,
             splitGreyscaleImage.getName());
     resultImages.put(splitGreyscale.getName(), renderNonPersistentChanges(splitGreyscale));
 
-    //color correct blur
+    //split color correct
     Image splitColorCorrectImage = baseImage.colorCorrectImage(baseImage.getName()
             + " -> color-correct (split)");
     Image splitColorCorrect = SplitUtil.splitImage(baseImage, splitColorCorrectImage,
@@ -167,9 +167,9 @@ public class FeatureTestViewImpl implements GUIView {
             splitColorCorrectImage.getName());
     resultImages.put(splitColorCorrect.getName(), renderNonPersistentChanges(splitColorCorrect));
 
-    //levels adjust blur
+    //split levels adjust
     Image splitLevelsAdjustImage = baseImage.adjustLevels(baseImage.getName()
-                    + " -> levels-adjust (split)",
+                    + " -> levels-adjust 5/50/200 (split)",
             B_VALUE, M_VALUE, W_VALUE);
     Image splitLevelsAdjust = SplitUtil.splitImage(baseImage, splitLevelsAdjustImage,
             SPLIT_PERCENTAGE,
@@ -184,10 +184,12 @@ public class FeatureTestViewImpl implements GUIView {
    * @param featureName the name/identifier of the feature method to be called
    */
   public void callFeature(String featureName) throws IOException {
+    String loadImagePath;
+
     switch (featureName) {
       case "load":
         //path to the manhattan picture
-        String loadImagePath = setWd()
+        loadImagePath = setWd()
                 + "sample_images"
                 + File.separator
                 + "manhattan-small.png";
@@ -200,9 +202,17 @@ public class FeatureTestViewImpl implements GUIView {
         String saveImagePath = setWd()
                 + "result_images"
                 + File.separator
-                + "manhattan-small-GUI.png";
+                + "manhattan-small-GUI.ppm";
         features.saveImage(saveImagePath);
         features.loadImage(saveImagePath, "loaded-save");
+
+        //reset base
+        loadImagePath = setWd()
+                + "result_images"
+                + File.separator
+                + "manhattan-small-GUI.ppm";
+
+        features.loadImage(loadImagePath, "base");
 
         break;
 
@@ -286,16 +296,17 @@ public class FeatureTestViewImpl implements GUIView {
         features.toggleSplitView("sharpen", SPLIT_PERCENTAGE);
         features.clear();
 
-        features.toggleSplitView("convert-sepia", SPLIT_PERCENTAGE);
+        features.toggleSplitView("sepia", SPLIT_PERCENTAGE);
         features.clear();
 
-        features.toggleSplitView("convert-greyscale", SPLIT_PERCENTAGE);
+        features.toggleSplitView("greyscale", SPLIT_PERCENTAGE);
         features.clear();
 
-        features.toggleSplitView("run-levels-adjustment", SPLIT_PERCENTAGE);
+        features.toggleSplitView("levels-adjust", SPLIT_PERCENTAGE, B_VALUE,
+                M_VALUE, W_VALUE);
         features.clear();
 
-        features.toggleSplitView("run-color-correction", SPLIT_PERCENTAGE);
+        features.toggleSplitView("color-correct", SPLIT_PERCENTAGE);
         features.clear();
         break;
 
@@ -327,6 +338,7 @@ public class FeatureTestViewImpl implements GUIView {
   @Override
   public void displayImage(BufferedImage displayImage, BufferedImage histogram,
                            String displayName) {
+
     Image convertedResult = convertToImage(displayImage, displayName);
     Image convertedHistogram = convertToImage(histogram, "histogram");
 

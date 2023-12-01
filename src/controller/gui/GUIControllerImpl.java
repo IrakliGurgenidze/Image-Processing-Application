@@ -92,8 +92,9 @@ public class GUIControllerImpl implements Features {
     model.insertImage(baseImage, "current");
     Image currentImage = model.getImage("current");
 
-    view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-            convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+    Image renderedImage = renderNonPersistentChanges(currentImage);
+    view.displayImage(convertToBufferedImage(renderedImage),
+            convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
             currentImage.getName());
   }
 
@@ -112,8 +113,9 @@ public class GUIControllerImpl implements Features {
               + " -> red-component");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -126,8 +128,9 @@ public class GUIControllerImpl implements Features {
               + " -> green-component");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -140,8 +143,9 @@ public class GUIControllerImpl implements Features {
               + " -> blue-component");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -153,8 +157,9 @@ public class GUIControllerImpl implements Features {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -167,8 +172,9 @@ public class GUIControllerImpl implements Features {
               + " -> vertical-flip");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -182,8 +188,9 @@ public class GUIControllerImpl implements Features {
               currentImage.getName() + " -> blur");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -197,8 +204,9 @@ public class GUIControllerImpl implements Features {
               currentImage.getName() + " -> sharpen");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -211,8 +219,9 @@ public class GUIControllerImpl implements Features {
               + " -> greyscale");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -226,8 +235,9 @@ public class GUIControllerImpl implements Features {
               currentImage.getName() + " -> sepia");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -239,8 +249,9 @@ public class GUIControllerImpl implements Features {
       currentImage = currentImage.adjustLevels(currentImage.getName()
               + " -> levels-adjust " + b + "/" + m + "/" + w, b, m, w);
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -249,8 +260,9 @@ public class GUIControllerImpl implements Features {
   public void brighten() {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -259,8 +271,9 @@ public class GUIControllerImpl implements Features {
   public void runCompression() {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -273,8 +286,9 @@ public class GUIControllerImpl implements Features {
               + " -> color-correct");
 
       model.insertImage(currentImage, "current");
-      view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+      Image renderedImage = renderNonPersistentChanges(currentImage);
+      view.displayImage(convertToBufferedImage(renderedImage),
+              convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
               currentImage.getName());
     }
   }
@@ -299,50 +313,54 @@ public class GUIControllerImpl implements Features {
         return;
       case "blur":
         Image blurredImage = currentImage.applyFilter(filter.getFilter("blur"),
-                currentImage.getName() + " -> blur (split)");
-        splitImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName());
+                currentImage.getName() + " -> blur");
+        splitImage = SplitUtil.splitImage(currentImage, blurredImage, pct, blurredImage.getName()
+                + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(blurredImage, "buffer");
         break;
       case "sharpen":
         Image sharpenedImage = currentImage.applyFilter(filter.getFilter("sharpen"),
-                currentImage.getName() + " -> sharpen  (split)");
+                currentImage.getName() + " -> sharpen");
         splitImage = SplitUtil.splitImage(currentImage, sharpenedImage, pct,
-                sharpenedImage.getName());
+                sharpenedImage.getName()+ " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(sharpenedImage, "buffer");
         break;
       case "sepia":
         Image sepiaImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation(
                         "sepia"),
-                currentImage.getName() + " -> sepia  (split)");
-        splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct, sepiaImage.getName());
+                currentImage.getName() + " -> sepia");
+        splitImage = SplitUtil.splitImage(currentImage, sepiaImage, pct,
+                sepiaImage.getName() + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(sepiaImage, "buffer");
         break;
       case "greyscale":
         Image greyImage = currentImage.getLumaComponent(currentImage.getName()
-                + " -> greyscale  (split)");
+                + " -> greyscale");
         splitImage = SplitUtil.splitImage(currentImage, greyImage, pct,
-                greyImage.getName());
+                greyImage.getName() + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(greyImage, "buffer");
         break;
 
       case "color-correct":
         Image colorCorrectImage = currentImage.colorCorrectImage(currentImage.getName()
-                + " -> color-correct  (split)");
+        + " -> color-correct");
         splitImage = SplitUtil.splitImage(currentImage, colorCorrectImage, pct,
-                colorCorrectImage.getName());
+                colorCorrectImage.getName() + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(colorCorrectImage, "buffer");
         break;
 
       case "levels-adjust":
         Image levelsAdjImg = currentImage.adjustLevels(currentImage.getName()
-                        + " -> levels-adjust  (split)",
+                + " -> levels-adjust " + levelAdjArgs[0] + "/"
+                        +  levelAdjArgs[1] + "/" + levelAdjArgs[2],
                 levelAdjArgs[0], levelAdjArgs[1], levelAdjArgs[2]);
-        splitImage = SplitUtil.splitImage(currentImage, levelsAdjImg, pct, levelsAdjImg.getName());
+        splitImage = SplitUtil.splitImage(currentImage, levelsAdjImg, pct,
+                levelsAdjImg.getName() + " (split)");
         model.insertImage(splitImage, "split");
         model.insertImage(levelsAdjImg, "buffer");
         view.displayImage(convertToBufferedImage(splitImage),
@@ -364,8 +382,9 @@ public class GUIControllerImpl implements Features {
     model.insertImage(model.getImage("base"), "current");
     Image currentImage = model.getImage("current");
 
-    view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
-            convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+    Image renderedImage = renderNonPersistentChanges(currentImage);
+    view.displayImage(convertToBufferedImage(renderedImage),
+            convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
             currentImage.getName());
   }
 
@@ -376,7 +395,8 @@ public class GUIControllerImpl implements Features {
       Image currentImage = model.getImage("current");
       view.displayImage(convertToBufferedImage(
                       renderNonPersistentChanges(currentImage)),
-              convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
+              convertToBufferedImage(HistogramUtil.getHistogram(
+                      renderNonPersistentChanges(currentImage), "")),
               currentImage.getName()
       );
       model.removeImage("split");
