@@ -87,6 +87,7 @@ public class GUIControllerImpl implements Features {
     model.insertImage(baseImage, "base");
     model.insertImage(baseImage, "current");
     Image currentImage = model.getImage("current");
+
     view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
             convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
             currentImage.getName());
@@ -107,8 +108,6 @@ public class GUIControllerImpl implements Features {
               + " -> red-component");
 
       model.insertImage(currentImage, "current");
-      System.out.println("Curr name " + currentImage.getName());
-
       view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
               convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
               currentImage.getName());
@@ -358,6 +357,7 @@ public class GUIControllerImpl implements Features {
   public void clear() {
     model.insertImage(model.getImage("base"), "current");
     Image currentImage = model.getImage("current");
+
     view.displayImage(convertToBufferedImage(renderNonPersistentChanges(currentImage)),
             convertToBufferedImage(HistogramUtil.getHistogram(currentImage, "")),
             currentImage.getName());

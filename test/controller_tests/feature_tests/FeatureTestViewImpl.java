@@ -1,5 +1,6 @@
 package controller_tests.feature_tests;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +10,8 @@ import java.util.Map;
 import controller.SplitUtil;
 import controller.gui.Features;
 import model.Image;
-import model.SimpleImage;
 import model.Pixel;
-import java.awt.Color;
+import model.SimpleImage;
 import model.utilities.Filter;
 import model.utilities.LinearColorTransformation;
 import view.gui.GUIView;
@@ -24,17 +24,16 @@ import static org.junit.Assert.assertTrue;
  * Implementation of the FeatureTestView interface. A mock view, basically.
  */
 public class FeatureTestViewImpl implements GUIView {
-  private Features features;
-  private Map<String, Image> resultImages = new HashMap<String, Image>();
   private final Image baseImage;
-
   //hard coded values
-  private final int BRIGHTEN_INCREMENT = 100;
-  private final int COMPRESSION_RATIO = 50;
+  private final int BRIGHTEN_INCREMENT = 0;
+  private final int COMPRESSION_RATIO = 0;
   private final int B_VALUE = 5;
   private final int M_VALUE = 50;
   private final int W_VALUE = 200;
   private final int SPLIT_PERCENTAGE = 50;
+  private Features features;
+  private final Map<String, Image> resultImages = new HashMap<String, Image>();
 
   /**
    * Public constructor for this mock View.
@@ -47,9 +46,11 @@ public class FeatureTestViewImpl implements GUIView {
   }
 
   //helper method to populate resultImages with expected results of various operations
-  private void populateResultImages() {
+  protected void populateResultImages() {
     Filter filters = new Filter();
     LinearColorTransformation lct = new LinearColorTransformation();
+
+    resultImages.clear();
 
     //calculate resultImages, expected results of various tests
     resultImages.put("base", renderNonPersistentChanges(baseImage));
@@ -190,7 +191,7 @@ public class FeatureTestViewImpl implements GUIView {
                 + File.separator
                 + "manhattan-small.png";
 
-        features.loadImage(loadImagePath, "loaded-base");
+        features.loadImage(loadImagePath, "base");
         break;
 
       case "save":
@@ -319,7 +320,7 @@ public class FeatureTestViewImpl implements GUIView {
   /**
    * Displays the provided image to the screen, as well as the histogram of that image.
    * Should also update top bar description.
-   *
+   * <p>
    * For this mock class, it returns the name of displayImage when called.
    * We just want proof that this function was called.
    *
@@ -329,7 +330,7 @@ public class FeatureTestViewImpl implements GUIView {
    */
   @Override
   public void displayImage(BufferedImage displayImage, BufferedImage histogram, String displayName) {
-    Image convertedResult = convertToImage(displayImage, "result");
+    Image convertedResult = convertToImage(displayImage, displayName);
     Image convertedHistogram = convertToImage(histogram, "histogram");
 
     //assert that result is the same as expected
@@ -340,7 +341,7 @@ public class FeatureTestViewImpl implements GUIView {
    * This method returns the current values of specific UI elements that reflect non-persistent
    * user input. Examples are the compression slider and brighten element. They can be retrieved by
    * name, e.g. "compression-ratio".
-   *
+   * <p>
    * For this mock class, we hard code these values. The controller then uses those in calculating
    * compression and brighten.
    *

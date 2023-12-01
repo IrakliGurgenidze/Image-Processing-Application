@@ -44,5 +44,5 @@ public interface GUIView {
    *
    * @param featureName the name of the feature to be called
    */
-  public void callFeature(String featureName) throws IOException;
+  void callFeature(String featureName) throws IOException;
 }

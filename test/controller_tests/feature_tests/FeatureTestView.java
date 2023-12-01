@@ -3,8 +3,6 @@ package controller_tests.feature_tests;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-import controller.gui.Features;
-
 /**
  * Mock View to test the GUI controller (Features) with.
  */

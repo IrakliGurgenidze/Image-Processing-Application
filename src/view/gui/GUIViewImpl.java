@@ -36,11 +36,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JPanel splitView;
   private final JScrollPane imagePreview;
   private final JPanel additionalFeatures;
-
-  public JButton getLoad() {
-    return load;
-  }
-
   //buttons
   private JButton load;
   private JButton save;
@@ -57,18 +52,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton colorCorrect;
   private JButton levelsAdj;
   private JButton clear;
-
   //toggle Buttons
   private JToggleButton split;
-
   //panels
   private JPanel histogramPanel;
-
   //state Variables
   private boolean isSplitEnabled = false;
   private boolean imageLoaded = false;
   private int splitOps = 0;
-
   /**
    * Public constructor for the GUI view.
    */
@@ -212,6 +203,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     setVisible(true);
   }
 
+  public JButton getLoad() {
+    return load;
+  }
+
   @Override
   public Map<String, Double> getSliderValues() {
     Map<String, Double> sliderValues = new HashMap<>();
@@ -224,7 +219,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void callFeature(String featureName) {
-    return;
   }
 
   @Override
