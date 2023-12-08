@@ -157,6 +157,7 @@ public class GUIControllerImpl implements Features {
       currentImage = currentImage.getHorizontalFlip(currentImage.getName()
               + " -> horizontal-flip");
 
+      model.insertImage(currentImage, "current");
       Image renderedImage = renderNonPersistentChanges(currentImage);
       view.displayImage(convertToBufferedImage(renderedImage),
               convertToBufferedImage(HistogramUtil.getHistogram(renderedImage, "")),
@@ -231,7 +232,8 @@ public class GUIControllerImpl implements Features {
     Image currentImage = model.getImage("current");
     if (currentImage != null) {
       LinearColorTransformation lct = new LinearColorTransformation();
-      currentImage = currentImage.applyLinearColorTransformation(lct.getLinearTransformation("sepia"),
+      currentImage = currentImage.applyLinearColorTransformation(
+              lct.getLinearTransformation("sepia"),
               currentImage.getName() + " -> sepia");
 
       model.insertImage(currentImage, "current");

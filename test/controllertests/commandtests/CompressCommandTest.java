@@ -27,11 +27,11 @@ public class CompressCommandTest extends AbstractCommandTest {
 
     String[] negativeRatioCmd = imageController.parseCommand("compress -1 man manC");
     assertThrows(IllegalArgumentException.class,
-          () -> imageController.runCommand(negativeRatioCmd));
+        () -> imageController.runCommand(negativeRatioCmd));
 
     String[] greaterThan100RatioCmd = imageController.parseCommand("compress 101 man manC");
     assertThrows(IllegalArgumentException.class,
-          () -> imageController.runCommand(greaterThan100RatioCmd));
+        () -> imageController.runCommand(greaterThan100RatioCmd));
 
     String[] decimalRatioCmd = imageController.parseCommand("compress 50.3 man manC");
     assertThrows(IllegalArgumentException.class, () -> imageController.runCommand(decimalRatioCmd));

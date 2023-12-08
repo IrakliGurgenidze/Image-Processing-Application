@@ -19,6 +19,7 @@ public class LinearColorTransformationCommand implements CommandController {
 
   //is split
   private boolean split;
+
   //split percentage
   private int splitPcnt;
 

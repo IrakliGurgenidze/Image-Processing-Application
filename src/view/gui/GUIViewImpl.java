@@ -214,8 +214,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
             JScrollPane(additionalFeatures);
     additionalFeatureScrollPlane.setVerticalScrollBarPolicy(
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    additionalFeatureScrollPlane.setHorizontalScrollBarPolicy
-            (JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    additionalFeatureScrollPlane.setHorizontalScrollBarPolicy(
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     //add panels to frame
     this.add(utilityBar, BorderLayout.NORTH);
@@ -243,6 +243,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   @Override
   public void callFeature(String featureName) {
+    return;
   }
 
   @Override

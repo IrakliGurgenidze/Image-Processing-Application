@@ -29,8 +29,7 @@ public interface GUIView {
   void displayImage(BufferedImage displayImage, BufferedImage histogram, String displayName);
 
   /**
-   * This method returns the current values of specific UI elements that reflect non-persistent
-   * user input.
+   * Returns the current values of UI elements that reflect non-persistent user input.
    *
    * @return returns a map of current UI element values, referenced by their UI names.
    */
@@ -44,4 +43,6 @@ public interface GUIView {
    * @param featureName the name of the feature to be called
    */
   void callFeature(String featureName) throws IOException;
+
+
 }

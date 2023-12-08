@@ -37,9 +37,9 @@ public class SimpleImageTest {
 
     //non-positive width and height
     assertThrows(IllegalArgumentException.class,
-          () -> new SimpleImage(0, 10, "img"));
+        () -> new SimpleImage(0, 10, "img"));
     assertThrows(IllegalArgumentException.class,
-          () -> new SimpleImage(10, 0, "img"));
+        () -> new SimpleImage(10, 0, "img"));
   }
 
   /**
